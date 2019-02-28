@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Gráficas</title>
+<style type="text/css">
+	.auto-style1 {
+		text-align: left;
+	}
+	.auto-style2 {
+		text-align: center;
+	}
+    .styleBD {
+        background-image: url('../img/bg-blue.jpg');
+    }
+</style>
+</head>
+
+<body class="styleBD">
+	<div class="auto-style1">
+	<h1 class="auto-style2">&nbsp;FAVOR DE SELECCIONAR LA GRÁFICA QUE SE DESEA VISUALIZAR:</h1>
+	<br />
+	<br />
+	&nbsp;&nbsp;
+	<input type="button" value="PRESENCIA DE INTERACCIONES FARMACOLÓGICAS" onclick=location.href="presenciaInteraccionesDatos.php" style="height: 55px" />
+	<br>
+	<br/>
+	&nbsp;&nbsp;
+	<input type="button" value="PRESENCIA DE INTERACCIONES FARMACOLÓGICAS SEVERIDAD CONTRAINDICADA" onclick=location.href="presenciaInteraccionesTipo1.php?tipo=1" style="height: 55px" />
+	<br />
+	<br/>
+	&nbsp;&nbsp;
+	<input type="button" value="PRESENCIA DE INTERACCIONES FARMACOLÓGICAS SEVERIDAD SERIA" onclick=location.href="presenciaInteraccionesTipo1.php?tipo=2" style="height: 55px" />
+	<br/>
+	<!--img src="linear_plot.php" alt="" border="0" /> <br /-->
+	<br/>
+	<!--img src="bars_plot.php" alt="" border="0" /> <br /-->
+	<br/>
+	<!--img src="graficaCirculo.php" alt="" border="0" /-->
+	<br/>
+	<input type="image" src="../img/reg.png" value="REGRESAR" onclick=location.href="javascript:history.back(-1)" height="75" width="161"></input>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{
+	"connectingName": "ConectaSQLSRV",
+	"method": "ftp",
+	"host": "",
+	"port": "21",
+	"username": "",
+	"rsaPath": "",
+	"password": "",
+	"serverPath": "",
+	"save": false,
+	"siteUrl": "",
+	"method_p": "ftp",
+	"host_p": "10.12.0.44",
+	"port_p": "21",
+	"username_p": "Administrador",
+	"rsaPath_p": "",
+	"password_p": "Pa$$w0rd",
+	"serverPath_p": "C:/xampp/htdocs/conectaSQLSRV/",
+	"siteUrl_p": "",
+	"prfver": "1.1"
+}

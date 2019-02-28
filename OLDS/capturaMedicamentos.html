@@ -1,0 +1,28 @@
+﻿<?php
+  	header('Content-Type: text/html;charset=utf-8');
+ ?>
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+  <title>CapturaMedicamentos</title>
+  <!--link rel="stylesheet" href="http://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.css" />
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script-->
+  <style type="text/css">
+  .auto-style1 {
+	  font-size: large;
+  }
+  </style>
+</head>
+<body> 
+<p align="center" >
+<strong><span class="auto-style1">Captura de Medicamentos</span></strong>
+<form method="post" action="guardaMedicamento.php">
+Fecha de inicio:&nbsp;<input type="date" name="fecha_ini" required>&nbsp;&nbsp;
+Medicamento: <input type="password" name="medicamento"  required><br>
+<br>
+<input type="Submit" name="enviar" value="login">
+</form>
+</body>
+</html>

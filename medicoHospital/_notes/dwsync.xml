@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="tabs.php" server="C:/xampp/htdocs/" local="131710565829234319" remote="131710565820000000" Dst="2" />
+<file name="tabsTriage.php" server="C:/xampp/htdocs/" local="131739795963172737" remote="131739795960000000" Dst="2" />
+<file name="notaUrgenciasTriage.php" server="C:/xampp/htdocs/" local="131739895860758312" remote="131739895860000000" Dst="2" />
+<file name="notaUrgencias.php" server="C:/xampp/htdocs/" local="131739969571753582" remote="131739969570000000" Dst="2" />
+<file name="consultaNotaUrg.php" server="C:/xampp/htdocs/" local="131740873426612000" remote="131740873420000000" Dst="2" />
+<file name="modificarNota.php" server="C:/xampp/htdocs/" local="131740900532942895" remote="131740900530000000" Dst="2" />
+<file name="saveNotaUrg.php" server="C:/xampp/htdocs/" local="131741478123886075" remote="131741478120000000" Dst="2" />
+<file name="delNotaUrg.php" server="C:/xampp/htdocs/" local="131741500765319164" remote="131741500760000000" Dst="2" />
+<file name="consultaNotaUrgT.php" server="C:/xampp/htdocs/" local="131741662859290865" remote="131741662850000000" Dst="2" />
+<file name="saveNotaUrgT.php" server="C:/xampp/htdocs/" local="131741644545037163" remote="131741644540000000" Dst="2" />
+<file name="notaUrgenciasCH.php" server="C:/xampp/htdocs/" local="131747832297312715" remote="131747832290000000" Dst="2" />
+<file name="consultaNotaUrgCh.php" server="C:/xampp/htdocs/" local="131750390063839673" remote="131750390060000000" Dst="2" />
+<file name="tabsUrg.php" server="C:/xampp/htdocs/" local="131751270106067001" remote="131751270100000000" Dst="2" />
+<file name="saveNotaUrgCh.php" server="C:/xampp/htdocs/" local="131752794411170281" remote="131752794410000000" Dst="2" />
+<file name="indicacionesMedicas.php" server="C:/xampp/htdocs/" local="131756429901907132" remote="131756429900000000" Dst="2" />
+<file name="consultaIndicMed.php" server="C:/xampp/htdocs/" local="131757144397443103" remote="131757144390000000" Dst="2" />
+<file name="saveIndicMed.php" server="C:/xampp/htdocs/" local="131757159410441138" remote="131757159410000000" Dst="2" />
+<file name="excel.php" server="C:/xampp/htdocs/" local="131757247368275748" remote="131757247360000000" Dst="2" />
+<file name="receta.php" server="C:/xampp/htdocs/" local="131787394837297751" remote="131787394830000000" Dst="2" />
+<file name="notaEvolucion.php" server="C:/xampp/htdocs/" local="131792688208814888" remote="131792688200000000" Dst="2" />
+<file name="consultaEvolucion.php" server="C:/xampp/htdocs/" local="131792696075647384" remote="131792696070000000" Dst="2" />
+<file name="modificarReceta.php" server="C:/xampp/htdocs/" local="131793523462477976" remote="131793523460000000" Dst="2" />
+<file name="saveReceta.php" server="C:/xampp/htdocs/" local="131793474441049292" remote="131793474440000000" Dst="2" />
+<file name="modificarEvolucion.php" server="C:/xampp/htdocs/" local="131794407613522125" remote="131794407610000000" Dst="2" />
+<file name="saveNotaEvo.php" server="C:/xampp/htdocs/" local="131794401672727240" remote="131794401670000000" Dst="2" />
+<file name="notaTraslServ.php" server="C:/xampp/htdocs/" local="131798628102563138" remote="131798628100000000" Dst="2" />
+<file name="notaRefTrasl.php" server="C:/xampp/htdocs/" local="131802255087909021" remote="131802255080000000" Dst="2" />
+<file name="consultaTraslServ.php" server="C:/xampp/htdocs/" local="131804772772317744" remote="131804772770000000" Dst="2" />
+<file name="modificarTraslServ.php" server="C:/xampp/htdocs/" local="131804786819168788" remote="131804786810000000" Dst="2" />
+<file name="saveNotaTraslServ.php" server="C:/xampp/htdocs/" local="131804782534212419" remote="131804782530000000" Dst="2" />
+<file name="consultaNotaRefTrasl.php" server="C:/xampp/htdocs/" local="131804834525784659" remote="131804834520000000" Dst="2" />
+<file name="modificarRefTrasl.php" server="C:/xampp/htdocs/" local="131804856818004003" remote="131804856810000000" Dst="2" />
+<file name="saveNotaRefTrasl.php" server="C:/xampp/htdocs/" local="131805452419005077" remote="131805452410000000" Dst="2" />
+<file name="autocompleteDR.php" server="C:/xampp/htdocs/" local="131806454764269887" remote="131806454760000000" Dst="2" />
+</dwsync>

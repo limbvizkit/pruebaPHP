@@ -1,0 +1,112 @@
+﻿
+			
+			body {
+                text-align: center;
+
+    		background-color: #E8F0FE;
+    		font-family: Helvetica,Arial,sans-serif;
+    		font-size: 20px;
+
+    		}
+    		div{
+    			background: white;
+    			width: 90%;
+                
+                align-items: : center;
+    			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);	
+    			
+    		}
+    		div.in{
+    			background: white;
+    			width: 90%;
+                color: blue;
+                
+    		}
+
+            div.asss{
+                color: white;
+                background: #4285F4;
+                width: auto;
+                height: auto;
+                                
+            }
+
+    		div.head{
+    			background: white;
+                min-width:100px; 
+    			max-width: 80%;
+                margin: 0 auto;
+    			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);	
+        		padding-top: 10px;
+    			height: auto;
+    		}
+            div.inte{
+                background: white;
+                padding: 10px;
+                height: auto;
+                min-width: 100px;
+                max-width:auto;
+            }
+
+    		div.h{
+    			background: #4285F4;
+    			min-width:100px; 
+                max-width: 80%;
+                margin: 0 auto;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); 
+                padding-top: 10px;
+    			height: auto;
+    			
+    		}
+    		div.d{
+    			padding: 10px;
+    			border-radius: 10px 10px 10px 10px;
+    			-moz-border-radius: 10px 10px 10px 10px;
+    			-webkit-border-radius: 10px 10px 10px 10px;
+    			border: 0px solid #000000;
+    			float: center;
+    			background: gray;
+    			width: 440px;
+    			height: auto;
+    		}
+
+    		input.r{
+                padding-left: : 20px;
+    			height: 20px;
+                vertical-align: 0;
+    			width: 20px;
+    		}
+            img{
+
+                max-width: 200px;
+                max-height: 200px;
+            }
+            p{
+                padding: 10px;
+            }
+            div.s{
+        color: white;
+        background: #4285f4;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 10px;
+    }
+    div.tab{
+        padding-left:  20px;
+        padding-right: 10px;
+        width: auto;
+    }
+
+    div.as{
+        background: #4285F4;
+        padding-top:0.5px;
+        padding-bottom: 1px;
+        width: 100%;
+        min-width: 10px;
+        max-width: 900px;
+        height: auto;
+    }
+    td{
+        min-width: 40px;
+        max-width:  : auto;
+    }

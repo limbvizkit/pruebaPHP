@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+		<title>Formulario De Registro de Pacientes</title>
+		<link rel="stylesheet" type="text/css" href="estilo.css">
+		</head>
+	<body>
+	  
+		<div class="form">
+			<div align="center"><IMG src="logo.jpg"></IMG></div>
+			<form action="guardar.php" method="POST">
+				<p>ID</p>
+				<label for="id">ID de Cirugía</label>
+				<br>
+				<input class="box" type="text" name="id" placeholder="id">
+				<p>Fecha</p>
+				<label for="fecha">Fecha de Cirugía</label>
+				<br>
+				<input class="box" type="date" name="fecha" placeholder="año-mes-dia(Números)" required>
+				<p>Hora</p>
+				<label for="hora">Hora de Cirugía</label>
+				<br>
+				<input class="box" type="text" name="hora" placeholder="24 hrs(hora:minutos)" required>
+				<p>Nombre del Paciente</p>
+				<label for="nombre">Nombre del Paciente</label>
+				<br>
+				<input class="box" type="nombre" name="nombre" placeholder="Nombre y Apellidos" required>
+				<p>Cirugía</p>
+				<label for="cirugia">Cirugía</label>
+				<br>
+				<input class="box" type="cirugia" name="cirugia" placeholder="Cirugía especificada" required>
+				<br>
+				<p>Cirujano</p>
+				<label for="cirujano">Cirujano</label>
+				<br>
+				<input class="box" type="cirujano" name="cirujano" placeholder="Nombre y Apellidos" required>
+				<br>
+				<p>Anestesiólogo</p>
+				<label for="anestesiologo">Cirugía</label>
+				<br>
+				<input class="box" type="cirujano" name="anestesiologo" placeholder="Nombre y Apellidos" required>
+				<br>
+				<br>
+				<br>
+				<input type="submit" value="Guardar Información">
+				<br>
+				<br>
+				<a href="/quirofano/eliminar/index.php">Eliminar y Modificar Información</a>
+				<br>
+				<br>
+			</form>
+		</div>
+	</body>
+</html>

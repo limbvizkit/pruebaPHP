@@ -1,0 +1,75 @@
+======== form_borrar.php 
+<html> 
+
+<head> 
+<title>eliminar registros.</title> 
+<META name='robot' content='noindex, nofollow'> 
+</head> 
+
+<body> 
+
+<div align="center"> 
+    <table border="0" width="600" style="font-family: Verdana; font-size: 8pt" id="table1"> 
+        <tr> 
+            <td colspan="2"><h3 align="center">Eliminación de datos</h3></td> 
+        </tr> 
+        <form method="POST" action="borrar.php"> 
+        <tr> 
+            <td width="50%">&nbsp;</td> 
+            <td width="50%">&nbsp;</td> 
+        </tr> 
+        <tr> 
+            <td width="50%"> 
+            <p align="center"><b>ID del registro a eliminar: </b></td> 
+            <td width="50%"> 
+            <p align="center"><input type="text" name="id" size="20"></td> 
+        </tr> 
+        <tr> 
+            <td width="50%">&nbsp;</td> 
+            <td width="50%">&nbsp;</td> 
+        </tr> 
+        <tr> 
+            <td width="100%" colspan="2"> 
+            <p align="center"> 
+            <input type="submit" value="Eliminar" name="B1"></td> 
+        </tr> 
+        </form> 
+    </table> 
+</div> 
+
+</body> 
+
+</html> 
+
+======== borrar.php 
+<html> 
+
+<head> 
+<title>Registro eliminado.</title> 
+<META name='robot' content='noindex, nofollow'> 
+</head> 
+
+<body> 
+
+<?php 
+// Actualizamos en funcion del id que recibimos 
+
+$id = $_POST['id']; 
+
+include('abre_conexion.php');   
+
+$query = "delete from $tabla_db1 where id = '$id'";  
+$result = mysql_query($query);  
+
+include('cierra_conexion.php');   
+
+echo " 
+<p>El registro ha sido eliminado con exito.</p> 
+
+<p><a href='javascript:history.go(-1)'>VOLVER ATRÁS</a></p> 
+"; 
+?> 
+
+</body> 
+
+</html> 
