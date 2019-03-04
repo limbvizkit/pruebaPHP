@@ -261,6 +261,23 @@
 			<input id="entreFechas" name="entreFechas" class="btn-success" type="submit" value="ENVIAR" style="height: 50px; width: 303px" />
 			<br/>
 		</form-->
+		<hr/>
+		<form action="excel.php" method = "post">
+			<br/>
+			<strong><span class="auto-style7">ANTIBIÓTICOS Y DOSIS
+			<br/></span> <br/>
+			<span class="auto-style7">DEL&nbsp; </span>
+			&nbsp;<input type="date" name="fecha1" style="height: 40px" required />
+			<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;AL&nbsp;</span>&nbsp;
+			<input type="date" name="fecha2" style="height: 40px" required 	/></strong>
+			<br/>
+			<br/>
+			<input type="hidden" name="nombre" value="MedicamentosDosis" />  
+			<input id="btPerfilFT" class="btn-success" type="submit" value = "EXCEL" style="height: 50px; width: 303px" />
+			<br/>
+		</form>
+		<br/>
+		<hr/>
 		<form action="excel.php" method = "post">
 			<br/>
 			<strong><span class="auto-style7">REVISIONES DE TÉCNICA DE HIGIENE DE MANOS EXCEL 
