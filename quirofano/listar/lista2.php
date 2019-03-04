@@ -177,9 +177,8 @@
 			<h1>Registro de Quirófano</h1>
 			<script type="text/javascript">
 				function makeArray() {
-					for (i = 0; i<makeArray.arguments.length; i++)
-						this[i + 1] = makeArray.arguments[i];
-				}
+				for (i = 0; i<makeArray.arguments.length; i++)
+				this[i + 1] = makeArray.arguments[i];}
 				var months = new makeArray('Enero','Febrero','Marzo','Abril','Mayo',
 				'Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');				
 				var date = new Date();
@@ -263,36 +262,41 @@
 		<!--div id="glbd-load" style="width: 600px; background: url(http://globedia.com/img/loading.gif) center no-repeat;"></div-->
 		<div id="carousel">
 		<ul>
-			<li><img alt="" src="../../promos/n1.jpg" width="700" height="400" ><p>Promociones Noviembre</p></li>
-			<li><img alt="" src="../../promos/n2.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n3.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m1.jpg" width="700" height="400" ><p>Promociones Enero</p></li>
+			<li><img alt="" src="../../promos/m2.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m3.jpg" width="700" height="400" ></li>
 			
-			<li><img alt="" src="../../promos/n4.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n5.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n6.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m4.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m5.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m6.jpg" width="700" height="400" ></li>
 			
-			<li><img alt="" src="../../promos/n7.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n8.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m7.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m8.jpg" width="700" height="400" ></li>
 			
-			<li><img alt="" src="../../promos/n9.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n10.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n11.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m9.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m10.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m11.jpg" width="700" height="400" ></li>
 			
-			<li><img alt="" src="../../promos/n12.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n13.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n14.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/m12.jpg" width="700" height="400" ></li>
+			<!--li><img alt="" src="promos/e14.jpg" width="700" height="400" ></li>
 			
-			<li><img alt="" src="../../promos/n15.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n16.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n17.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n18.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n19.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/e15.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/e16.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/e17.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/e18.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/e19.jpg" width="700" height="400" ></li>
 
-			<li><img alt="" src="../../promos/n20.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n21.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n22.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n23.jpg" width="700" height="400" ></li>
-			<li><img alt="" src="../../promos/n24.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/e20.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/e21.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/e22.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/e23.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="../../promos/e24.jpg" width="700" height="400" ></li>
+
+			<li><img alt="" src="promos/d25.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/d26.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/d27.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/d28.jpg" width="700" height="400" ></li>
+			<li><img alt="" src="promos/d29.jpg" width="700" height="400" ></li-->
 			
 		</ul>
 	</div>
@@ -314,7 +318,7 @@
 <script type="text/javascript">
 	$(function(){
 				$('#carousel').infiniteCarousel({
-					displayTime: 6000,
+					displayTime: 8000,
 					textholderHeight : .25
 				});
 			});
