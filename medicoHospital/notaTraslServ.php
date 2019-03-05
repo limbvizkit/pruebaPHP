@@ -47,7 +47,7 @@
 		$frFin=$rowA['fr'];
 		$taFin=$rowA['ta'];
 		$tempFin=$rowA['temp'];
-		$interrogaFin=$rowA['interrogatorio'];
+		$interrogaFin=utf8_encode($rowA['interrogatorio']);
 		$ingresaFin=utf8_encode($rowA['ingresa']);
 		$turnoFin=$rowA['turno'];
 		$fechaFin =substr($rowA['fecha'],0,10);
@@ -105,7 +105,7 @@
 			$frFin=$rowA['fr'];
 			$taFin=$rowA['ta'];
 			$tempFin=$rowA['temp'];
-			$interrogaFin=$rowA['interrogatorio'];
+			$interrogaFin=utf8_encode($rowA['interrogatorio']);
 			$ingresaFin=utf8_encode($rowA['ingresa']);
 			$turnoFin=$rowA['turno'];
 			$fechaFin =substr($rowA['fecha'],0,10);
