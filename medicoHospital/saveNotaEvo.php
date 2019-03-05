@@ -1,11 +1,11 @@
 <?php
 require_once('../conexion/configMedico.php');
 
-	if (isset($_POST['idNotaEvo']))
+	if (isset($_POST['idNotaEvoh']))
 	{
-		$idNotaEvo  = $_POST["idNotaEvo"];
+		$idNotaEvoh  = $_POST["idNotaEvoh"];
 	} else {
-		$idNotaEvo = '';
+		$idNotaEvoh = '';
 	}
 
 	if (isset($_POST['horaFin']))
@@ -182,11 +182,11 @@ require_once('../conexion/configMedico.php');
 		$servicio = '';
 	}
 	
-	if(!empty($idNotaEvo)){
-		$queryUpdDNotaEvo = "UPDATE notaEvolucion SET hora='$horaFin', fecha='$fechaFin',servicio='$servicio',turno='$turno',fc='$fc',fr='$fr',
+	if(!empty($idNotaEvoh)){
+		$queryUpdDNotaEvo = "UPDATE notaEvolucionh SET hora='$horaFin', fecha='$fechaFin',servicio='$servicio',turno='$turno',fc='$fc',fr='$fr',
 		ta='$ta', temp='$temp', so='$so', glucosa='$glucosa',peso='$peso',talla='$talla',evolucion='$evolucion',habExt='$habEx',cabeza='$cabez',
 		torax='$torax', abdomen='$abdom',extremidades='$extrm', estudios='$estudios',diag='$diagn',tratamientoFin='$tratamientoF',
-		pronosticoVida='$pronosticoVida',pronosticoFuncion='$pronosticoFuncion', cedula='$cedula' WHERE id='$idNotaEvo'";
+		pronosticoVida='$pronosticoVida',pronosticoFuncion='$pronosticoFuncion', cedula='$cedula' WHERE id='$idNotaEvoh'";
 		
 		$result0 = mysqli_query($conexionMedico, $queryUpdDNotaEvo) or die (mysqli_error($conexionMedico));
 			

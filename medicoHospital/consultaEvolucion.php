@@ -17,7 +17,7 @@
 		$folio=$_GET['folio'];
 	}
 	$queryDocs = "SELECT *
-			  FROM notaEvolucion
+			  FROM notaEvolucionh
 			  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
 			  ORDER BY fecha, hora";
 	$docs = mysqli_query($conexionMedico, $queryDocs) or die (mysqli_error($conexionMedico));
@@ -212,7 +212,7 @@
 			  $('#simple').on('click', '#nota', function () {
 					//var sTitle;
 				var nTds = $('td', this);
-				idNotaEvo = $(nTds[1]).text();
+				idNotaEvoh = $(nTds[1]).text();
 				fecha = $(nTds[2]).text();
 				hora = $(nTds[3]).text();
 				evolucion  = $(nTds[4]).text();
@@ -245,7 +245,7 @@
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarEvolucion.php",{idNotaEvo:idNotaEvo,fecha:fecha,hora:hora,evolucion:evolucion,estudios:estudios,tratamientoF:tratamientoF,fc:fc,fr:fr,ta:ta,temp:temp,so:so,glucosa:glucosa,peso:peso,talla:talla,habEx:habEx,cabez:cabez,torax:torax,abdom:abdom,extrm:extrm,diagn:diagn,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,cedula:cedula,horaFin:horaFin,fechaFin:fechaFin,servicio:servicio,turno:turno} ,function(){
+				$("#div_User").load("modificarEvolucion.php",{idNotaEvoh:idNotaEvoh,fecha:fecha,hora:hora,evolucion:evolucion,estudios:estudios,tratamientoF:tratamientoF,fc:fc,fr:fr,ta:ta,temp:temp,so:so,glucosa:glucosa,peso:peso,talla:talla,habEx:habEx,cabez:cabez,torax:torax,abdom:abdom,extrm:extrm,diagn:diagn,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,cedula:cedula,horaFin:horaFin,fechaFin:fechaFin,servicio:servicio,turno:turno} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });

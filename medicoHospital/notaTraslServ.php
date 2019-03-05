@@ -513,17 +513,49 @@
 									</select>
 								</div>
 								<div class="form-group">
-                    			    <label>MOTIVO DE TRANFERENCIA : <span>*</span></label>
+                    			    <label>MOTIVO DE TRANSFERENCIA : <span>*</span></label>
 									<input type="text" class="form-control required" name="motivoTransferencia" id="motivoTransferencia" autocomplete="off" >
                                 </div>
 								<div class="form-group">
+                    			    <label>SERVICIO ACTUAL : <span>*</span></label>
+									<input type="text" class="form-control required" name="servicioActual" id="servicioActual" value="Hospitalización" autocomplete="off" >
+                                </div>
+								<div class="form-group">
+                    			    <label>SERVICIO AL QUE SE TRASLADA : <span>*</span></label>
+									<input type="text" class="form-control required" name="servicioTraslada" id="servicioTraslada" autocomplete="off" >
+                                </div>
+								<!--div class="form-group">
                     			    <label>SERVICIO ACTUAL: <span>*</span></label>
-									<input type="text" class="form-control required" name="servicioActual" id="servicioActual" value="URGENCIAS" autocomplete="off" >
+                                    <br>
+                                    <label class="radio-inline">
+									  <input type="radio" name="servicioActual" value="Hospitalización" style="width: 30px; height: 30px" checked="checked">&nbsp;&nbsp; Hospitalización
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicioActual" value="Urgencias" style="width: 30px; height: 30px">&nbsp;&nbsp; Urgencias
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicioActual" value="Corta Estancia" style="width: 30px; height: 30px">&nbsp;&nbsp; Corta Estancia
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicioActual" value="Terapia Intensiva" style="width: 30px; height: 30px">&nbsp;&nbsp; Terapia Intensiva
+									</label>
                                 </div>
 								<div class="form-group">
                     			    <label>SERVICIO AL QUE SE TRASLADA: <span>*</span></label>
-									<input type="text" class="form-control required" name="servicioTraslada" id="servicioTraslada" value="<?php echo $ingresaFin ?>" autocomplete="off" >
-                                </div>
+                                    <br>
+                                    <label class="radio-inline">
+									  <input type="radio" name="servicioTraslada" value="Hospitalización" style="width: 30px; height: 30px" checked="checked">&nbsp;&nbsp; Hospitalización
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicioTraslada" value="Urgencias" style="width: 30px; height: 30px">&nbsp;&nbsp; Urgencias
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicioTraslada" value="Corta Estancia" style="width: 30px; height: 30px">&nbsp;&nbsp; Corta Estancia
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicioTraslada" value="Terapia Intensiva" style="width: 30px; height: 30px">&nbsp;&nbsp; Terapia Intensiva
+									</label>
+                                </div-->
 								
 								<div class="container-fluid">
 									<label>SIGNOS VITALES: <span></span></label>

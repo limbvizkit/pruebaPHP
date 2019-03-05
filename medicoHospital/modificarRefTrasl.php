@@ -3,9 +3,9 @@
 <?php
 	//Datos para Temperatura
 	//$temperatura1 =NULL;
-	if (isset($_POST['idNotaRefTrasl']))
+	if (isset($_POST['idNotaRefTraslh']))
 	{
-		$idNotaRefTrasl = $_POST["idNotaRefTrasl"];
+		$idNotaRefTraslh = $_POST["idNotaRefTraslh"];
 
 		if (isset($_POST['fechaFin']))
 		{
@@ -267,7 +267,7 @@
 					<option value='MEDICA SUR'>MEDICA SUR</option>
 					<option value='HOSPITAL ANGELES'>HOSPITAL ANGELES</option>
 					<option value='CARDICA'>CARDICA</option>
-					<option value='IMAGEN MEDICA'>CARDICA</option>
+					<option value='IMAGEN MEDICA'>IMAGEN MEDICA</option>
 					<option value='LABORATORIOS CHOPO'>LABORATORIOS CHOPO</option>
 					<option value='LABORATORIOS POLAB'>LABORATORIOS POLAB</option>
 					<option value='OTROS'>OTROS</option>
@@ -351,7 +351,7 @@
 		
 	</table>
 	<br>
-	<input type='hidden' name='idNotaRefTrasl' id='idNotaRefTrasl' value='$idNotaRefTrasl' >
+	<input type='hidden' name='idNotaRefTraslh' id='idNotaRefTraslh' value='$idNotaRefTraslh' >
 	<div><input type='submit' value='Guardar' class='btn btn-success' name='boton' id='enviarNota'>";
 
 		$btBorrarNota = "<input type='button' value='Borrar' class='btn btn-danger' name='boton' id='Borrar'>";

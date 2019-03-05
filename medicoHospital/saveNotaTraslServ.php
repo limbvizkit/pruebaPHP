@@ -1,11 +1,11 @@
 <?php
 require_once('../conexion/configMedico.php');
 
-	if (isset($_POST['idNotaTraslServ']))
+	if (isset($_POST['idNotaTraslServh']))
 	{
-		$idNotaTraslServ  = $_POST["idNotaTraslServ"];
+		$idNotaTraslServh  = $_POST["idNotaTraslServh"];
 	} else {
-		$idNotaTraslServ = '';
+		$idNotaTraslServh = '';
 	}
 
 	if (isset($_POST['horaFin']))
@@ -164,11 +164,11 @@ require_once('../conexion/configMedico.php');
 		$cedula = '';
 	}
 	
-	if(!empty($idNotaTraslServ)){
-		$queryUpdDNotaTS = "UPDATE notaTrasladoServ SET hora='$horaFin', fecha='$fechaFin',motivoTransferencia='$motivoTransferencia',
+	if(!empty($idNotaTraslServh)){
+		$queryUpdDNotaTS = "UPDATE notaTrasladoServh SET hora='$horaFin', fecha='$fechaFin',motivoTransferencia='$motivoTransferencia',
 		servicioActual='$servicioActual',servicioTraslada='$servicioTraslada',turno='$turno',fc='$fc',fr='$fr',ta='$ta',temp='$temp',peso='$peso',
 		talla='$talla',interrogatorio='$interrogatorio',habExt='$habEx',cabeza='$cabez',torax='$torax',abdomen='$abdom',extremidades='$extrm',
-		estudiosGabyLab='$estudiosGabyLab',terapeuticayProcedimientos='$terapeuticayProcedimientos',cedula='$cedula' WHERE id='$idNotaTraslServ'";
+		estudiosGabyLab='$estudiosGabyLab',terapeuticayProcedimientos='$terapeuticayProcedimientos',cedula='$cedula' WHERE id='$idNotaTraslServh'";
 		
 		$result0 = mysqli_query($conexionMedico, $queryUpdDNotaTS) or die (mysqli_error($conexionMedico));
 			

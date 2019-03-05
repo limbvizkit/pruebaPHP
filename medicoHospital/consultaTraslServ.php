@@ -17,7 +17,7 @@
 		$folio=$_GET['folio'];
 	}
 	$queryDocs = "SELECT *
-			  FROM notaTrasladoServ
+			  FROM notaTrasladoServh
 			  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
 			  ORDER BY fecha, hora";
 	$docs = mysqli_query($conexionMedico, $queryDocs) or die (mysqli_error($conexionMedico));
@@ -206,7 +206,7 @@
 			  $('#simple').on('click', '#nota', function () {
 					//var sTitle;
 				var nTds = $('td', this);
-				idNotaTraslServ = $(nTds[1]).text();
+				idNotaTraslServh = $(nTds[1]).text();
 				fecha = $(nTds[2]).text();
 				hora = $(nTds[3]).text();
 				motivoTransferencia = $(nTds[4]).text();
@@ -237,7 +237,7 @@
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarTraslServ.php",{idNotaTraslServ:idNotaTraslServ,fecha:fecha,hora:hora,motivoTransferencia:motivoTransferencia,servicioActual:servicioActual,servicioTraslada:servicioTraslada,horaFin:horaFin,fechaFin:fechaFin,turno:turno,fc:fc,fr:fr,ta:ta,temp:temp,peso:peso,talla:talla,interrogatorio:interrogatorio,habEx:habEx,cabez:cabez,torax:torax,abdom:abdom,extrm:extrm,estudiosGabyLab:estudiosGabyLab,terapeuticayProcedimientos:terapeuticayProcedimientos,cedula:cedula} ,function(){
+				$("#div_User").load("modificarTraslServ.php",{idNotaTraslServh:idNotaTraslServh,fecha:fecha,hora:hora,motivoTransferencia:motivoTransferencia,servicioActual:servicioActual,servicioTraslada:servicioTraslada,horaFin:horaFin,fechaFin:fechaFin,turno:turno,fc:fc,fr:fr,ta:ta,temp:temp,peso:peso,talla:talla,interrogatorio:interrogatorio,habEx:habEx,cabez:cabez,torax:torax,abdom:abdom,extrm:extrm,estudiosGabyLab:estudiosGabyLab,terapeuticayProcedimientos:terapeuticayProcedimientos,cedula:cedula} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });

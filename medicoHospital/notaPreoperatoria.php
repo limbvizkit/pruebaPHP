@@ -43,7 +43,7 @@
 
 	//Query para jalar los datos de la consulta medica
 	$queryAntec = "SELECT *
-				  FROM notaUrg
+				  FROM notaUrgchoque
 				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'				  
 				  LIMIT 1";
 

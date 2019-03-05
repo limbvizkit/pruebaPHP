@@ -467,7 +467,19 @@
 								</div>
 								<div class="form-group">
                     			    <label>SERVICIO : <span>*</span></label>
-									<input type="text" class="form-control required" name="servicio" id="servicio" value="URGENCIAS" autocomplete="off" >
+                                    <br>
+                                    <label class="radio-inline">
+									  <input type="radio" name="servicio" value="Hospitalización" style="width: 30px; height: 30px" checked="checked">&nbsp;&nbsp; Hospitalización
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Urgencias" style="width: 30px; height: 30px">&nbsp;&nbsp; Urgencias
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Corta Estancia" style="width: 30px; height: 30px">&nbsp;&nbsp; Corta Estancia
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Terapia Intensiva" style="width: 30px; height: 30px">&nbsp;&nbsp; Terapia Intensiva
+									</label>
                                 </div>
 								<div class="form-group">
 									<label>TURNO : <span>*</span></label>

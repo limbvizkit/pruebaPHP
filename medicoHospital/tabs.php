@@ -220,21 +220,21 @@
 	if($rowR != NULL){
     	$descR = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE NOTA DE INGRESO</span>";
 	}
-	$queryEvol = 'SELECT * FROM notaEvolucion WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac .' AND estatus=1';
+	$queryEvol = 'SELECT * FROM notaEvolucionh WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac .' AND estatus=1';
                 $receta = mysqli_query($conexionMedico, $queryEvol) or die (mysqli_error($conexion));
                 $rowEv = mysqli_fetch_array($receta);
 	$descEv=null;
 	if($rowEv != NULL){
     	$descEv = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE NOTA DE EVOLUCIÓN </span>";
 	}
-	$queryTrasSer = 'SELECT * FROM notaTrasladoServ WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1';
+	$queryTrasSer = 'SELECT * FROM notaTrasladoServh WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1';
                 $ts = mysqli_query($conexionMedico, $queryTrasSer) or die (mysqli_error($conexion));
                 $rowTS = mysqli_fetch_array($ts);
 	$descTraslServ=null;
 	if($rowTS != NULL){
     	$descTraslServ = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE NOTA DE TRASLADO DE SERVICIO </span>";
 	}
-	$queryRefTrasl = 'SELECT * FROM notaReferenciaTras WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1';
+	$queryRefTrasl = 'SELECT * FROM notaReferenciaTrash WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1';
                 $rt = mysqli_query($conexionMedico, $queryRefTrasl) or die (mysqli_error($conexion));
                 $rowRT = mysqli_fetch_array($rt);
 	$descRefTrasl=null;
@@ -441,7 +441,7 @@
 								<input type="button" value="Agregar Nota de Referencia y Traslado" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaRefTrasl.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF Nota de Referencia y Traslado" class="btn btn-danger" name="lvc" 
 									   style="height: 50px; width: 300px" 
-									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=nrt', '_blank').focus()"/>
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=nrth', '_blank').focus()"/>
 							</p>
 							<p>
 								<input type="button" value="Consultar Nota de Referencia y Traslado" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"

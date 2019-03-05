@@ -3,9 +3,9 @@
 <?php
 	//Datos para Temperatura
 	//$temperatura1 =NULL;
-	if (isset($_POST['idNotaEvo']))
+	if (isset($_POST['idNotaEvoh']))
 	{
-		$idNotaEvo  = $_POST["idNotaEvo"];
+		$idNotaEvoh  = $_POST["idNotaEvoh"];
 
 		if (isset($_POST['fechaFin']))
 		{
@@ -278,7 +278,7 @@
 		</tr>
 	</table>
 	<br>
-	<input type='hidden' name='idNotaEvo' id='idNotaEvo' value='$idNotaEvo' >
+	<input type='hidden' name='idNotaEvoh' id='idNotaEvoh' value='$idNotaEvoh' >
 	<div><input type='submit' value='Guardar' class='btn btn-success' name='boton' id='enviarNota'>";
 
 		$btBorrarNota = "<input type='button' value='Borrar' class='btn btn-danger' name='boton' id='Borrar'>";

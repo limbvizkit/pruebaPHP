@@ -267,7 +267,7 @@
 					<option value='MEDICA SUR'>MEDICA SUR</option>
 					<option value='HOSPITAL ANGELES'>HOSPITAL ANGELES</option>
 					<option value='CARDICA'>CARDICA</option>
-					<option value='IMAGEN MEDICA'>CARDICA</option>
+					<option value='IMAGEN MEDICA'>IMAGEN MEDICA</option>
 					<option value='LABORATORIOS CHOPO'>LABORATORIOS CHOPO</option>
 					<option value='LABORATORIOS POLAB'>LABORATORIOS POLAB</option>
 					<option value='OTROS'>OTROS</option>

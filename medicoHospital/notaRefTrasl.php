@@ -89,7 +89,7 @@
 			$diagOld= utf8_encode($rowA['diag']);
 			$diagFin=addslashes ($diagOld);
 		}
-	}
+	}*/
 	//Precargar datos de Indicaciones
 	$indicaciones = NULL;
 	$longitud = NULL;
@@ -121,7 +121,7 @@
 
 			$horaIndic = explode(",",$arreglado5);
 			$longitud = count($horaIndic);
-		}*/
+		}
 
 	#Forma POO instanciamos y mandamos llamar un objeto de la instancia
     $usuario1 = new FuncionesDB();
@@ -595,7 +595,7 @@
                                 </div>
 								<div class="form-group">
                     			    <label>IMPRESIÓN DIAGNOSTICA : <span>*</span></label>
-									<textarea class="form-control required" name="impresionDiag" id="impresionDiag" cols="10" rows="3"><?php echo $diagFin ?></textarea>
+									<textarea class="form-control required" name="impresionDiag" id="impresionDiag" cols="10" rows="3"><?php //echo $diagFin ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>TERAPÉUTICA EMPLEADA : <span>*</span></label>

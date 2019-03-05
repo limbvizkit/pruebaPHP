@@ -96,6 +96,25 @@ if (isset($_POST['idNotaEvo']))
 	}
 }
 
+if (isset($_POST['idNotaEvoh']))
+	{
+		$idNotaEvoh  = $_POST["idNotaEvoh"];
+
+	if(!empty($idNotaEvoh)){
+		//$queryDelNotaMedT = "DELETE FROM notaurgtriage WHERE id='$idNotaUrgT'";
+		$queryDelEvolucion = "UPDATE notaEvolucionh SET estatus='0' WHERE id='$idNotaEvoh'";
+		$result0 = mysqli_query($conexionMedico, $queryDelEvolucion) or die (mysqli_error($conexionMedico));			
+		if(!$result0){
+			echo'0';
+		} else {
+			echo '1';
+		}
+	} else {
+		echo "0";
+		return false;
+	}
+}
+
 if (isset($_POST['idNotaTraslServ']))
 	{
 		$idNotaTraslServ  = $_POST["idNotaTraslServ"];
@@ -103,6 +122,25 @@ if (isset($_POST['idNotaTraslServ']))
 	if(!empty($idNotaTraslServ)){
 		//$queryDelNotaMedT = "DELETE FROM notaurgtriage WHERE id='$idNotaUrgT'";
 		$queryDelEvolucion = "UPDATE notaTrasladoServ SET estatus='0' WHERE id='$idNotaTraslServ'";
+		$result0 = mysqli_query($conexionMedico, $queryDelEvolucion) or die (mysqli_error($conexionMedico));			
+		if(!$result0){
+			echo'0';
+		} else {
+			echo '1';
+		}
+	} else {
+		echo "0";
+		return false;
+	}
+}
+
+if (isset($_POST['idNotaTraslServh']))
+	{
+		$idNotaTraslServh  = $_POST["idNotaTraslServh"];
+
+	if(!empty($idNotaTraslServh)){
+		//$queryDelNotaMedT = "DELETE FROM notaurgtriage WHERE id='$idNotaUrgT'";
+		$queryDelEvolucion = "UPDATE notaTrasladoServh SET estatus='0' WHERE id='$idNotaTraslServh'";
 		$result0 = mysqli_query($conexionMedico, $queryDelEvolucion) or die (mysqli_error($conexionMedico));			
 		if(!$result0){
 			echo'0';
@@ -133,6 +171,26 @@ if (isset($_POST['idNotaRefTrasl']))
 		return false;
 	}
 }
+
+if (isset($_POST['idNotaRefTraslh']))
+	{
+		$idNotaRefTraslh  = $_POST["idNotaRefTraslh"];
+
+	if(!empty($idNotaRefTraslh)){
+		//$queryDelNotaMedT = "DELETE FROM notaurgtriage WHERE id='$idNotaUrgT'";
+		$queryDelEvolucion = "UPDATE notareferenciatras SET estatus='0' WHERE id='$idNotaRefTraslh'";
+		$result0 = mysqli_query($conexionMedico, $queryDelEvolucion) or die (mysqli_error($conexionMedico));
+		if(!$result0){
+			echo'0';
+		} else {
+			echo '1';
+		}
+	} else {
+		echo "0";
+		return false;
+	}
+}
+
 	if (isset($_POST['idReceta']))
 	{
 		$idReceta  = $_POST["idReceta"];

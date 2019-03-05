@@ -1,11 +1,11 @@
 <?php
 require_once('../conexion/configMedico.php');
 
-	if (isset($_POST['idNotaRefTrasl']))
+	if (isset($_POST['idNotaRefTraslh']))
 	{
-		$idNotaRefTrasl = $_POST["idNotaRefTrasl"];
+		$idNotaRefTraslh = $_POST["idNotaRefTraslh"];
 	} else {
-		$idNotaRefTrasl = '';
+		$idNotaRefTraslh = '';
 	}
 
 	if (isset($_POST['horaFin']))
@@ -185,12 +185,12 @@ require_once('../conexion/configMedico.php');
 		$estable = '';
 	}
 	
-	if(!empty($idNotaRefTrasl)){
-		$queryUpdDNotaRT = "UPDATE notaReferenciaTras SET hora='$horaFin', fecha='$fechaFin',turno='$turno',servicio='$servicio',
+	if(!empty($idNotaRefTraslh)){
+		$queryUpdDNotaRT = "UPDATE notaReferenciaTrash SET hora='$horaFin', fecha='$fechaFin',turno='$turno',servicio='$servicio',
 		tipoTraslado='$tipoTraslado',ambulanciaTecno='$ambulanciaTecno',tipoPaciente='$tipoPaciente',oxigeno='$oxigeno',desfibrilador='$desfibrilador',
 		ventilador='$ventilador',incubadora='$incubadora',receptor='$receptor',otroReceptor='$otroReceptor',fc='$fc',fr='$fr',ta='$ta',temp='$temp',
 		peso='$peso',talla='$talla',motivoEnvio='$motivoEnvio',impresionDiag='$impresionDiag',terapeuticaEmpl='$terapeuticaEmpl',
-		cedulaMedEntrega='$cedulaMedEntrega',fechaExt='$fechaExt',horaExt='$horaExt',estable='$estable',turnoExt='$turnoExt' WHERE id='$idNotaRefTrasl'";
+		cedulaMedEntrega='$cedulaMedEntrega',fechaExt='$fechaExt',horaExt='$horaExt',estable='$estable',turnoExt='$turnoExt' WHERE id='$idNotaRefTraslh'";
 		
 		$result0 = mysqli_query($conexionMedico, $queryUpdDNotaRT) or die (mysqli_error($conexionMedico));
 			

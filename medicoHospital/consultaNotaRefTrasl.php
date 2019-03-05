@@ -17,7 +17,7 @@
 		$folio=$_GET['folio'];
 	}
 	$queryDocs = "SELECT *
-			  FROM notaReferenciaTras
+			  FROM notaReferenciaTrash
 			  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
 			  ORDER BY fecha, hora";
 	$docs = mysqli_query($conexionMedico, $queryDocs) or die (mysqli_error($conexionMedico));
@@ -206,7 +206,7 @@
 			  $('#simple').on('click', '#nota', function () {
 					//var sTitle;
 				var nTds = $('td', this);
-				idNotaRefTrasl = $(nTds[1]).text();
+				idNotaRefTraslh = $(nTds[1]).text();
 				fecha = $(nTds[2]).text();
 				hora = $(nTds[3]).text();
 				tipoTraslado = $(nTds[4]).text();
@@ -244,7 +244,7 @@
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarRefTrasl.php",{idNotaRefTrasl:idNotaRefTrasl,fecha:fecha,hora:hora,tipoTraslado:tipoTraslado,receptor:receptor,otroReceptor:otroReceptor,horaFin:horaFin,fechaFin:fechaFin,turno:turno,servicio:servicio,ambulanciaTecno:ambulanciaTecno,tipoPaciente:tipoPaciente,oxigeno:oxigeno,desfibrilador:desfibrilador,ventilador:ventilador,incubadora:incubadora,envia:envia,fc:fc,fr:fr,ta:ta,temp:temp,peso:peso,talla:talla,motivoEnvio:motivoEnvio,impresionDiag:impresionDiag,terapeuticaEmpl:terapeuticaEmpl,cedulaMedEntrega:cedulaMedEntrega,fechaExt:fechaExt,horaExt:horaExt,estable:estable,turnoExt:turnoExt} ,function(){
+				$("#div_User").load("modificarRefTrasl.php",{idNotaRefTraslh:idNotaRefTraslh,fecha:fecha,hora:hora,tipoTraslado:tipoTraslado,receptor:receptor,otroReceptor:otroReceptor,horaFin:horaFin,fechaFin:fechaFin,turno:turno,servicio:servicio,ambulanciaTecno:ambulanciaTecno,tipoPaciente:tipoPaciente,oxigeno:oxigeno,desfibrilador:desfibrilador,ventilador:ventilador,incubadora:incubadora,envia:envia,fc:fc,fr:fr,ta:ta,temp:temp,peso:peso,talla:talla,motivoEnvio:motivoEnvio,impresionDiag:impresionDiag,terapeuticaEmpl:terapeuticaEmpl,cedulaMedEntrega:cedulaMedEntrega,fechaExt:fechaExt,horaExt:horaExt,estable:estable,turnoExt:turnoExt} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });
