@@ -151,6 +151,12 @@
 		} else {
 			$turno = '';
 		}
+		if (isset($_POST['ingresa']))
+		{
+			$ingresa  = $_POST["ingresa"];
+		} else {
+			$ingresa = '';
+		}
 		
 		$vidaB = $pronosticoVida=='BUENO' ? 'checked':'';
 		$vidaM = $pronosticoVida=='MALO' ? 'checked':'';
@@ -271,6 +277,10 @@
 				<input type='radio' class='nombre' id='pronosticoFuncion' name='pronosticoFuncion' style='width: 35px; height: 35px' value='MALO' $funcionM> MALO
 				<input type='radio' class='nombre' id='pronosticoFuncion' name='pronosticoFuncion' style='width: 35px; height: 35px' value='RESERVADO' $funcionR> RESERVADO
 			</td>
+		</tr>
+		<tr>
+			<td><label style='color: beige'>Ingresa a(*) :</label></td>
+			<td><input type='text' class='nombre' name='ingresa' id='ingresa' style='width: 400px; height: 30px' value='$ingresa' autocomplete='off'></td>
 		</tr>
 		<tr>
 			<td><label style='color: beige'>Cedula(*) :</label></td>

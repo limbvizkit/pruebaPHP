@@ -508,6 +508,7 @@
 						</form>
 						<br>
 						<input class="btn btn-info" id="btnLab" type="button" value="DATOS DE LABORATORIO" onclick="window.open('../datosLaboratorio.php?epidemio=si&expediente=<?php echo $expediente ?>&folio=<?php echo $folio ?>&nomPac=<?php echo urlencode(utf8_encode($nombre_pac))?>','ventana','width=840,height=680,scrollbars=YES,menubar=NO,resizable=NO,titlebar=NO,status=NO');"return false style="width: 225px; height: 40px"/>
+						<input class="btn btn-primary" id="btnLab" type="button" value="MEDICAMENTOS ADMINISTRADOS" onclick="window.open('../reporteGralPaciente.php?expediente=<?php echo $expediente ?>&folio=<?php echo $folio ?>','ventana','width=840,height=680,scrollbars=YES,menubar=NO,resizable=NO,titlebar=NO,status=NO');"return false style="width: 255px; height: 40px"/>
 					</li>
 					
 					<li class="sky-tab-content-2">

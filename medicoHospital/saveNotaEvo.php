@@ -177,16 +177,22 @@ require_once('../conexion/configMedico.php');
 	{
 		$servicio=addslashes($_POST["servicio"]);
 		$servicio  = utf8_decode($servicio);
-		
 	} else {
 		$servicio = '';
+	}
+	if (isset($_POST['ingresa']))
+	{
+		$ingresa=addslashes($_POST["ingresa"]);
+		$ingresa  = utf8_decode($ingresa);
+	} else {
+		$ingresa = '';
 	}
 	
 	if(!empty($idNotaEvoh)){
 		$queryUpdDNotaEvo = "UPDATE notaEvolucionh SET hora='$horaFin', fecha='$fechaFin',servicio='$servicio',turno='$turno',fc='$fc',fr='$fr',
 		ta='$ta', temp='$temp', so='$so', glucosa='$glucosa',peso='$peso',talla='$talla',evolucion='$evolucion',habExt='$habEx',cabeza='$cabez',
 		torax='$torax', abdomen='$abdom',extremidades='$extrm', estudios='$estudios',diag='$diagn',tratamientoFin='$tratamientoF',
-		pronosticoVida='$pronosticoVida',pronosticoFuncion='$pronosticoFuncion', cedula='$cedula' WHERE id='$idNotaEvoh'";
+		pronosticoVida='$pronosticoVida',pronosticoFuncion='$pronosticoFuncion', cedula='$cedula', ingresa='$ingresa' WHERE id='$idNotaEvoh'";
 		
 		$result0 = mysqli_query($conexionMedico, $queryUpdDNotaEvo) or die (mysqli_error($conexionMedico));
 			
