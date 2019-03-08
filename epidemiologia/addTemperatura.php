@@ -210,14 +210,14 @@
                                 <h4>TEMPERATURA : <span>Paso 1 - 1</span></h4>
 								<!--div style="clear:both;"></div-->							
                     			    <div class="form-group">
-                    			    	<label>NOMBRE DEL VERIFICADOR : <span>*</span></label>
-                                    <input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control required">
+                    			    	<label>NOMBRE DEL VERIFICADOR :</label>
+                                    <input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control">
                                 	</div>
                                 <div class="form-group">
                     			    <label>FECHA DE MEDICIÓN : <span>*</span></label>
                                     <br>
                                     <label class="radio-inline">
-									  <input type="date" name="medicionDia" class="form-control required">
+									  <input type="date" name="medicionDia" value="<?php echo date("Y-m-d");?>" class="form-control required">
 									</label>
                                 </div>
 								<div class="form-group">

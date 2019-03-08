@@ -23,67 +23,40 @@
 		$folio=NULL;
 	}
 
-	$fcFin=NULL;
-	$frFin=NULL;
-	$taFin=NULL;
-	$tempFin=NULL;
-	$soFin=NULL;
-	$glucosaFin=NULL;
-	$habExtFin=NULL;
-	$cabezaFin=NULL;
-	$toraxFin=NULL;
-	$abdomenFin=NULL;
-	$extremidadesFin=NULL;
-	$tratamientoFin=NULL;
+	
 	$diagFin=NULL;
-	$nombre_pac =NULL;
-	$antecedentesFin=NULL;
-	$interrogatorioFin=NULL;
-	$acudeFin=NULL;
-
 	//Query para jalar los datos de la consulta medica
 	$queryAntec = "SELECT *
-				  FROM notaUrgchoque
-				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'				  
+				  FROM historiaclinica
+				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
 				  LIMIT 1";
-
 	$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
 	while($rowA = mysqli_fetch_array($antec)){
-		$antecOld= utf8_encode($rowA['antecedentes']);
-		$antecedentesFin=addslashes ($antecOld);
-		
-		$interrogaOld= utf8_encode($rowA['interrogatorio']);
-		$interrogatorioFin=addslashes ($interrogaOld);
-		
-		$fcFin=$rowA['fc'];
-		$frFin=$rowA['fr'];
-		$taFin=$rowA['ta'];
-		$tempFin=$rowA['temp'];
-		$soFin=$rowA['so'];
-		$glucosaFin=$rowA['glucosa'];
-		
-		$habExtOld= utf8_encode($rowA['habExt']);
-		$habExtFin=addslashes ($habExtOld);
-		
-		$cabezaOld= utf8_encode($rowA['cabeza']);
-		$cabezaFin=addslashes ($cabezaOld);
-
-		$toraxOld= utf8_encode($rowA['torax']);
-		$toraxFin=addslashes ($toraxOld);
-		
-		$abdomenOld= utf8_encode($rowA['abdomen']);
-		$abdomenFin=addslashes ($abdomenOld);
-
-		$extremidadesOld= utf8_encode($rowA['extremidades']);
-		$extremidadesFin=addslashes ($extremidadesOld);
-
-		$tratamientoOld= utf8_encode($rowA['tratamientoFin']);
-		$tratamientoFin=addslashes ($tratamientoOld);
-
-		$diagOld= utf8_encode($rowA['diag']);
+		$diagOld= utf8_encode($rowA['diagnostico']);
 		$diagFin=addslashes ($diagOld);
-		$acudeFin=$rowA['acude'];
-		
+	}
+
+	if($diagFin == NULL || $diagFin == ''){
+		$queryAntec = "SELECT *
+				  FROM notaUrgchoque
+				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+				  LIMIT 1";
+		$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
+		while($rowA1 = mysqli_fetch_array($antec)){
+			$diagOld= utf8_encode($rowA1['diag']);
+			$diagFin=addslashes ($diagOld);
+		}
+		if($diagFin == NULL || $diagFin == ''){
+			$queryAntec = "SELECT *
+					  FROM notaUrg
+					  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+					  LIMIT 1";
+			$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
+			while($rowA2 = mysqli_fetch_array($antec)){
+				$diagOld= utf8_encode($rowA2['diag']);
+				$diagFin=addslashes ($diagOld);
+			}
+		}
 	}
 	
 	if(isset($_REQUEST['enviar']))
@@ -370,8 +343,8 @@
                                 </div>
 								<div class="form-group">
 									<h4>DATOS DEL MÉDICO TRATANTE:</h4>
-									&nbsp;<p>&nbsp;&nbsp;&nbsp;&nbsp;CEDULA PROFESIONAL :<span>*</span></p>
-									<input class="form-control" id="cedula" type="text" name="cedula" style="background-color:#9EE5D7" accept-charset="utf-8" placeholder="Número de cedula" autocomplete="off" required>
+									&nbsp;<p>&nbsp;&nbsp;&nbsp;&nbsp;CEDULA PROFESIONAL :</p>
+									<input class="form-control" id="cedula" type="text" name="cedula" style="background-color:#9EE5D7" accept-charset="utf-8" placeholder="Número de cedula" autocomplete="off">
 									<br>
 									<div id="suggestions1"></div>
 								</div>

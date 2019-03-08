@@ -131,6 +131,18 @@
 			$antecedentesPatologicos=utf8_decode($_POST['antecedentesPatologicos']);
 			$antecedentesPatologicos = addslashes($antecedentesPatologicos);
 		}
+		if (isset($_POST['tabaco']))
+		{
+			$tabaco=$_POST['tabaco'];
+		}
+		if (isset($_POST['alcohol']))
+		{
+			$alcohol=$_POST['alcohol'];
+		}
+		if (isset($_POST['drogas']))
+		{
+			$drogas=$_POST['drogas'];
+		}
 		if (isset($_POST['conciliacionMedicamentos']))
 		{
 			$conciliacionMedicamentos=utf8_decode($_POST['conciliacionMedicamentos']);
@@ -257,10 +269,10 @@
 			$cabeza=utf8_decode($_POST['cabeza']);
 			$cabeza = addslashes($cabeza);
 		}
-		if (isset($_POST['cuello']))
+		if (isset($_POST['torax']))
 		{
-			$cuello=utf8_decode($_POST['cuello']);
-			$cuello=addslashes($cuello);
+			$torax=utf8_decode($_POST['torax']);
+			$torax=addslashes($torax);
 		}
 		if (isset($_POST['abdomen']))
 		{
@@ -347,18 +359,18 @@
 		'.$torax.' '.$abdomen.' '.$extremidades.' '.$diag.' '.$tratamientoFin;*/
 		
 		$queryInsHistClin = "INSERT INTO historiaclinica (id,numeroExpediente,folio,hora,tipoInterroga,edoCivil,ocupacion,lugarOrigen,escolaridad,
-						religion,grupoRH,antecedentesHeredo,habitacion,habitos,alimentacion,actividadFisica,inmunizaciones,antecedentesPatologicos,
+						religion,grupoRH,antecedentesHeredo,habitacion,habitos,alimentacion,actividadFisica,inmunizaciones,antecedentesPatologicos,tabaco,alcohol,drogas,
 						conciliacionMedicamentos,antecedentesGineco,antecedentesPediatricos,padecimientoActual,sintomas,respiratorio,musculoEsquele,
 						digestivo,genital,endocrino,nervioso,hematologico,psicologico,urinario,cardiocirculatorio,pielFaneras,fc,fr,ta,temp,so,glucosa,
-						peso,talla,habExt,cabeza,cuello,abdomen,extremidades,genitales,neurologico,pielFaneras2,columnavertebral,estudiosGabinete,
+						peso,talla,habExt,cabeza,torax,abdomen,extremidades,genitales,neurologico,pielFaneras2,columnavertebral,estudiosGabinete,
 						terapeutica,criteriosEspecializadas,educacionEspecial,gestionEquipo,procesosAdmin,diagnostico,pronosticoVida,pronosticoFuncion,
 						cedula,usr)
 					VALUES (NULL,'$expediente','$folio','$hora','$tipoInterroga','$edoCivil','$ocupacion','$lugarOrigen','$escolaridad',
 					'$religion','$grupoRH','$antecedentesHeredo','$habitacion','$habitos','$alimentacion','$actividadFisica','$inmunizaciones',
-					'$antecedentesPatologicos','$conciliacionMedicamentos','$antecedentesGineco','$antecedentesPediatricos','$padecimientoActual',
+					'$antecedentesPatologicos','$tabaco','$alcohol','$drogas','$conciliacionMedicamentos','$antecedentesGineco','$antecedentesPediatricos','$padecimientoActual',
 					'$sintomas','$respiratorio','$musculoEsquele','$digestivo','$genital','$endocrino','$nervioso','$hematologico','$psicologico',
 					'$urinario','$cardiocirculatorio','$pielFaneras','$fc','$fr','$ta','$temp','$so','$glucosa','$peso','$talla','$habExt','$cabeza',
-					'$cuello','$abdomen','$extremidades','$genitales','$neurologico','$pielFaneras2','$columnavertebral','$estudiosGabinete',
+					'$torax','$abdomen','$extremidades','$genitales','$neurologico','$pielFaneras2','$columnavertebral','$estudiosGabinete',
 					'$terapeutica','$criteriosEspecializadas','$educacionEspecial','$gestionEquipo','$procesosAdmin','$diagnostico','$pronosticoVida',
 					'$pronosticoFuncion','$cedula','$rol')";
 		
@@ -481,51 +493,62 @@
 					</thead>
 					<tbody>
 						<?php
-							/*$queryDocs = "SELECT *
-										  FROM notaUrgTriage 
+							$queryDocs = "SELECT *
+										  FROM notaUrg
 										  WHERE numeroExpediente='$expediente' AND folio='$folio'
 										  ORDER BY fecha DESC, hora DESC
 										  LIMIT 1";
 							$docs = mysqli_query($conexionMedico, $queryDocs) or die (mysqli_error($conexionMedico));
-							$c=1;
+							
+							$padActFin= NULL;
+							$habExtFin = NULL;
+							$cabezaFin = NULL;
+							$toraxFin = NULL;
+							$abdomenFin = NULL;
+							$extremidadesFin = NULL;
+							$genitalesFin = NULL;
+							$neuroFin = NULL;
+							$pielFin = NULL;
+							$columnaFin = NULL;
 							while($row = mysqli_fetch_array($docs)){
-								$fcFin= $row['fc'];
-								$frFin= $row['fr'];
-								$taFin=$row['ta'];
-								$tempFin=$row['temp'];
-								$soFin=$row['so'];
-								$turnoFin=$row['turno'];
-								$acudeFin=$row['acude'];
-								$glucosaFin=$row['glucosa'];
-								
-								if($row['turno'] == 'M'){
-									$turnoFinLetra='MATUTINO';
-								} else if($row['turno'] == 'V'){
-									$turnoFinLetra='VESPERTINO';
-								} if($row['turno'] == 'N'){
-									$turnoFinLetra='NOCTURNO';
+								$padActFin = $row['interrogatorio'];
+								$habExtFin = $row['habExt'];
+								$cabezaFin = $row['cabeza'];
+								$toraxFin = $row['torax'];
+								$abdomenFin = $row['abdomen'];
+								$extremidadesFin = $row['extremidades'];
+							}
+							if($padActFin == NULL || $padActFin == ''){
+								$queryDocs = "SELECT *
+										  FROM notaUrgchoque
+										  WHERE numeroExpediente='$expediente' AND folio='$folio'
+										  ORDER BY fecha DESC, hora DESC
+										  LIMIT 1";
+								$docs = mysqli_query($conexionMedico, $queryDocs) or die (mysqli_error($conexionMedico));
+							
+								while($row = mysqli_fetch_array($docs)){
+									$padActFin = $row['interrogatorio'];
+									$habExtFin = $row['habExt'];
+									$cabezaFin = $row['cabeza'];
+									$toraxFin = $row['torax'];
+									$abdomenFin = $row['abdomen'];
+									$extremidadesFin = $row['extremidades'];
 								}
-								
-								$fecha = strtotime($row['fecha']);
-								$fechaFin = date('d/m/Y',$fecha);
-
-								$hora = strtotime($row['hora']);
-								$horaFin = date('H:i',$hora);
+							}
 						?>
 						<tr>
-							<td><?php echo $fechaFin ?></td>
-							<td><?php echo $horaFin.'hrs' ?></td>
-							<td><?php echo utf8_encode($row['motivo']) ?></td>
-							<td><?php echo $row['ta'].' mmHg' ?></td>
-							<td><?php echo $row['fc'].' min' ?></td>
-							<td><?php echo $row['fr'].' min' ?></td>
-							<td><?php echo $row['temp'].'°C' ?></td>
-							<td><?php echo $row['so'] ?></td>
-							<td><?php echo $row['glucosa'].' mg/dl' ?></td>
-							<td><?php echo $row['peso'].' Kg' ?></td>
-							<td><?php echo $row['talla'].' Mts' ?></td>
-							<td><?php echo $row['color'] ?></td>
-							<?php }*/ ?>
+							<td><?php #echo $fechaFin ?></td>
+							<td><?php #echo $horaFin.'hrs' ?></td>
+							<td><?php #echo utf8_encode($row['motivo']) ?></td>
+							<td><?php #cho $row['ta'].' mmHg' ?></td>
+							<td><?php #echo $row['fc'].' min' ?></td>
+							<td><?php #echo $row['fr'].' min' ?></td>
+							<td><?php #echo $row['temp'].'°C' ?></td>
+							<td><?php #echo $row['so'] ?></td>
+							<td><?php #echo $row['glucosa'].' mg/dl' ?></td>
+							<td><?php #echo $row['peso'].' Kg' ?></td>
+							<td><?php #echo $row['talla'].' Mts' ?></td>
+							<td><?php #echo $row['color'] ?></td>
 						</tr>
 					</tbody>
 				</table-->
@@ -667,6 +690,18 @@
                     			    <label>ANTECEDENTES PATOLÓGICOS : <span>*</span></label>
                                     <textarea class="form-control required" name="antecedentesPatologicos" id="antecedentesPatologicos" cols="10" rows="3"></textarea>
                                 </div>
+								<div class="form-group">                    			    
+									<label class="checkbox-inline"> TABACO
+									  <input type="checkbox" name="tabaco" style="width: 45px; height: 35px" value="1" >
+									</label>
+									<label class="checkbox-inline">ALCOHOL
+									  <input type="checkbox" name="alcohol" style="width: 45px; height: 35px" value="1">
+									</label>
+									<label class="checkbox-inline">DROGAS
+									  <input type="checkbox" name="drogas" style="width: 45px; height: 35px" value="1"> 
+									</label>
+                                </div>
+								<br>
 								 <div class="form-group">
                     			    <label>CONCILIACIÓN DE MEDICAMENTOS AL INGRESO (MEDICAMENTOS, DOSIS, VÍA DE ADMINISTRACIÓN E INTERVALO INCLUIR VITAMINAS Y MINERALES) : <span>*</span></label>
                                     <textarea class="form-control required" name="conciliacionMedicamentos" id="conciliacionMedicamentos" cols="10" rows="3"></textarea>
@@ -696,7 +731,7 @@
                                 <h4>PADECIMIENTO E INTERROGATORIO : <span>Paso 2 - 4</span></h4>
                                 <div class="form-group">
                     			    <label>PADECIMIENTO ACTUAL : <span>*</span></label>
-									<textarea class="form-control required" name="padecimientoActual" id="padecimientoActual" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="padecimientoActual" id="padecimientoActual" cols="10" rows="3"> <?php echo $padActFin ?> </textarea>
                                     <!--input type="text" name="habExt" class="form-control" autocomplete="off"-->
                                 </div>
 								<br/>
@@ -808,8 +843,8 @@
 											<input type="text" name="peso" placeholder="Kg" class="form-control required" value="<?php #echo $soFin ?>" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
-											<label>TALLA : <span></span></label>
-											<input type="text" name="talla" placeholder="mts" class="form-control" value="<?php #echo $glucosaFin ?>" autocomplete="off">
+											<label>TALLA : <span>*</span></label>
+											<input type="text" name="talla" placeholder="mts" class="form-control required" value="<?php #echo $glucosaFin ?>" autocomplete="off">
 										</div>
 									</div>									
 								</div>
@@ -817,27 +852,27 @@
                     			<h5>EXPLORACIÓN FÍSICA : </h5>
 								<div class="form-group">
                     			    <label>HABITUS EXTERIOR : <span>*</span></label>
-									<textarea class="form-control required" name="habExt" id="habExt" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="habExt" id="habExt" cols="10" rows="3"><?php echo $habExtFin ?></textarea>
                                     <!--input type="text" name="cabeza" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>CABEZA : <span>*</span></label>
-									<textarea class="form-control required" name="cabeza" id="cabeza" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="cabeza" id="cabeza" cols="10" rows="3"><?php echo $cabezaFin ?></textarea>
                                     <!--input type="text" name="cabeza" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
-                    			    <label>CUELLO : <span>*</span></label>
-									<textarea class="form-control required" name="cuello" id="cuello" cols="10" rows="3"></textarea>
+                    			    <label>TÓRAX : <span>*</span></label>
+									<textarea class="form-control required" name="torax" id="torax" cols="10" rows="3"><?php echo $toraxFin ?></textarea>
                                     <!--input type="text" name="torax" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>ABDOMEN : <span>*</span></label>
-									<textarea class="form-control required" name="abdomen" id="abdomen" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="abdomen" id="abdomen" cols="10" rows="3"><?php echo $abdomenFin ?></textarea>
                                     <!--input type="text" name="abdomen" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>EXTREMIDADES : <span>*</span></label>
-									<textarea class="form-control required" name="extremidades" id="extremidades" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="extremidades" id="extremidades" cols="10" rows="3"><?php echo $extremidadesFin ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
