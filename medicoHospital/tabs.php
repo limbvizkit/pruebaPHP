@@ -407,7 +407,7 @@
 								<input type="button" value="Agregar Nota de Evolución" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaEvolucion.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF Nota de Evolución" class="btn btn-danger" name="lvc" 
 									   style="height: 50px; width: 300px" 
-									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=nevo', '_blank').focus()"/>
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=nevoh', '_blank').focus()"/>
 							</p>
 							<p>
 								<input type="button" value="Consultar Nota de Evolución" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"

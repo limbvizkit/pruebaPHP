@@ -49,6 +49,20 @@
 	if($anniosBool == '0'){
 		$annios = $anniosO->format('%m Mes(es)');
 	}
+	
+	$diagnosticoFin=NULL;
+	$queryAntec = "SELECT *
+			  FROM historiaClinica
+			  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+			  ORDER BY id DESC
+			  LIMIT 1";
+
+	$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
+
+	while($rowA = mysqli_fetch_array($antec)){
+		$diagnosticoOld= utf8_encode($rowA['diagnostico']);
+		$diagnosticoFin=addslashes ($diagnosticoOld);
+	}
 
 	$val='0';
 	if(isset($_REQUEST['enviar']))
@@ -479,7 +493,7 @@
 								</div>
 								<div class="form-group">
                     			    <label>DIAGNÓSTICO DE INGRESO: <span>*</span></label>
-                                    <textarea class="form-control required" name="diagnosticoIngreso" id="habitacion" cols="10" rows="3"></textarea>
+                                    <textarea class="form-control required" name="diagnosticoIngreso" id="habitacion" cols="10" rows="3"><?php echo $diagnosticoFin ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>DIAGNÓSTICO DE EGRESO: <span>*</span></label>
@@ -625,7 +639,7 @@
 								<div class="form-group">
 									<h4>DATOS DEL MÉDICO:</h4>
 									&nbsp;<p>&nbsp;&nbsp;&nbsp;&nbsp;CEDULA PROFESIONAL :<span>*</span></p>
-									<input class="form-control" id="cedula" type="text" name="cedula" style="background-color:#9EE5D7" accept-charset="utf-8" placeholder="Número de cedula" autocomplete="off" required>
+									<input class="form-control" id="cedula" type="text" name="cedula" style="background-color:#9EE5D7" accept-charset="utf-8" placeholder="Número de cedula" autocomplete="off">
 									<br>
 									<div id="suggestions1"></div>
 								</div>

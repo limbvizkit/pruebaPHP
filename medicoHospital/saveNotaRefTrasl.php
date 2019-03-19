@@ -16,7 +16,8 @@ require_once('../conexion/configMedico.php');
 	}
 	if (isset($_POST['turno']))
 	{
-		$turno = $_POST["turno"];
+		$turno = utf8_decode($_POST["turno"]);
+		$turno=addslashes($turno);
 	} else {
 		$turno = '';
 	}
@@ -87,12 +88,12 @@ require_once('../conexion/configMedico.php');
 	} else {
 		$incubadora = '0';
 	}
-	/*if (isset($_POST['envia']))
+	if (isset($_POST['ninguno']))
 	{
-		$envia  = $_POST["envia"];
+		$ninguno  = $_POST["ninguno"];
 	} else {
-		$envia = '';
-	}*/
+		$ninguno = '';
+	}
 	if (isset($_POST['fc']))
 	{
 		$fc  = $_POST["fc"];
@@ -132,6 +133,27 @@ require_once('../conexion/configMedico.php');
 		$talla  = $_POST["talla"];
 	} else {
 		$talla = '';
+	}
+	if (isset($_POST['antecedentesPer']))
+	{
+		$antecedentesPer  = utf8_decode($_POST["antecedentesPer"]);
+		$antecedentesPer =addslashes($antecedentesPer);
+	} else {
+		$antecedentesPer = '';
+	}
+	if (isset($_POST['padecimientoAct']))
+	{
+		$padecimientoAct  = utf8_decode($_POST["padecimientoAct"]);
+		$padecimientoAct =addslashes($padecimientoAct);
+	} else {
+		$padecimientoAct = '';
+	}
+	if (isset($_POST['expFisica']))
+	{
+		$expFisica  = utf8_decode($_POST["expFisica"]);
+		$expFisica = addslashes($expFisica);
+	} else {
+		$expFisica = '';
 	}
 	if (isset($_POST['motivoEnvio']))
 	{
@@ -188,9 +210,10 @@ require_once('../conexion/configMedico.php');
 	if(!empty($idNotaRefTraslh)){
 		$queryUpdDNotaRT = "UPDATE notaReferenciaTrash SET hora='$horaFin', fecha='$fechaFin',turno='$turno',servicio='$servicio',
 		tipoTraslado='$tipoTraslado',ambulanciaTecno='$ambulanciaTecno',tipoPaciente='$tipoPaciente',oxigeno='$oxigeno',desfibrilador='$desfibrilador',
-		ventilador='$ventilador',incubadora='$incubadora',receptor='$receptor',otroReceptor='$otroReceptor',fc='$fc',fr='$fr',ta='$ta',temp='$temp',
-		peso='$peso',talla='$talla',motivoEnvio='$motivoEnvio',impresionDiag='$impresionDiag',terapeuticaEmpl='$terapeuticaEmpl',
-		cedulaMedEntrega='$cedulaMedEntrega',fechaExt='$fechaExt',horaExt='$horaExt',estable='$estable',turnoExt='$turnoExt' WHERE id='$idNotaRefTraslh'";
+		ventilador='$ventilador',incubadora='$incubadora',ninguno='$ninguno',receptor='$receptor',otroReceptor='$otroReceptor',fc='$fc',fr='$fr',ta='$ta',temp='$temp',
+		peso='$peso',talla='$talla',antecedentesPer='$antecedentesPer',padecimientoAct='$padecimientoAct',expFisica='$expFisica',motivoEnvio='$motivoEnvio',
+		impresionDiag='$impresionDiag',terapeuticaEmpl='$terapeuticaEmpl',cedulaMedEntrega='$cedulaMedEntrega',fechaExt='$fechaExt',horaExt='$horaExt',estable='$estable',turnoExt='$turnoExt' 
+		WHERE id='$idNotaRefTraslh'";
 		
 		$result0 = mysqli_query($conexionMedico, $queryUpdDNotaRT) or die (mysqli_error($conexionMedico));
 			

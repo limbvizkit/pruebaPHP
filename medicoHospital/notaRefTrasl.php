@@ -24,17 +24,19 @@
 	$frFin=NULL;
 	$taFin=NULL;
 	$tempFin=NULL;
-	
 	$pesoFin=NULL;
 	$tallaFin=NULL;
 	$turnoFin=NULL;
 	$turnoFinLetra=NULL;
 	$acudeFin=NULL;
-	$antecOld=NULL;
+	$antecPerFin=NULL;
 	$fechaFin=NULL;
+	$padecimientoFin=NULL;
+	$expFisicaFin=NULL;
+
 	//Query para jalar los datos de la consulta medica
-	/*$queryAntec = "SELECT *
-				  FROM notaUrgchoque
+	$queryAntec = "SELECT *
+				  FROM notaEvolucionH
 				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
 				  LIMIT 1";
 
@@ -45,6 +47,8 @@
 		$frFin=$rowA['fr'];
 		$taFin=$rowA['ta'];
 		$tempFin=$rowA['temp'];
+		$pesoFin = $rowA['peso'];
+		$tallaFin = $rowA['talla'];
 		$turnoFin=$rowA['turno'];
 		$fechaFin =substr($rowA['fecha'],0,10);
 		//$fechaFin = $fechaFin0->format('Y-m-d');
@@ -60,36 +64,45 @@
 		$diagOld= utf8_encode($rowA['diag']);
 		$diagFin=addslashes ($diagOld);
 		
+		$expFisicaOld= utf8_encode($rowA['expFisica']);
+		$expFisicaFin=addslashes ($expFisicaOld);
+		
 	}
-	if($fcFin== NULL || $fcFin == ''){
-		$queryAntec = "SELECT *
-				  FROM notaUrg
-				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
-				  LIMIT 1";
 
-		$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
+	$queryAntec1 = "SELECT *
+			  FROM historiaClinica
+			  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+			  ORDER BY id DESC
+			  LIMIT 1";
 
-		while($rowA = mysqli_fetch_array($antec)){
-			$fcFin=$rowA['fc'];
-			$frFin=$rowA['fr'];
-			$taFin=$rowA['ta'];
-			$tempFin=$rowA['temp'];
-			$turnoFin=$rowA['turno'];
-			$fechaFin =substr($rowA['fecha'],0,10);
-			//$fechaFin = $fechaFin0->format('Y-m-d');
+	$antec1 = mysqli_query($conexionMedico, $queryAntec1) or die (mysqli_error($conexionMedico));
 
-			if($turnoFin == 'M'){
-				$turnoFinLetra='MATUTINO';
-			} else if($turnoFin == 'V'){
-				$turnoFinLetra='VESPERTINO';
-			} if($turnoFin == 'N'){
-				$turnoFinLetra='NOCTURNO';
-			}
-
+	while($rowA1 = mysqli_fetch_array($antec1)){
+		if($pesoFin== NULL || $pesoFin == ''){
+			$fcFin=$rowA1['fc'];
+			$frFin=$rowA1['fr'];
+			$taFin=$rowA1['ta'];
+			$soFin=$rowA1['so'];
+			$glucosaFin=$rowA1['glucosa'];
+			$tempFin=$rowA1['temp'];
+			$pesoFin = $rowA1['peso'];
+			$tallaFin = $rowA1['talla'];
+			$fechaFin =substr($rowA1['fecha'],0,10);
+		}
+		
+		$padecimientoOld= utf8_encode($rowA1['padecimientoActual']);
+		$padecimientoFin=addslashes ($padecimientoOld);
+		
+		if($diagFin==NULL || $diagFin==''){
 			$diagOld= utf8_encode($rowA['diag']);
 			$diagFin=addslashes ($diagOld);
 		}
-	}*/
+		
+		$antecPerold= utf8_encode($rowA1['antecedentesPatologicos']);
+		$antecPerFin=addslashes ($antecPerold);
+		
+	}
+
 	//Precargar datos de Indicaciones
 	$indicaciones = NULL;
 	$longitud = NULL;
@@ -154,6 +167,7 @@
 		$oxi=NULL;
 		$desfri=NULL;
 		$incuba=NULL;
+		$ninguno=NULL;
 		$estable=NULL;
 		
 		if (isset($_POST['expediente']))
@@ -222,6 +236,12 @@
 		} else {
 			$incuba=NULL;
 		}
+		if (isset($_POST['ninguno']))
+		{
+			$ninguno=$_POST['ninguno'];
+		} else {
+			$ninguno=NULL;
+		}
 		if (isset($_POST['receptor']))
 		{
 			$receptor=$_POST['receptor'];
@@ -257,6 +277,21 @@
 		if (isset($_POST['talla']))
 		{
 			$talla=$_POST['talla'];
+		}
+		if (isset($_POST['antecedentesPer']))
+		{
+			$antecedentesPer=utf8_decode($_POST['antecedentesPer']);
+			$antecedentesPer = addslashes($antecedentesPer);
+		}
+		if (isset($_POST['padecimientoAct']))
+		{
+			$padecimientoAct=utf8_decode($_POST['padecimientoAct']);
+			$padecimientoAct = addslashes($padecimientoAct);
+		}
+		if (isset($_POST['expFisica']))
+		{
+			$expFisica=utf8_decode($_POST['expFisica']);
+			$expFisica = addslashes($expFisica);
 		}
 		if (isset($_POST['motivoEnvio']))
 		{
@@ -298,10 +333,10 @@
 		'.$torax.' '.$abdomen.' '.$extremidades.' '.$diag.' '.$tratamientoFin;*/
 		
 		$queryInsUrg = "INSERT INTO notaReferenciaTrash (id,numeroExpediente,folio,fecha,hora,turno,servicio,tipoTraslado,ambulanciaTecno,tipoPaciente,
-						oxigeno,desfibrilador,ventilador,incubadora,receptor,otroReceptor,fc,fr,ta,temp,peso,talla,motivoEnvio,impresionDiag,
+						oxigeno,desfibrilador,ventilador,incubadora,ninguno,receptor,otroReceptor,fc,fr,ta,temp,peso,talla,antecedentesPer,padecimientoAct,expFisica,motivoEnvio,impresionDiag,
 						terapeuticaEmpl,cedulaMedEntrega,fechaExt,horaExt,estable,turnoExt,usr)
 						VALUES (NULL,'$expediente','$folio','$fecha','$hora','$turno','$servicio','$tipoTraslado','$ambulanciaTecno','$tipoPaciente',
-						'$oxi','$desfri','$venti','$incuba','$receptor','$otroReceptor','$fc','$fr','$ta','$temp','$peso','$talla','$motivoEnvio',
+						'$oxi','$desfri','$venti','$incuba','$ninguno','$receptor','$otroReceptor','$fc','$fr','$ta','$temp','$peso','$talla','$antecedentesPer','$padecimientoAct','$expFisica','$motivoEnvio',
 						'$impresionDiag','$terapeuticaEmpl','$cedulaMedEntrega','$fechaExt','$horaExt','$estable','$turnoExt','$rol')";
 		
 			$result0 = mysqli_query($conexionMedico, $queryInsUrg);
@@ -457,7 +492,6 @@
 								<div class="form-group">
                     			    <label>SERVICIO : <span>*</span></label>
 									<select id="servicio" name="servicio" class="form-control required">
-										<option value="">Seleccione</option>
 										<option value="Hospitalización">Hospitalización</option>
 										<option value="Urgencias">Urgencias</option>
 										<option value="Corta Estancia">Corta Estancia</option>
@@ -500,16 +534,19 @@
                     			    <label>ADITAMENTOS ESPECIALES : <span>*</span></label>
 									<br>
 									<label class="checkbox-inline"> OXIGENO
-									  <input type="checkbox" name="oxi" style="width: 45px; height: 35px" value="1" >
+									  <input type="checkbox" name="oxi" style="width: 45px; height: 35px" value="1">
 									</label>
-									<label class="checkbox-inline">DESFIBRILADOR
+									<label class="checkbox-inline"> DESFIBRILADOR
 									  <input type="checkbox" name="desfri" style="width: 45px; height: 35px" value="1">
 									</label>
-									<label class="checkbox-inline">VENTILADOR
-									  <input type="checkbox" name="venti" style="width: 45px; height: 35px" value="1"> 
+									<label class="checkbox-inline"> VENTILADOR
+									  <input type="checkbox" name="venti" style="width: 45px; height: 35px" value="1">
 									</label>
 									<label class="checkbox-inline"> INCUBADORA
-									  <input type="checkbox" name="incuba" style="width: 45px; height: 35px" value="1"> 
+									  <input type="checkbox" name="incuba" style="width: 45px; height: 35px" value="1">
+									</label>
+									<label class="checkbox-inline"> NINGUNO
+									  <input type="checkbox" name="ninguno" style="width: 45px; height: 35px" value="1" checked>
 									</label>
                                 </div>
 								<br>
@@ -521,17 +558,17 @@
 										<option value="IMSS">IMSS</option>
 										<option value="ISSSTE">ISSSTE</option>
 										<option value="HOSPITAL G. PARRES">HOSPITAL G. PARRES</option>
-										 <option value="HOSPITAL SECRETARIA DE SALUD">HOSPITAL SECRETARIA DE SALUD</option>
-										 <option value="HOSPITAL MORELOS">HOSPITAL MORELOS</option>
-										 <option value="INSTITUTO MEXICANO DE TRANSPLANTES">INSTITUTO MEXICANO DE TRANSPLANTES</option>
-										 <option value="HOSPITAL SAN DIEGO">HOSPITAL SAN DIEGO</option>
-										 <option value="MEDICA SUR">MEDICA SUR</option>
-										 <option value="HOSPITAL ANGELES">HOSPITAL ANGELES</option>
-										 <option value="CARDICA">CARDICA</option>
-										 <option value="IMAGEN MEDICA">IMAGEN MEDICA</option>
-										 <option value="LABORATORIOS CHOPO">LABORATORIOS CHOPO</option>
-										 <option value="LABORATORIOS POLAB">LABORATORIOS POLAB</option>
-										 <option value="OTROS">OTROS</option>
+										<option value="HOSPITAL SECRETARIA DE SALUD">HOSPITAL SECRETARIA DE SALUD</option>
+										<option value="HOSPITAL MORELOS">HOSPITAL MORELOS</option>
+										<option value="INSTITUTO MEXICANO DE TRANSPLANTES">INSTITUTO MEXICANO DE TRANSPLANTES</option>
+										<option value="HOSPITAL SAN DIEGO">HOSPITAL SAN DIEGO</option>
+										<option value="MEDICA SUR">MEDICA SUR</option>
+										<option value="HOSPITAL ANGELES">HOSPITAL ANGELES</option>
+										<option value="CARDICA">CARDICA</option>
+										<option value="IMAGEN MEDICA">IMAGEN MEDICA</option>
+										<option value="LABORATORIOS CHOPO">LABORATORIOS CHOPO</option>
+										<option value="LABORATORIOS POLAB">LABORATORIOS POLAB</option>
+										<option value="OTROS">OTROS</option>
 									</select>
                                 </div>
 								<br>
@@ -543,7 +580,6 @@
 									</div>
 								</div>
 								<br/>
-
                                 <div class="form-wizard-buttons">
                                     <button type="button" class="btn btn-next">Siguiente</button>
                                 </div>
@@ -579,27 +615,35 @@
 											<input type="text" name="temp" placeholder="°C" class="form-control required" value="<?php echo $tempFin ?>" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
-											<label>PESO (Kg) : <span></span></label>
-											<input type="number" step="0.01" name="peso" class="form-control" value="<?php echo $pesoFin ?>" autocomplete="off">
+											<label>PESO (Kg) : <span>*</span></label>
+											<input type="number" step="0.01" name="peso" class="form-control required" value="<?php echo $pesoFin ?>" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
-											<label>TALLA (Mts) : <span></span></label>
-											<input type="number" step="0.01" name="talla" class="form-control" value="<?php echo $tallaFin ?>" autocomplete="off">
+											<label>TALLA (Mts) : <span>*</span></label>
+											<input type="number" step="0.01" name="talla" class="form-control required" value="<?php echo $tallaFin ?>" autocomplete="off">
 										</div>
 									</div>
 								</div>
-								
 								<div class="form-group">
-                    			    <label>MOTIVO DE ENVIO : <span>*</span></label>
-									<textarea class="form-control required" name="motivoEnvio" id="motivoEnvio" cols="10" rows="3"></textarea>
+                    			    <label>ANTECEDENTES PERSONALES PATOLÓGICOS : <span>*</span></label>
+									<textarea class="form-control required" name="antecedentesPer" id="antecedentesPer" cols="10" rows="3"><?php echo $antecPerFin ?></textarea>
+                                </div>
+								<div class="form-group">
+                    			    <label>PADECIMIENTO ACTUAL : <span>*</span></label>
+									<textarea class="form-control required" name="padecimientoAct" id="padecimientoAct" cols="10" rows="3"><?php echo $padecimientoFin ?></textarea>
+                                </div>
+								<div class="form-group">
+                    			    <label>EXPLORACIÓN FÍSICA : <span>*</span></label>
+									<textarea class="form-control required" name="expFisica" id="expFisica" cols="10" rows="3"><?php echo $expFisicaFin ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>IMPRESIÓN DIAGNOSTICA : <span>*</span></label>
-									<textarea class="form-control required" name="impresionDiag" id="impresionDiag" cols="10" rows="3"><?php //echo $diagFin ?></textarea>
+									<textarea class="form-control required" name="impresionDiag" id="impresionDiag" cols="10" rows="3"><?php echo $diagFin ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>TERAPÉUTICA EMPLEADA : <span>*</span></label>
-									<textarea class="form-control required" name="terapeuticaEmpl" id="terapeuticaEmpl" cols="10" rows="3"><?php
+									<textarea class="form-control required" name="terapeuticaEmpl" id="terapeuticaEmpl" cols="10" rows="3">
+										<?php
 										for($i=0; $i<$longitud; $i++){
 												$fi = substr($fechaIndic[$i+1], 11, -2);
 												$hi = substr($horaIndic[$i],10, -2);
@@ -614,10 +658,13 @@
 											if($i+1<$longitud){
 												echo "\r\n";
 											}
-												
 										}
 										?>
 									</textarea>
+                                </div>
+								<div class="form-group">
+                    			    <label>MOTIVO DE ENVIO : <span>*</span></label>
+									<textarea class="form-control required" name="motivoEnvio" id="motivoEnvio" cols="10" rows="3"></textarea>
                                 </div>
                                 <div class="form-wizard-buttons">
                                     <button type="button" class="btn btn-previous">Anterior</button>
@@ -677,7 +724,7 @@
 										  <input type="radio" name="estable" value="1" style="width: 30px; height: 30px"> &nbsp;&nbsp;SI
 										</label>
 										<label class="radio-inline">
-										  <input type="radio" name="estable" value="0" style="width: 30px; height: 30px">&nbsp;&nbsp; NO
+										  <input type="radio" name="estable" value="0" style="width: 30px; height: 30px">&nbsp;&nbsp;NO
 										</label>
 									</div>
 								</div>

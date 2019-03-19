@@ -61,6 +61,18 @@
 		} else {
 			$ta = '';
 		}
+		if (isset($_POST['so']))
+		{
+			$so  = $_POST["so"];
+		} else {
+			$so = '';
+		}
+		if (isset($_POST['glucosa']))
+		{
+			$glucosa  = $_POST["glucosa"];
+		} else {
+			$glucosa = '';
+		}
 		if (isset($_POST['temp']))
 		{
 			$temp  = $_POST["temp"];
@@ -85,35 +97,11 @@
 		} else {
 			$interrogatorio = '';
 		}
-		if (isset($_POST['habEx']))
+		if (isset($_POST['expFisica']))
 		{
-			$habEx  = $_POST["habEx"];
+			$expFisica  = $_POST["expFisica"];
 		} else {
-			$habEx = '';
-		}
-		if (isset($_POST['cabez']))
-		{
-			$cabez  = $_POST["cabez"];
-		} else {
-			$cabez = '';
-		}
-		if (isset($_POST['torax']))
-		{
-			$torax  = $_POST["torax"];
-		} else {
-			$torax = '';
-		}
-		if (isset($_POST['abdom']))
-		{
-			$abdom  = $_POST["abdom"];
-		} else {
-			$abdom = '';
-		}
-		if (isset($_POST['extrm']))
-		{
-			$extrm  = $_POST["extrm"];
-		} else {
-			$extrm = '';
+			$expFisica = '';
 		}
 		if (isset($_POST['estudiosGabyLab']))
 		{
@@ -178,6 +166,14 @@
 			<td><input type='text' class='nombre' name='ta' id='ta' style='width: 70px; height: 30px' value='$ta'>mmHg</td>
 		</tr>
 		<tr>
+			<td><label style='color: beige'>SO :</label></td>
+			<td><input type='text' class='nombre' name='so' id='so' style='width: 70px; height: 30px' value='$so'>mmHg</td>
+		</tr>
+		<tr>
+			<td><label style='color: beige'>GLUCOSA :</label></td>
+			<td><input type='text' class='nombre' name='glucosa' id='glucosa' style='width: 70px; height: 30px' value='$glucosa'>mmHg</td>
+		</tr>
+		<tr>
 			<td><label style='color: beige'>Temperatura :</label></td>
 			<td><input type='text' class='nombre' name='temp' id='temp' style='width: 50px; height: 30px' value='$temp'>°C</td>
 		</tr>				
@@ -194,24 +190,8 @@
 			<td><textarea class='nombre' id='interrogatorio' name='interrogatorio' rows='3' cols='70'>$interrogatorio</textarea></td>
 		</tr>
 		<tr>
-			<td><label style='color: beige'>Hab. Exterior :</label></td>
-			<td><textarea class='nombre' id='habEx' name='habEx' rows='3' cols='70'>$habEx</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Cabeza :</label></td>
-			<td><textarea class='nombre' id='cabez' name='cabez' rows='3' cols='70'>$cabez</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Torax :</label></td>
-			<td><textarea class='nombre' id='torax' name='torax' rows='3' cols='70'>$torax</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Abdomen :</label></td>
-			<td><textarea class='nombre' id='abdom' name='abdom' rows='3' cols='70'>$abdom</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Extremidades :</label></td>
-			<td><textarea class='nombre' id='extrm' name='extrm' rows='3' cols='70'>$extrm</textarea></td>
+			<td><label style='color: beige'>Exploración Física :</label></td>
+			<td><textarea class='nombre' id='expFisica' name='expFisica' rows='3' cols='70'>$expFisica</textarea></td>
 		</tr>
 		<tr>
 			<td><label style='color: beige'>Estudios de Gabinete y Lab :</label></td>

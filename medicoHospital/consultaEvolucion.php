@@ -126,11 +126,7 @@
 									<td style="display: none"><?php echo $row['glucosa'] ?></td>
 									<td style="display: none"><?php echo $row['peso'] ?></td>
 									<td style="display: none"><?php echo $row['talla'] ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['habExt']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['cabeza']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['torax']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['abdomen']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['extremidades']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['expFisica']) ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['diag']) ?></td>									
 									<td style="display: none"><?php echo utf8_encode($row['pronosticoVida']) ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['pronosticoFuncion']) ?></td>
@@ -139,7 +135,6 @@
 									<td style="display: none"><?php echo $row['fecha'] ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['servicio']) ?></td>
 									<td style="display: none"><?php echo $row['turno'] ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['ingresa']) ?></td>
 									<?php } ?>
 								</tr>
 							</tbody>
@@ -227,27 +222,22 @@
 				glucosa  = $(nTds[12]).text();
 				peso  = $(nTds[13]).text();
 				talla  = $(nTds[14]).text();
-				habEx  = $(nTds[15]).text();
-				cabez  = $(nTds[16]).text();
-				torax  = $(nTds[17]).text();
-				abdom  = $(nTds[18]).text();
-				extrm  = $(nTds[19]).text();
-				diagn  = $(nTds[20]).text();
-				pronosticoVida  = $(nTds[21]).text();
-				pronosticoFuncion  = $(nTds[22]).text();
-				cedula  = $(nTds[23]).text();
-				horaFin  = $(nTds[24]).text();
-				fechaFin  = $(nTds[25]).text();
-				servicio  = $(nTds[26]).text();
-				turno  = $(nTds[27]).text();
-				ingresa  = $(nTds[28]).text();
+				expFisica  = $(nTds[15]).text();
+				diagn  = $(nTds[16]).text();
+				pronosticoVida  = $(nTds[17]).text();
+				pronosticoFuncion  = $(nTds[18]).text();
+				cedula  = $(nTds[19]).text();
+				horaFin  = $(nTds[20]).text();
+				fechaFin  = $(nTds[21]).text();
+				servicio  = $(nTds[22]).text();
+				turno  = $(nTds[23]).text();
 
 				$("#div_User").fadeIn();
 				$("#div_User").html("<div id='cargando' style='display:none; color: green;text-align:center' width='100%' height='100%'><img width='16' height='16' src='../img/ajax-loader.gif' /> Cargando...</b></div>");
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarEvolucion.php",{idNotaEvoh:idNotaEvoh,fecha:fecha,hora:hora,evolucion:evolucion,estudios:estudios,tratamientoF:tratamientoF,fc:fc,fr:fr,ta:ta,temp:temp,so:so,glucosa:glucosa,peso:peso,talla:talla,habEx:habEx,cabez:cabez,torax:torax,abdom:abdom,extrm:extrm,diagn:diagn,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,cedula:cedula,horaFin:horaFin,fechaFin:fechaFin,servicio:servicio,turno:turno,ingresa:ingresa} ,function(){
+				$("#div_User").load("modificarEvolucion.php",{idNotaEvoh:idNotaEvoh,fecha:fecha,hora:hora,evolucion:evolucion,estudios:estudios,tratamientoF:tratamientoF,fc:fc,fr:fr,ta:ta,temp:temp,so:so,glucosa:glucosa,peso:peso,talla:talla,expFisica:expFisica,diagn:diagn,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,cedula:cedula,horaFin:horaFin,fechaFin:fechaFin,servicio:servicio,turno:turno} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });

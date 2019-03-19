@@ -102,40 +102,12 @@ require_once('../conexion/configMedico.php');
 		$talla = '';
 	}
 
-	if (isset($_POST['habEx']))
+	if (isset($_POST['expFisica']))
 	{
-		$habEx  = utf8_decode($_POST["habEx"]);
-		$habEx=addslashes($habEx);
+		$expFisica  = utf8_decode($_POST["expFisica"]);
+		$expFisica=addslashes($expFisica);
 	} else {
-		$habEx = '';
-	}
-	if (isset($_POST['cabez']))
-	{
-		$cabez  = utf8_decode($_POST["cabez"]);
-		$cabez=addslashes($cabez);
-	} else {
-		$cabez = '';
-	}
-	if (isset($_POST['torax']))
-	{
-		$torax  = utf8_decode($_POST["torax"]);
-		$torax=addslashes($torax);
-	} else {
-		$torax = '';
-	}
-	if (isset($_POST['abdom']))
-	{
-		$abdom  = utf8_decode($_POST["abdom"]);
-		$abdom=addslashes($abdom);
-	} else {
-		$abdom = '';
-	}
-	if (isset($_POST['extrm']))
-	{
-		$extrm  = utf8_decode($_POST["extrm"]);
-		$extrm=addslashes($extrm);
-	} else {
-		$extrm = '';
+		$expFisica = '';
 	}
 	
 	if (isset($_POST['diagn']))
@@ -180,19 +152,11 @@ require_once('../conexion/configMedico.php');
 	} else {
 		$servicio = '';
 	}
-	if (isset($_POST['ingresa']))
-	{
-		$ingresa=addslashes($_POST["ingresa"]);
-		$ingresa  = utf8_decode($ingresa);
-	} else {
-		$ingresa = '';
-	}
 	
 	if(!empty($idNotaEvoh)){
 		$queryUpdDNotaEvo = "UPDATE notaEvolucionh SET hora='$horaFin', fecha='$fechaFin',servicio='$servicio',turno='$turno',fc='$fc',fr='$fr',
-		ta='$ta', temp='$temp', so='$so', glucosa='$glucosa',peso='$peso',talla='$talla',evolucion='$evolucion',habExt='$habEx',cabeza='$cabez',
-		torax='$torax', abdomen='$abdom',extremidades='$extrm', estudios='$estudios',diag='$diagn',tratamientoFin='$tratamientoF',
-		pronosticoVida='$pronosticoVida',pronosticoFuncion='$pronosticoFuncion', cedula='$cedula', ingresa='$ingresa' WHERE id='$idNotaEvoh'";
+		ta='$ta', temp='$temp', so='$so', glucosa='$glucosa',peso='$peso',talla='$talla',evolucion='$evolucion',expFisica='$expFisica',estudios='$estudios',diag='$diagn',tratamientoFin='$tratamientoF',
+		pronosticoVida='$pronosticoVida',pronosticoFuncion='$pronosticoFuncion', cedula='$cedula' WHERE id='$idNotaEvoh'";
 		
 		$result0 = mysqli_query($conexionMedico, $queryUpdDNotaEvo) or die (mysqli_error($conexionMedico));
 			

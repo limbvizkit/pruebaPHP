@@ -102,6 +102,14 @@ require_once('../conexion/configMedico.php');
 	} else {
 		$interrogatorio = '';
 	}
+	
+	if (isset($_POST['expFisica']))
+	{
+		$expFisica  = utf8_decode($_POST["expFisica"]);
+		$expFisica=addslashes($expFisica);
+	} else {
+		$expFisica = '';
+	}
 
 	if (isset($_POST['habEx']))
 	{
@@ -167,8 +175,8 @@ require_once('../conexion/configMedico.php');
 	if(!empty($idNotaTraslServ)){
 		$queryUpdDNotaTS = "UPDATE notaTrasladoServ SET hora='$horaFin', fecha='$fechaFin',motivoTransferencia='$motivoTransferencia',
 		servicioActual='$servicioActual',servicioTraslada='$servicioTraslada',turno='$turno',fc='$fc',fr='$fr',ta='$ta',temp='$temp',peso='$peso',
-		talla='$talla',interrogatorio='$interrogatorio',habExt='$habEx',cabeza='$cabez',torax='$torax',abdomen='$abdom',extremidades='$extrm',
-		estudiosGabyLab='$estudiosGabyLab',terapeuticayProcedimientos='$terapeuticayProcedimientos',cedula='$cedula' WHERE id='$idNotaTraslServ'";
+		talla='$talla',interrogatorio='$interrogatorio',expFisica='$expFisica',estudiosGabyLab='$estudiosGabyLab',terapeuticayProcedimientos='$terapeuticayProcedimientos',cedula='$cedula'
+		WHERE id='$idNotaTraslServ'";
 		
 		$result0 = mysqli_query($conexionMedico, $queryUpdDNotaTS) or die (mysqli_error($conexionMedico));
 			

@@ -1,6 +1,9 @@
 <?php
 require_once('../conexion/configMedico.php');
-
+	
+	$tabaco=NULL;
+	$alcohol=NULL;
+	$drogas=NULL;
 	if (isset($_POST['idHistClin']))
 	{
 		$idHistClin  = $_POST["idHistClin"];
@@ -115,6 +118,24 @@ require_once('../conexion/configMedico.php');
 		$antecedentesPatologicos=addslashes($antecedentesPatologicos);
 	} else {
 		$antecedentesPatologicos = '';
+	}
+	if (isset($_POST['tabaco']))
+	{
+		$tabaco = $_POST["tabaco"];
+	} else {
+		$tabaco = '';
+	}
+	if (isset($_POST['alcohol']))
+	{
+		$alcohol = $_POST["alcohol"];
+	} else {
+		$alcohol = '';
+	}
+	if (isset($_POST['drogas']))
+	{
+		$drogas = $_POST["drogas"];
+	} else {
+		$drogas = '';
 	}
 	if (isset($_POST['conciliacionMedicamentos']))
 	{
@@ -290,12 +311,12 @@ require_once('../conexion/configMedico.php');
 	} else {
 		$cabeza = '';
 	}
-	if (isset($_POST['cuello']))
+	if (isset($_POST['torax']))
 	{
-		$cuello = utf8_decode($_POST["cuello"]);
-		$cuello = addslashes($cuello);
+		$torax = utf8_decode($_POST["torax"]);
+		$torax = addslashes($torax);
 	} else {
-		$cuello = '';
+		$torax = '';
 	}
 	if (isset($_POST['abdomen']))
 	{
@@ -412,12 +433,12 @@ require_once('../conexion/configMedico.php');
 		$queryUpdDHistClin = "UPDATE historiaclinica SET hora='$hora',tipoInterroga='$tipoInterroga',edoCivil='$edoCivil',ocupacion='$ocupacion',
 			lugarOrigen='$lugarOrigen',escolaridad='$escolaridad',religion='$religion',grupoRH='$grupoRH',antecedentesHeredo='$antecedentesHeredo',
 			habitacion='$habitacion',habitos='$habitos',alimentacion='$alimentacion',actividadFisica='$actividadFisica',inmunizaciones='$inmunizaciones',
-			antecedentesPatologicos='$antecedentesPatologicos',conciliacionMedicamentos='$conciliacionMedicamentos',
+			antecedentesPatologicos='$antecedentesPatologicos',tabaco='$tabaco',alcohol='$alcohol',drogas='$drogas',conciliacionMedicamentos='$conciliacionMedicamentos',
 			antecedentesGineco='$antecedentesGineco',antecedentesPediatricos='$antecedentesPediatricos',padecimientoActual='$padecimientoActual',
 			sintomas='$sintomas',respiratorio='$respiratorio',musculoEsquele='$musculoEsquele',digestivo='$digestivo',genital='$genital',
 			endocrino='$endocrino',nervioso='$nervioso',hematologico='$hematologico',psicologico='$psicologico',urinario='$urinario',
 			cardiocirculatorio='$cardiocirculatorio',pielFaneras='$pielFaneras',fc='$fc',fr='$fr',ta='$ta',temp='$temp',so='$so',glucosa='$glucosa',
-			peso='$peso',talla='$talla',habExt='$habEx',cabeza='$cabeza',cuello='$cuello',abdomen='$abdomen',extremidades='$extremidades',
+			peso='$peso',talla='$talla',habExt='$habEx',cabeza='$cabeza',torax='$torax',abdomen='$abdomen',extremidades='$extremidades',
 			genitales='$genitales',neurologico='$neurologico',pielFaneras2='$pielFaneras2',columnavertebral='$columnavertebral',
 			estudiosGabinete='$estudiosGabinete',terapeutica='$terapeutica',criteriosEspecializadas='$criteriosEspecializadas',
 			educacionEspecial='$educacionEspecial',gestionEquipo='$gestionEquipo',procesosAdmin='$procesosAdmin',diagnostico='$diagnostico',

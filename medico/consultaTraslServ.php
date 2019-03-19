@@ -133,6 +133,7 @@
 									<td style="display: none"><?php echo utf8_encode($row['estudiosGabyLab']) ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['terapeuticayProcedimientos']) ?></td>
 									<td style="display: none"><?php echo $row['cedula'] ?></td>
+									<td style="display: none"><?php echo $row['expFisica'] ?></td>
 									<?php } ?>
 								</tr>
 							</tbody>
@@ -230,6 +231,7 @@
 				estudiosGabyLab = $(nTds[22]).text();
 				terapeuticayProcedimientos = $(nTds[23]).text();
 				cedula  = $(nTds[24]).text();
+				expFisica  = $(nTds[25]).text();
 				
 
 				$("#div_User").fadeIn();
@@ -237,7 +239,7 @@
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarTraslServ.php",{idNotaTraslServ:idNotaTraslServ,fecha:fecha,hora:hora,motivoTransferencia:motivoTransferencia,servicioActual:servicioActual,servicioTraslada:servicioTraslada,horaFin:horaFin,fechaFin:fechaFin,turno:turno,fc:fc,fr:fr,ta:ta,temp:temp,peso:peso,talla:talla,interrogatorio:interrogatorio,habEx:habEx,cabez:cabez,torax:torax,abdom:abdom,extrm:extrm,estudiosGabyLab:estudiosGabyLab,terapeuticayProcedimientos:terapeuticayProcedimientos,cedula:cedula} ,function(){
+				$("#div_User").load("modificarTraslServ.php",{idNotaTraslServ:idNotaTraslServ,fecha:fecha,hora:hora,motivoTransferencia:motivoTransferencia,servicioActual:servicioActual,servicioTraslada:servicioTraslada,horaFin:horaFin,fechaFin:fechaFin,turno:turno,fc:fc,fr:fr,ta:ta,temp:temp,peso:peso,talla:talla,interrogatorio:interrogatorio,habEx:habEx,cabez:cabez,torax:torax,abdom:abdom,extrm:extrm,estudiosGabyLab:estudiosGabyLab,terapeuticayProcedimientos:terapeuticayProcedimientos,cedula:cedula,expFisica:expFisica} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });

@@ -23,21 +23,21 @@
 	$fcFin=NULL;
 	$frFin=NULL;
 	$taFin=NULL;
+	$soFin=NULL;
+	$glucosaFin=NULL;
 	$tempFin=NULL;
-	
 	$pesoFin=NULL;
 	$tallaFin=NULL;
 	$turnoFin=NULL;
 	$turnoFinLetra=NULL;
-	$ingresaFin=NULL;
-	$acudeFin=NULL;
-	$antecOld=NULL;
-	$indicaciones=NULL;
-	$fechaFin=NULL;
+	$expFisicaFin=NULL;
+	$padecimientoFin=NULL;
+	$interrogaFin=NULL;
 	//Query para jalar los datos de la consulta medica
 	$queryAntec = "SELECT *
-				  FROM notaUrgchoque
+				  FROM notaEvolucionH
 				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+				  ORDER BY id DESC
 				  LIMIT 1";
 
 	$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
@@ -47,8 +47,9 @@
 		$frFin=$rowA['fr'];
 		$taFin=$rowA['ta'];
 		$tempFin=$rowA['temp'];
-		$interrogaFin=utf8_encode($rowA['interrogatorio']);
-		$ingresaFin=utf8_encode($rowA['ingresa']);
+		$pesoFin = $rowA['peso'];
+		$tallaFin = $rowA['talla'];
+		
 		$turnoFin=$rowA['turno'];
 		$fechaFin =substr($rowA['fecha'],0,10);
 		//$fechaFin = $fechaFin0->format('Y-m-d');
@@ -60,87 +61,46 @@
 		} if($turnoFin == 'N'){
 			$turnoFinLetra='NOCTURNO';
 		}
-		/*$soFin=$rowA['so'];
-		$glucosaFin=$rowA['glucosa'];*/
+		$soFin=$rowA['so'];
+		$glucosaFin=$rowA['glucosa'];
 		
-		$habExtOld= utf8_encode($rowA['habExt']);
-		$habExtFin=addslashes ($habExtOld);
-		
-		$cabezaOld= utf8_encode($rowA['cabeza']);
-		$cabezaFin=addslashes ($cabezaOld);
-
-		$toraxOld= utf8_encode($rowA['torax']);
-		$toraxFin=addslashes ($toraxOld);
-		
-		$abdomenOld= utf8_encode($rowA['abdomen']);
-		$abdomenFin=addslashes ($abdomenOld);
-
-		$extremidadesOld= utf8_encode($rowA['extremidades']);
-		$extremidadesFin=addslashes ($extremidadesOld);
-		
-		/*$resEstOld=utf8_encode($rowA['resEst']);
-		$resEstFin=addslashes ($resEstOld);
-
-		$tratamientoOld= utf8_encode($rowA['tratamientoFin']);
-		$tratamientoFin=addslashes ($tratamientoOld);*/
-
-		/*$diagOld= utf8_encode($rowA['diag']);
-		$diagFin=addslashes ($diagOld);*/
-		/*$vidaFin=$rowA['pronosticoVida'];
-		$funcionFin=$rowA['pronosticoFuncion'];*/
-		//$acudeFin=$rowA['acude'];
+		$expFisicaOld= utf8_encode($rowA['expFisica']);
+		$expFisicaFin=addslashes ($expFisicaOld);
 		
 	}
-	if($fcFin== NULL || $fcFin == ''){
-		$queryAntec = "SELECT *
-				  FROM notaUrg
-				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
-				  LIMIT 1";
 
-		$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
+	$queryAntec1 = "SELECT *
+			  FROM historiaClinica
+			  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+			  ORDER BY id DESC
+			  LIMIT 1";
 
-		while($rowA = mysqli_fetch_array($antec)){
+	$antec1 = mysqli_query($conexionMedico, $queryAntec1) or die (mysqli_error($conexionMedico));
 
-			$fcFin=$rowA['fc'];
-			$frFin=$rowA['fr'];
-			$taFin=$rowA['ta'];
-			$tempFin=$rowA['temp'];
-			$interrogaFin=utf8_encode($rowA['interrogatorio']);
-			$ingresaFin=utf8_encode($rowA['ingresa']);
-			$turnoFin=$rowA['turno'];
-			$fechaFin =substr($rowA['fecha'],0,10);
-		
-			if($turnoFin == 'M'){
-				$turnoFinLetra='MATUTINO';
-			} else if($turnoFin == 'V'){
-				$turnoFinLetra='VESPERTINO';
-			} if($turnoFin == 'N'){
-				$turnoFinLetra='NOCTURNO';
-			}
-			/*$soFin=$rowA['so'];
-			$glucosaFin=$rowA['glucosa'];*/
-
-			$habExtOld= utf8_encode($rowA['habExt']);
-			$habExtFin=addslashes ($habExtOld);
-
-			$cabezaOld= utf8_encode($rowA['cabeza']);
-			$cabezaFin=addslashes ($cabezaOld);
-
-			$toraxOld= utf8_encode($rowA['torax']);
-			$toraxFin=addslashes ($toraxOld);
-
-			$abdomenOld= utf8_encode($rowA['abdomen']);
-			$abdomenFin=addslashes ($abdomenOld);
-
-			$extremidadesOld= utf8_encode($rowA['extremidades']);
-			$extremidadesFin=addslashes ($extremidadesOld);
+	while($rowA1 = mysqli_fetch_array($antec1)){
+		if($pesoFin== NULL || $pesoFin == ''){
+			$fcFin=$rowA1['fc'];
+			$frFin=$rowA1['fr'];
+			$taFin=$rowA1['ta'];
+			$soFin=$rowA1['so'];
+			$glucosaFin=$rowA1['glucosa'];
+			$tempFin=$rowA1['temp'];
+			$pesoFin = $rowA1['peso'];
+			$tallaFin = $rowA1['talla'];
+			$fechaFin =substr($rowA1['fecha'],0,10);
+		}
+		if($padecimientoFin== NULL || $padecimientoFin == ''){
+			$padecimientoOld= utf8_encode($rowA1['padecimientoActual']);
+			$padecimientoFin=addslashes ($padecimientoOld);
 		}
 	}
 
 	//Precargar datos de Indicaciones
+	$indicaciones=NULL;
 	$queryIndic = "SELECT *
 				  FROM indicacionesmedicas
 				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+				  ORDER BY id DESC
 				  LIMIT 1";
 
 		$indic = mysqli_query($conexionMedico, $queryIndic) or die (mysqli_error($conexionMedico));
@@ -259,14 +219,14 @@
 		{
 			$temp=$_POST['temp'];
 		}
-		/*if (isset($_POST['so']))
+		if (isset($_POST['so']))
 		{
 			$so=$_POST['so'];
 		}
 		if (isset($_POST['glucosa']))
 		{
 			$glucosa=$_POST['glucosa'];
-		}*/
+		}
 		if (isset($_POST['peso']))
 		{
 			$peso=$_POST['peso'];
@@ -291,30 +251,10 @@
 			$terapeuticayProcedimientos = addslashes($terapeuticayProcedimientos);
 		}
 		
-		if (isset($_POST['habExt']))
+		if (isset($_POST['expFisica']))
 		{
-			$habExt=utf8_decode($_POST['habExt']);
-			$habExt=addslashes($habExt);
-		}
-		if (isset($_POST['cabeza']))
-		{
-			$cabeza=utf8_decode($_POST['cabeza']);
-			$cabeza=addslashes($cabeza);
-		}
-		if (isset($_POST['torax']))
-		{
-			$torax=utf8_decode($_POST['torax']);
-			$torax=addslashes($torax);
-		}
-		if (isset($_POST['abdomen']))
-		{
-			$abdomen=utf8_decode($_POST['abdomen']);
-			$abdomen=addslashes ($abdomen);
-		}
-		if (isset($_POST['extremidades']))
-		{
-			$extremidades=utf8_decode($_POST['extremidades']);
-			$extremidades=addslashes ($extremidades);
+			$expFisica=utf8_decode($_POST['expFisica']);
+			$expFisica=addslashes($expFisica);
 		}
 		if (isset($_POST['estudios']))
 		{
@@ -354,11 +294,10 @@
 		'.$torax.' '.$abdomen.' '.$extremidades.' '.$diag.' '.$tratamientoFin;*/
 		
 		$queryInsUrg = "INSERT INTO notaTrasladoServh (id,numeroExpediente,folio,fecha,hora,turno,motivoTransferencia,servicioActual,servicioTraslada,
-					fc,fr,ta,temp,peso,talla,interrogatorio,habExt,cabeza,torax,abdomen,extremidades,estudiosGabyLab,
+					fc,fr,ta,so,glucosa,temp,peso,talla,interrogatorio,expFisica,estudiosGabyLab,
 					terapeuticayProcedimientos,cedula,usr)
 					VALUES (NULL,'$expediente','$folio','$fecha','$hora','$turno','$motivoTransferencia','$servicioActual','$servicioTraslada','$fc',
-					'$fr','$ta','$temp','$peso','$talla','$interrogatorio','$habExt','$cabeza','$torax','$abdomen','$extremidades','$estudiosGabyLab',
-					'$terapeuticayProcedimientos','$cedula','$rol')";
+					'$fr','$ta','$so','$glucosa','$temp','$peso','$talla','$interrogatorio','$expFisica','$estudiosGabyLab','$terapeuticayProcedimientos','$cedula','$rol')";
 		
 			$result0 = mysqli_query($conexionMedico, $queryInsUrg);
 			if(!$result0) {
@@ -576,21 +515,21 @@
 											<label>TEMP : <span>*</span></label>
 											<input type="text" name="temp" placeholder="°C" class="form-control required" value="<?php echo $tempFin ?>" autocomplete="off">
 										</div>
-										<!--div class="form-group col-md-6 col-xs-6">
-											<label>SO2 : <span>*</span></label>
-											<input type="text" name="so" class="form-control required" value="<?php echo $soFin ?>" autocomplete="off">
+										<div class="form-group col-md-6 col-xs-6">
+											<label>SO2 : <span></span></label>
+											<input type="text" name="so" class="form-control" value="<?php echo $soFin ?>" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
 											<label>GLUCOSA : <span></span></label>
 											<input type="text" name="glucosa" placeholder="mg/dl" class="form-control" value="<?php echo $glucosaFin ?>" autocomplete="off">
-										</div-->
-										<div class="form-group col-md-6 col-xs-6">
-											<label>PESO (Kg) : <span></span></label>
-											<input type="number" step="0.01" name="peso" class="form-control" value="<?php echo $pesoFin ?>" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
-											<label>TALLA (Mts) : <span></span></label>
-											<input type="number" step="0.01" name="talla" class="form-control" value="<?php echo $tallaFin ?>" autocomplete="off">
+											<label>PESO (Kg) : <span>*</span></label>
+											<input type="number" step="0.01" name="peso" class="form-control required" value="<?php echo $pesoFin ?>" autocomplete="off">
+										</div>
+										<div class="form-group col-md-6 col-xs-6">
+											<label>TALLA (Mts) : <span>*</span></label>
+											<input type="number" step="0.01" name="talla" class="form-control required" value="<?php echo $tallaFin ?>" autocomplete="off">
 										</div>
 									</div>									
 								</div>
@@ -614,34 +553,14 @@
 								
 								<div class="form-group">
                     			    <label>PADECIMIENTO ACTUAL : <span>*</span></label>
-									<textarea class="form-control required" name="interrogatorio" id="interrogatorio" cols="10" rows="3"><?php echo $interrogaFin ?></textarea>
+									<textarea class="form-control required" name="interrogatorio" id="interrogatorio" cols="10" rows="3"><?php echo $padecimientoFin ?></textarea>
                                     <!--input type="text" name="habExt" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
-                    			    <label>ESTADO MENTAL Y HABITUS EXTERIOR : <span>*</span></label>
-									<textarea class="form-control required" name="habExt" id="habExt" cols="10" rows="3"><?php echo $habExtFin ?></textarea>
+                    			    <label>EXPLORACIÓN FÍSICA : <span>*</span></label>
+									<textarea class="form-control required" name="expFisica" id="expFisica" cols="10" rows="3"><?php echo $expFisicaFin ?></textarea>
                                     <!--input type="text" name="habExt" class="form-control" autocomplete="off"-->
                                 </div>
-								<div class="form-group">
-                    			    <label>CABEZA : <span>*</span></label>
-									<textarea class="form-control required" name="cabeza" id="cabeza" cols="10" rows="3"><?php echo $cabezaFin ?></textarea>
-                                    <!--input type="text" name="cabeza" class="form-control" autocomplete="off"-->
-                                </div>
-								<div class="form-group">
-                    			    <label>TÓRAX : <span>*</span></label>
-									<textarea class="form-control required" name="torax" id="torax" cols="10" rows="3"><?php echo $toraxFin ?></textarea>
-                                    <!--input type="text" name="torax" class="form-control" autocomplete="off"-->
-                                </div>
-								<div class="form-group">
-                    			    <label>ABDOMEN : <span>*</span></label>
-									<textarea class="form-control required" name="abdomen" id="abdomen" cols="10" rows="3"><?php echo $abdomenFin ?></textarea>
-                                    <!--input type="text" name="abdomen" class="form-control" autocomplete="off"-->
-                                </div>
-								<div class="form-group">
-                    			    <label>EXTREMIDADES : <span>*</span></label>
-									<textarea class="form-control required" name="extremidades" id="extremidades" cols="10" rows="3"><?php echo $extremidadesFin ?></textarea>
-                                    <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
-                                </div>								
                                 <div class="form-wizard-buttons">
                                     <button type="button" class="btn btn-previous">Anterior</button>
                                     <button type="button" class="btn btn-next">Siguiente</button>

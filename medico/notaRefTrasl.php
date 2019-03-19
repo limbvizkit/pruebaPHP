@@ -30,11 +30,16 @@
 	$turnoFin=NULL;
 	$turnoFinLetra=NULL;
 	$acudeFin=NULL;
-	$antecOld=NULL;
+	$antecPerFin=NULL;
 	$fechaFin=NULL;
-	//Query para jalar los datos de la consulta medica
+	$diagFin=NULL;
+	$padecimientoFin=NULL;
+	$expFisicaFin=NULL;
+
+
+//Query para jalar los datos de la nota de Evolucion
 	$queryAntec = "SELECT *
-				  FROM notaUrgchoque
+				  FROM notaEvolucionh
 				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
 				  LIMIT 1";
 
@@ -61,6 +66,39 @@
 		$diagFin=addslashes ($diagOld);
 		
 	}
+
+	if($fcFin== NULL || $fcFin == ''){
+		//Query para jalar los datos de la consulta medica
+		$queryAntec = "SELECT *
+					  FROM notaUrgchoque
+					  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+					  LIMIT 1";
+
+		$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
+		while($rowA = mysqli_fetch_array($antec)){
+
+			$fcFin=$rowA['fc'];
+			$frFin=$rowA['fr'];
+			$taFin=$rowA['ta'];
+			$tempFin=$rowA['temp'];
+			$turnoFin=$rowA['turno'];
+			$fechaFin =substr($rowA['fecha'],0,10);
+			//$fechaFin = $fechaFin0->format('Y-m-d');
+
+			if($turnoFin == 'M'){
+				$turnoFinLetra='MATUTINO';
+			} else if($turnoFin == 'V'){
+				$turnoFinLetra='VESPERTINO';
+			} if($turnoFin == 'N'){
+				$turnoFinLetra='NOCTURNO';
+			}
+
+			$diagOld= utf8_encode($rowA['diag']);
+			$diagFin=addslashes ($diagOld);
+
+		}
+	}
+
 	if($fcFin== NULL || $fcFin == ''){
 		$queryAntec = "SELECT *
 				  FROM notaUrg
@@ -90,6 +128,40 @@
 			$diagFin=addslashes ($diagOld);
 		}
 	}
+
+	//Precarga de Historia Clinica
+	$queryAntec1 = "SELECT *
+			  FROM historiaClinica
+			  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+			  ORDER BY id DESC
+			  LIMIT 1";
+
+	$antec1 = mysqli_query($conexionMedico, $queryAntec1) or die (mysqli_error($conexionMedico));
+
+	while($rowA1 = mysqli_fetch_array($antec1)){
+		if($pesoFin== NULL || $pesoFin == ''){
+			$fcFin=$rowA1['fc'];
+			$frFin=$rowA1['fr'];
+			$taFin=$rowA1['ta'];
+			$soFin=$rowA1['so'];
+			$glucosaFin=$rowA1['glucosa'];
+			$tempFin=$rowA1['temp'];
+			$pesoFin = $rowA1['peso'];
+			$tallaFin = $rowA1['talla'];
+			$fechaFin =substr($rowA1['fecha'],0,10);
+		}
+		
+		$padecimientoOld= utf8_encode($rowA1['padecimientoActual']);
+		$padecimientoFin=addslashes ($padecimientoOld); 
+		
+		if($diagFin==NULL || $diagFin==''){
+			$diagOld= utf8_encode($rowA['diag']);
+			$diagFin=addslashes ($diagOld);
+		}
+		$antecPerold= utf8_encode($rowA1['antecedentesPatologicos']);
+		$antecPerFin=addslashes ($antecPerold);
+	}
+
 	//Precargar datos de Indicaciones
 	$indicaciones = NULL;
 	$longitud = NULL;
@@ -222,6 +294,12 @@
 		} else {
 			$incuba=NULL;
 		}
+		if (isset($_POST['ninguno']))
+		{
+			$ninguno=$_POST['ninguno'];
+		} else {
+			$ninguno=NULL;
+		}
 		if (isset($_POST['receptor']))
 		{
 			$receptor=$_POST['receptor'];
@@ -257,6 +335,21 @@
 		if (isset($_POST['talla']))
 		{
 			$talla=$_POST['talla'];
+		}
+		if (isset($_POST['antecedentesPer']))
+		{
+			$antecedentesPer=utf8_decode($_POST['antecedentesPer']);
+			$antecedentesPer = addslashes($antecedentesPer);
+		}
+		if (isset($_POST['padecimientoAct']))
+		{
+			$padecimientoAct=utf8_decode($_POST['padecimientoAct']);
+			$padecimientoAct = addslashes($padecimientoAct);
+		}
+		if (isset($_POST['expFisica']))
+		{
+			$expFisica=utf8_decode($_POST['expFisica']);
+			$expFisica = addslashes($expFisica);
 		}
 		if (isset($_POST['motivoEnvio']))
 		{
@@ -298,10 +391,10 @@
 		'.$torax.' '.$abdomen.' '.$extremidades.' '.$diag.' '.$tratamientoFin;*/
 		
 		$queryInsUrg = "INSERT INTO notaReferenciaTras (id,numeroExpediente,folio,fecha,hora,turno,servicio,tipoTraslado,ambulanciaTecno,tipoPaciente,
-						oxigeno,desfibrilador,ventilador,incubadora,receptor,otroReceptor,fc,fr,ta,temp,peso,talla,motivoEnvio,impresionDiag,
+						oxigeno,desfibrilador,ventilador,incubadora,ninguno,receptor,otroReceptor,fc,fr,ta,temp,peso,talla,antecedentesPer,padecimientoAct,expFisica,motivoEnvio,impresionDiag,
 						terapeuticaEmpl,cedulaMedEntrega,fechaExt,horaExt,estable,turnoExt,usr)
 						VALUES (NULL,'$expediente','$folio','$fecha','$hora','$turno','$servicio','$tipoTraslado','$ambulanciaTecno','$tipoPaciente',
-						'$oxi','$desfri','$venti','$incuba','$receptor','$otroReceptor','$fc','$fr','$ta','$temp','$peso','$talla','$motivoEnvio',
+						'$oxi','$desfri','$venti','$incuba','$ninguno','$receptor','$otroReceptor','$fc','$fr','$ta','$temp','$peso','$talla','$antecedentesPer','$padecimientoAct','$expFisica','$motivoEnvio',
 						'$impresionDiag','$terapeuticaEmpl','$cedulaMedEntrega','$fechaExt','$horaExt','$estable','$turnoExt','$rol')";
 		
 			$result0 = mysqli_query($conexionMedico, $queryInsUrg);
@@ -375,7 +468,7 @@
 			<br>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1 col-lg-6 col-lg-offset-3 col-md-10 col-md-offset-1">
+                    <div class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-13 col-md-10 col-md-offset-1">
 					
 						<!-- Form Wizard -->
 						<div class="form-wizard form-header-classic form-body-classic">
@@ -504,6 +597,9 @@
 									<label class="checkbox-inline"> INCUBADORA
 									  <input type="checkbox" name="incuba" style="width: 45px; height: 35px" value="1"> 
 									</label>
+									<label class="checkbox-inline"> NINGUNO
+									  <input type="checkbox" name="ninguno" style="width: 45px; height: 35px" value="1" checked>
+									</label>
                                 </div>
 								<br>
 								<br>
@@ -583,8 +679,16 @@
 								</div>
 								
 								<div class="form-group">
-                    			    <label>MOTIVO DE ENVIO : <span>*</span></label>
-									<textarea class="form-control required" name="motivoEnvio" id="motivoEnvio" cols="10" rows="3"></textarea>
+                    			    <label>ANTECEDENTES PERSONALES PATOLÓGICOS : <span>*</span></label>
+									<textarea class="form-control required" name="antecedentesPer" id="antecedentesPer" cols="10" rows="3"><?php echo $antecPerFin ?></textarea>
+                                </div>
+								<div class="form-group">
+                    			    <label>PADECIMIENTO ACTUAL : <span>*</span></label>
+									<textarea class="form-control required" name="padecimientoAct" id="padecimientoAct" cols="10" rows="3"><?php echo $padecimientoFin ?></textarea>
+                                </div>
+								<div class="form-group">
+                    			    <label>EXPLORACIÓN FÍSICA : <span>*</span></label>
+									<textarea class="form-control required" name="expFisica" id="expFisica" cols="10" rows="3"><?php echo $expFisicaFin ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>IMPRESIÓN DIAGNOSTICA : <span>*</span></label>
@@ -611,6 +715,10 @@
 										}
 										?>
 									</textarea>
+                                </div>
+								<div class="form-group">
+                    			    <label>MOTIVO DE ENVIO : <span>*</span></label>
+									<textarea class="form-control required" name="motivoEnvio" id="motivoEnvio" cols="10" rows="3"></textarea>
                                 </div>
                                 <div class="form-wizard-buttons">
                                     <button type="button" class="btn btn-previous">Anterior</button>

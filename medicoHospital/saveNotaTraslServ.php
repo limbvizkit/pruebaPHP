@@ -74,6 +74,20 @@ require_once('../conexion/configMedico.php');
 		$ta = '';
 	}
 
+	if (isset($_POST['so']))
+	{
+		$so  = $_POST["so"];
+	} else {
+		$so = '';
+	}
+
+	if (isset($_POST['glucosa']))
+	{
+		$glucosa  = $_POST["glucosa"];
+	} else {
+		$glucosa = '';
+	}
+
 	if (isset($_POST['temp']))
 	{
 		$temp  = $_POST["temp"];
@@ -103,40 +117,12 @@ require_once('../conexion/configMedico.php');
 		$interrogatorio = '';
 	}
 
-	if (isset($_POST['habEx']))
+	if (isset($_POST['expFisica']))
 	{
-		$habEx  = utf8_decode($_POST["habEx"]);
-		$habEx=addslashes($habEx);
+		$expFisica  = utf8_decode($_POST["expFisica"]);
+		$expFisica=addslashes($expFisica);
 	} else {
-		$habEx = '';
-	}
-	if (isset($_POST['cabez']))
-	{
-		$cabez  = utf8_decode($_POST["cabez"]);
-		$cabez=addslashes($cabez);
-	} else {
-		$cabez = '';
-	}
-	if (isset($_POST['torax']))
-	{
-		$torax  = utf8_decode($_POST["torax"]);
-		$torax=addslashes($torax);
-	} else {
-		$torax = '';
-	}
-	if (isset($_POST['abdom']))
-	{
-		$abdom  = utf8_decode($_POST["abdom"]);
-		$abdom=addslashes($abdom);
-	} else {
-		$abdom = '';
-	}
-	if (isset($_POST['extrm']))
-	{
-		$extrm  = utf8_decode($_POST["extrm"]);
-		$extrm=addslashes($extrm);
-	} else {
-		$extrm = '';
+		$expFisica = '';
 	}
 	
 	if (isset($_POST['estudiosGabyLab']))
@@ -166,9 +152,9 @@ require_once('../conexion/configMedico.php');
 	
 	if(!empty($idNotaTraslServh)){
 		$queryUpdDNotaTS = "UPDATE notaTrasladoServh SET hora='$horaFin', fecha='$fechaFin',motivoTransferencia='$motivoTransferencia',
-		servicioActual='$servicioActual',servicioTraslada='$servicioTraslada',turno='$turno',fc='$fc',fr='$fr',ta='$ta',temp='$temp',peso='$peso',
-		talla='$talla',interrogatorio='$interrogatorio',habExt='$habEx',cabeza='$cabez',torax='$torax',abdomen='$abdom',extremidades='$extrm',
-		estudiosGabyLab='$estudiosGabyLab',terapeuticayProcedimientos='$terapeuticayProcedimientos',cedula='$cedula' WHERE id='$idNotaTraslServh'";
+		servicioActual='$servicioActual',servicioTraslada='$servicioTraslada',turno='$turno',fc='$fc',fr='$fr',ta='$ta',so='$so',glucosa='$glucosa',temp='$temp',peso='$peso',
+		talla='$talla',interrogatorio='$interrogatorio',expFisica='$expFisica',estudiosGabyLab='$estudiosGabyLab',terapeuticayProcedimientos='$terapeuticayProcedimientos',cedula='$cedula' 
+		WHERE id='$idNotaTraslServh'";
 		
 		$result0 = mysqli_query($conexionMedico, $queryUpdDNotaTS) or die (mysqli_error($conexionMedico));
 			

@@ -125,7 +125,7 @@
 									<td style="display: none"><?php echo $row['hora'] ?></td>
 									<td style="display: none"><?php echo $row['fecha'] ?></td>
 									<td style="display: none"><?php echo $row['turno'] ?></td>
-									<td style="display: none"><?php echo $row['servicio'] ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['servicio']) ?></td>
 									<td style="display: none"><?php echo $row['ambulanciaTecno'] ?></td>
 									<td style="display: none"><?php echo $row['tipoPaciente'] ?></td>
 									<td style="display: none"><?php echo $row['oxigeno'] ?></td>
@@ -147,6 +147,10 @@
 									<td style="display: none"><?php echo $row['horaExt'] ?></td>
 									<td style="display: none"><?php echo $row['estable'] ?></td>
 									<td style="display: none"><?php echo $row['turnoExt'] ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['antecedentesPer']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['padecimientoAct']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['expFisica']) ?></td>
+									<td style="display: none"><?php echo $row['ninguno'] ?></td>
 									<?php } ?>
 								</tr>
 							</tbody>
@@ -237,14 +241,17 @@
 				horaExt = $(nTds[29]).text();
 				estable = $(nTds[30]).text();
 				turnoExt = $(nTds[31]).text();
-				
-
+				antecedentesPer = $(nTds[32]).text();
+				padecimientoAct = $(nTds[33]).text();
+				expFisica = $(nTds[34]).text();
+				ninguno = $(nTds[35]).text();
+				  
 				$("#div_User").fadeIn();
 				$("#div_User").html("<div id='cargando' style='display:none; color: green;text-align:center' width='100%' height='100%'><img width='16' height='16' src='../img/ajax-loader.gif' /> Cargando...</b></div>");
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarRefTrasl.php",{idNotaRefTrasl:idNotaRefTrasl,fecha:fecha,hora:hora,tipoTraslado:tipoTraslado,receptor:receptor,otroReceptor:otroReceptor,horaFin:horaFin,fechaFin:fechaFin,turno:turno,servicio:servicio,ambulanciaTecno:ambulanciaTecno,tipoPaciente:tipoPaciente,oxigeno:oxigeno,desfibrilador:desfibrilador,ventilador:ventilador,incubadora:incubadora,envia:envia,fc:fc,fr:fr,ta:ta,temp:temp,peso:peso,talla:talla,motivoEnvio:motivoEnvio,impresionDiag:impresionDiag,terapeuticaEmpl:terapeuticaEmpl,cedulaMedEntrega:cedulaMedEntrega,fechaExt:fechaExt,horaExt:horaExt,estable:estable,turnoExt:turnoExt} ,function(){
+				$("#div_User").load("modificarRefTrasl.php",{idNotaRefTrasl:idNotaRefTrasl,fecha:fecha,hora:hora,tipoTraslado:tipoTraslado,receptor:receptor,otroReceptor:otroReceptor,horaFin:horaFin,fechaFin:fechaFin,turno:turno,servicio:servicio,ambulanciaTecno:ambulanciaTecno,tipoPaciente:tipoPaciente,oxigeno:oxigeno,desfibrilador:desfibrilador,ventilador:ventilador,incubadora:incubadora,envia:envia,fc:fc,fr:fr,ta:ta,temp:temp,peso:peso,talla:talla,motivoEnvio:motivoEnvio,impresionDiag:impresionDiag,terapeuticaEmpl:terapeuticaEmpl,cedulaMedEntrega:cedulaMedEntrega,fechaExt:fechaExt,horaExt:horaExt,estable:estable,turnoExt:turnoExt,antecedentesPer:antecedentesPer,padecimientoAct:padecimientoAct,expFisica:expFisica,ninguno:ninguno} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });

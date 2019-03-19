@@ -277,11 +277,7 @@
 	 	$("#fecha").focus().after('<span class="error"> Colocar Fecha </span>');
 	 	return false;
 	 }
-	 if ($("#diagnosticos").val() == "") { 
-	 	$("#diagnosticos").focus().after('<span class="error"> Colocar Diagnósticos </span>');
-	 	return false;
-	 }
-	  if ($("#diagnosticoIngreso").val() == "") { 
+	 if ($("#diagnosticoIngreso").val() == "") { 
 	 	$("#diagnosticoIngreso").focus().after('<span class="error"> Colocar Diagnostico Ingreso </span>');
 	 	return false;
 	 }
@@ -341,40 +337,39 @@
 	 var Resp = confirm("Se eliminará la Nota de Ingreso de la fecha: "+ $("#fecha").val());
 	 
 	 if(Resp){
-			 /*Escogió opción ACEPTAR*/
-			 //Determinanos los datos del formulario y los serializamos
-			var datos = $("#formu").serialize();
-			// Enviamos el formulario usando AJAX
-			$.ajax({
-				type: 'POST',
-				url: 'delNotaUrg.php',
-				error: function(data){
-					//Si sucedió algo, se notifica
-						$(".result_fail").fadeIn();
-						$(".result_fail").html("Error Eliminando Registro");
-						alert("!!!ERROR DATA: NO Se elimino la Nota de Ingreso !!!");
-					},
-				data: datos,
-				// Mostramos un mensaje con la respuesta de PHP
-				success: function(data) {
-					if(data==1){
-						/*Reconstruimos la tabla*/
-						$("#Usuarios").html("");
-						$("#Usuarios").load("consultaPreoperatoria.php", function(){});
-						alert("Se Elimino la Nota de Ingreso Correctamente");
-						self.parent.location.reload();
-						/*Fin Reconstruir la tabla*/
-						$("#div_User").hide();
-					}else{
-						$(".result_fail").fadeIn();
-						$(".result_fail").html("Error " . data);
-						alert("!!!ERROR BD: NO Se elimino la Nota de Ingreso !!!");
-						return false;
-					}
-				 }
-			});		 
-		 }
-	 })
+		 /*Escogió opción ACEPTAR*/
+		 //Determinanos los datos del formulario y los serializamos
+		var datos = $("#formu").serialize();
+		// Enviamos el formulario usando AJAX
+		$.ajax({
+			type: 'POST',
+			url: 'delNotaUrg.php',
+			error: function(data){
+				//Si sucedió algo, se notifica
+					$(".result_fail").fadeIn();
+					$(".result_fail").html("Error Eliminando Registro");
+					alert("!!!ERROR DATA: NO Se elimino la Nota de Ingreso !!!");
+				},
+			data: datos,
+			// Mostramos un mensaje con la respuesta de PHP
+			success: function(data) {
+				if(data==1){
+					/*Reconstruimos la tabla*/
+					$("#Usuarios").html("");
+					$("#Usuarios").load("consultaPreoperatoria.php", function(){});
+					alert("Se Elimino la Nota de Ingreso Correctamente");
+					self.parent.location.reload();
+					/*Fin Reconstruir la tabla*/
+					$("#div_User").hide();
+				}else{
+					$(".result_fail").fadeIn();
+					$(".result_fail").html("Error " . data);
+					alert("!!!ERROR BD: NO Se elimino la Nota de Ingreso !!!");
+					return false;
+				}
+			 }
+		});		 
+	 }
+ })
   /*Fin Evento Click Botón Borrar Nota de Urg*/
-	
 	

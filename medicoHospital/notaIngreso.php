@@ -19,7 +19,7 @@
 		$folio=$_GET['folio'];
 	}
 
-	$fcFin=NULL;pe
+	$fcFin=NULL;
 	$frFin=NULL;
 	$taFin=NULL;
 	$tempFin=NULL;
@@ -69,6 +69,7 @@
 	$queryAntec = "SELECT *
 				  FROM historiaclinica
 				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+				  ORDER BY id DESC
 				  LIMIT 1";
 
 	$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
@@ -228,6 +229,10 @@
 	}
 
 	$val='0';
+	$tabaco=NULL;
+	$alcohol=NULL;
+	$drogas=NULL;
+
 	if(isset($_REQUEST['enviar']))
 	{
 		if (isset($_POST['expediente']))
@@ -478,7 +483,7 @@
 		'.$torax.' '.$abdomen.' '.$extremidades.' '.$diag.' '.$tratamientoFin;*/
 		
 		$queryInsNotaIngre = "INSERT INTO notaingreso (id,numeroExpediente,folio,hora,tipoInterroga,edoCivil,ocupacion,lugarOrigen,escolaridad,religion,
-						grupoRH,antecedentesHeredo,habitacion,habitos,alimentacion,actividadFisica,inmunizaciones,antecedentesPatologicos,tabaco,alcohol,drogas
+						grupoRH,antecedentesHeredo,habitacion,habitos,alimentacion,actividadFisica,inmunizaciones,antecedentesPatologicos,tabaco,alcohol,drogas,
 						conciliacionMedicamentos,antecedentesGineco,antecedentesPediatricos,padecimientoActual,fc,fr,ta,temp,so,glucosa,
 						peso,talla,habExt,cabeza,torax,abdomen,extremidades,genitales,neurologico,pielFaneras2,columnavertebral,estudiosGabinete,
 						terapeutica,gestionEquipo,procesosAdmin,diagnostico,pronosticoVida,pronosticoFuncion,cedula,usr)

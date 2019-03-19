@@ -121,15 +121,13 @@
 									<td style="display: none"><?php echo $row['fc'] ?></td>
 									<td style="display: none"><?php echo $row['fr'] ?></td>
 									<td style="display: none"><?php echo $row['ta'] ?></td>
+									<td style="display: none"><?php echo $row['so'] ?></td>
+									<td style="display: none"><?php echo $row['glucosa'] ?></td>
 									<td style="display: none"><?php echo $row['temp'] ?></td>									
 									<td style="display: none"><?php echo $row['peso'] ?></td>
 									<td style="display: none"><?php echo $row['talla'] ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['interrogatorio']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['habExt']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['cabeza']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['torax']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['abdomen']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['extremidades']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['expFisica']) ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['estudiosGabyLab']) ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['terapeuticayProcedimientos']) ?></td>
 									<td style="display: none"><?php echo $row['cedula'] ?></td>
@@ -218,18 +216,16 @@
 				fc = $(nTds[10]).text();
 				fr = $(nTds[11]).text();
 				ta = $(nTds[12]).text();
-				temp = $(nTds[13]).text();
-				peso = $(nTds[14]).text();
-				talla = $(nTds[15]).text();
-				interrogatorio  = $(nTds[16]).text();
-				habEx = $(nTds[17]).text();
-				cabez = $(nTds[18]).text();
-				torax = $(nTds[19]).text();
-				abdom = $(nTds[20]).text();
-				extrm = $(nTds[21]).text();
-				estudiosGabyLab = $(nTds[22]).text();
-				terapeuticayProcedimientos = $(nTds[23]).text();
-				cedula  = $(nTds[24]).text();
+			 	so = $(nTds[13]).text();
+				glucosa = $(nTds[14]).text();
+				temp = $(nTds[15]).text();
+				peso = $(nTds[16]).text();
+				talla = $(nTds[17]).text();
+				interrogatorio  = $(nTds[18]).text();
+				expFisica = $(nTds[19]).text();
+				estudiosGabyLab = $(nTds[20]).text();
+				terapeuticayProcedimientos = $(nTds[21]).text();
+				cedula  = $(nTds[22]).text();
 				
 
 				$("#div_User").fadeIn();
@@ -237,7 +233,7 @@
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarTraslServ.php",{idNotaTraslServh:idNotaTraslServh,fecha:fecha,hora:hora,motivoTransferencia:motivoTransferencia,servicioActual:servicioActual,servicioTraslada:servicioTraslada,horaFin:horaFin,fechaFin:fechaFin,turno:turno,fc:fc,fr:fr,ta:ta,temp:temp,peso:peso,talla:talla,interrogatorio:interrogatorio,habEx:habEx,cabez:cabez,torax:torax,abdom:abdom,extrm:extrm,estudiosGabyLab:estudiosGabyLab,terapeuticayProcedimientos:terapeuticayProcedimientos,cedula:cedula} ,function(){
+				$("#div_User").load("modificarTraslServ.php",{idNotaTraslServh:idNotaTraslServh,fecha:fecha,hora:hora,motivoTransferencia:motivoTransferencia,servicioActual:servicioActual,servicioTraslada:servicioTraslada,horaFin:horaFin,fechaFin:fechaFin,turno:turno,fc:fc,fr:fr,ta:ta,so:so,glucosa:glucosa,temp:temp,peso:peso,talla:talla,interrogatorio:interrogatorio,expFisica:expFisica,estudiosGabyLab:estudiosGabyLab,terapeuticayProcedimientos:terapeuticayProcedimientos,cedula:cedula} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });

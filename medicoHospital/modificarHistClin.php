@@ -102,6 +102,24 @@
 		} else {
 			$antecedentesPatologicos = '';
 		}
+		if (isset($_POST['tabaco']))
+		{
+			$tabaco  = $_POST["tabaco"];
+		} else {
+			$tabaco = '';
+		}
+		if (isset($_POST['alcohol']))
+		{
+			$alcohol  = $_POST["alcohol"];
+		} else {
+			$alcohol = '';
+		}
+		if (isset($_POST['drogas']))
+		{
+			$drogas  = $_POST["drogas"];
+		} else {
+			$drogas = '';
+		}
 		if (isset($_POST['conciliacionMedicamentos']))
 		{
 			$conciliacionMedicamentos  = $_POST["conciliacionMedicamentos"];
@@ -258,11 +276,11 @@
 		} else {
 			$cabeza = '';
 		}
-		if (isset($_POST['cuello']))
+		if (isset($_POST['torax']))
 		{
-			$cuello  = $_POST["cuello"];
+			$torax  = $_POST["torax"];
 		} else {
-			$cuello = '';
+			$torax = '';
 		}
 		if (isset($_POST['abdomen']))
 		{
@@ -381,6 +399,10 @@
 		$funcionM = $pronosticoFuncion=='MALO' ? 'checked':'';
 		$funcionR = $pronosticoFuncion=='RESERVADO' ? 'checked':'';
 		
+		$tabacoC = $tabaco=='1' ? 'checked':'';
+		$alcoholC = $alcohol=='1' ? 'checked':'';
+		$drogasC = $drogas=='1' ? 'checked':'';
+		
 	$formularioNota = "<table>
 		<tr>
 			<td><label style='color: beige'>Fecha(*) :</label></td>
@@ -460,6 +482,21 @@
 			<td><label style='color: beige'>ANTECEDENTES PATOLÓGICOS (*) :</label></td>
 			<td><textarea class='nombre' id='antecedentesPatologicos' name='antecedentesPatologicos' rows='3' cols='70'>$antecedentesPatologicos</textarea></td>
 		</tr>
+		
+		<tr>
+			<td><label style='color: beige'>TABACO :</label></td>
+			<td><input type='checkbox' class='nombre' id='tabaco' name='tabaco' style='width: 30px; height: 30px' value='1' $tabacoC ></td>
+		</tr>
+		<tr>
+			<td><label style='color: beige'>ALCOHOL :</label></td>
+			<td><input type='checkbox' class='nombre' id='alcohol' name='alcohol' style='width: 30px; height: 30px' value='1' $alcoholC ></td>
+		</tr>
+		<tr>
+			<td><label style='color: beige'>DROGAS :</label></td>
+			<td><input type='checkbox' class='nombre' id='drogas' name='drogas' style='width: 30px; height: 30px' value='1' $drogasC ></td>
+		</tr>
+		
+		
 		<tr>
 			<td><label style='color: beige'>CONCILIACIÓN DE MEDICAMENTOS AL INGRESO (*) :</label></td>
 			<td><textarea class='nombre' id='conciliacionMedicamentos' name='conciliacionMedicamentos' rows='3' cols='70'>$conciliacionMedicamentos</textarea></td>
@@ -565,8 +602,8 @@
 			<td><textarea class='nombre' id='cabeza' name='cabeza' rows='3' cols='70'>$cabeza</textarea></td>
 		</tr>
 		<tr>
-			<td><label style='color: beige'>CUELLO (*) :</label></td>
-			<td><textarea class='nombre' id='cuello' name='cuello' rows='3' cols='70'>$cuello</textarea></td>
+			<td><label style='color: beige'>TÓRAX (*) :</label></td>
+			<td><textarea class='nombre' id='torax' name='torax' rows='3' cols='70'>$torax</textarea></td>
 		</tr>
 		<tr>
 			<td><label style='color: beige'>ABDOMEN (*) :</label></td>

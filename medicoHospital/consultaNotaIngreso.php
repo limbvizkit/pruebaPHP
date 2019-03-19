@@ -154,7 +154,7 @@
 									<td style="display: none"><?php echo $row['talla'] ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['habExt']) ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['cabeza']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['cuello']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['torax']) ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['abdomen']) ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['extremidades']) ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['genitales']) ?></td>
@@ -173,6 +173,9 @@
 									<td style="display: none"><?php echo $row['cedula'] ?></td>
 									<td style="display: none"><?php echo $fechaFin1 ?></td>
 									<td style="display: none"><?php echo $row['hora'] ?></td>
+									<td style="display: none"><?php echo $row['tabaco'] ?></td>
+									<td style="display: none"><?php echo $row['alcohol'] ?></td>
+									<td style="display: none"><?php echo $row['drogas'] ?></td>
 									<?php } ?>
 								</tr>
 							</tbody>
@@ -289,7 +292,7 @@
 				talla  = $(nTds[41]).text();
 				habEx  = $(nTds[42]).text();
 				cabeza  = $(nTds[43]).text();
-				cuello  = $(nTds[44]).text();
+				torax  = $(nTds[44]).text();
 				abdomen  = $(nTds[45]).text();
 				extremidades  = $(nTds[46]).text();
 				genitales = $(nTds[47]).text();
@@ -308,6 +311,9 @@
 				cedula  = $(nTds[60]).text();
 				fechaFin  = $(nTds[61]).text();
 				horaFin  = $(nTds[62]).text();
+				tabaco = $(nTds[63]).text();
+				alcohol  = $(nTds[64]).text();
+				drogas  = $(nTds[65]).text();
 				
 
 				$("#div_User").fadeIn();
@@ -315,7 +321,7 @@
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarNotaIngreso.php",{idNotaIngreso:idNotaIngreso,fecha:fecha,hora:hora,tipoInterroga:tipoInterroga,antecedentesHeredo:antecedentesHeredo,edoCivil:edoCivil,ocupacion:ocupacion,lugarOrigen:lugarOrigen,escolaridad:escolaridad,religion:religion,grupoRH:grupoRH,habitacion:habitacion,habitos:habitos,alimentacion:alimentacion,actividadFisica:actividadFisica,inmunizaciones:inmunizaciones,antecedentesPatologicos:antecedentesPatologicos,conciliacionMedicamentos:conciliacionMedicamentos,antecedentesGineco:antecedentesGineco,antecedentesPediatricos:antecedentesPediatricos,padecimientoActual:padecimientoActual,sintomas:sintomas,respiratorio:respiratorio,musculoEsquele:musculoEsquele,digestivo:digestivo,genital:genital,endocrino:endocrino,nervioso:nervioso,hematologico:hematologico,psicologico:psicologico,urinario:urinario,cardiocirculatorio:cardiocirculatorio,pielFaneras:pielFaneras,fc:fc,fr:fr,ta:ta,temp:temp,so:so,glucosa:glucosa,peso:peso,talla:talla,habEx:habEx,cabeza:cabeza,cuello:cuello,abdomen:abdomen,extremidades:extremidades,genitales:genitales,neurologico:neurologico,pielFaneras2:pielFaneras2,columnavertebral:columnavertebral,estudiosGabinete:estudiosGabinete,terapeutica:terapeutica,criteriosEspecializadas:criteriosEspecializadas,educacionEspecial:educacionEspecial,gestionEquipo:gestionEquipo,procesosAdmin:procesosAdmin,diagnostico:diagnostico,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,cedula:cedula,fechaFin:fechaFin,horaFin:horaFin},function(){
+				$("#div_User").load("modificarNotaIngreso.php",{idNotaIngreso:idNotaIngreso,fecha:fecha,hora:hora,tipoInterroga:tipoInterroga,antecedentesHeredo:antecedentesHeredo,edoCivil:edoCivil,ocupacion:ocupacion,lugarOrigen:lugarOrigen,escolaridad:escolaridad,religion:religion,grupoRH:grupoRH,habitacion:habitacion,habitos:habitos,alimentacion:alimentacion,actividadFisica:actividadFisica,inmunizaciones:inmunizaciones,antecedentesPatologicos:antecedentesPatologicos,conciliacionMedicamentos:conciliacionMedicamentos,antecedentesGineco:antecedentesGineco,antecedentesPediatricos:antecedentesPediatricos,padecimientoActual:padecimientoActual,sintomas:sintomas,respiratorio:respiratorio,musculoEsquele:musculoEsquele,digestivo:digestivo,genital:genital,endocrino:endocrino,nervioso:nervioso,hematologico:hematologico,psicologico:psicologico,urinario:urinario,cardiocirculatorio:cardiocirculatorio,pielFaneras:pielFaneras,fc:fc,fr:fr,ta:ta,temp:temp,so:so,glucosa:glucosa,peso:peso,talla:talla,habEx:habEx,cabeza:cabeza,torax:torax,abdomen:abdomen,extremidades:extremidades,genitales:genitales,neurologico:neurologico,pielFaneras2:pielFaneras2,columnavertebral:columnavertebral,estudiosGabinete:estudiosGabinete,terapeutica:terapeutica,criteriosEspecializadas:criteriosEspecializadas,educacionEspecial:educacionEspecial,gestionEquipo:gestionEquipo,procesosAdmin:procesosAdmin,diagnostico:diagnostico,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,cedula:cedula,fechaFin:fechaFin,horaFin:horaFin,tabaco:tabaco,alcohol:alcohol,drogas:drogas},function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });

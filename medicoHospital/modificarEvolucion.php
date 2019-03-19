@@ -85,35 +85,11 @@
 		} else {
 			$talla = '';
 		}
-		if (isset($_POST['habEx']))
+		if (isset($_POST['expFisica']))
 		{
-			$habEx  = $_POST["habEx"];
+			$expFisica  = $_POST["expFisica"];
 		} else {
-			$habEx = '';
-		}
-		if (isset($_POST['cabez']))
-		{
-			$cabez  = $_POST["cabez"];
-		} else {
-			$cabez = '';
-		}
-		if (isset($_POST['torax']))
-		{
-			$torax  = $_POST["torax"];
-		} else {
-			$torax = '';
-		}
-		if (isset($_POST['abdom']))
-		{
-			$abdom  = $_POST["abdom"];
-		} else {
-			$abdom = '';
-		}
-		if (isset($_POST['extrm']))
-		{
-			$extrm  = $_POST["extrm"];
-		} else {
-			$extrm = '';
+			$expFisica = '';
 		}
 		if (isset($_POST['diagn']))
 		{
@@ -150,12 +126,6 @@
 			$turno  = $_POST["turno"];
 		} else {
 			$turno = '';
-		}
-		if (isset($_POST['ingresa']))
-		{
-			$ingresa  = $_POST["ingresa"];
-		} else {
-			$ingresa = '';
 		}
 		
 		$vidaB = $pronosticoVida=='BUENO' ? 'checked':'';
@@ -230,24 +200,8 @@
 			<td><input type='text' class='nombre' name='talla' id='talla' style='width: 50px; height: 30px' autocomplete='off' value='$talla'>Mts</td>
 		</tr>
 		<tr>
-			<td><label style='color: beige'>Hab. Exterior :</label></td>
-			<td><textarea class='nombre' id='habEx' name='habEx' rows='3' cols='70'>$habEx</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Cabeza :</label></td>
-			<td><textarea class='nombre' id='cabez' name='cabez' rows='3' cols='70'>$cabez</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Torax :</label></td>
-			<td><textarea class='nombre' id='torax' name='torax' rows='3' cols='70'>$torax</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Abdomen :</label></td>
-			<td><textarea class='nombre' id='abdom' name='abdom' rows='3' cols='70'>$abdom</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Extremidades :</label></td>
-			<td><textarea class='nombre' id='extrm' name='extrm' rows='3' cols='70'>$extrm</textarea></td>
+			<td><label style='color: beige'>Exploración Física :</label></td>
+			<td><textarea class='nombre' id='expFisica' name='expFisica' rows='3' cols='70'>$expFisica</textarea></td>
 		</tr>
 		<tr>
 			<td><label style='color: beige'>Estudios :</label></td>
@@ -277,10 +231,6 @@
 				<input type='radio' class='nombre' id='pronosticoFuncion' name='pronosticoFuncion' style='width: 35px; height: 35px' value='MALO' $funcionM> MALO
 				<input type='radio' class='nombre' id='pronosticoFuncion' name='pronosticoFuncion' style='width: 35px; height: 35px' value='RESERVADO' $funcionR> RESERVADO
 			</td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Ingresa a(*) :</label></td>
-			<td><input type='text' class='nombre' name='ingresa' id='ingresa' style='width: 400px; height: 30px' value='$ingresa' autocomplete='off'></td>
 		</tr>
 		<tr>
 			<td><label style='color: beige'>Cedula(*) :</label></td>

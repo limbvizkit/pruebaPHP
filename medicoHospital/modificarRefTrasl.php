@@ -85,12 +85,12 @@
 		} else {
 			$incubadora = '';
 		}
-		/*if (isset($_POST['envia']))
+		if (isset($_POST['ninguno']))
 		{
-			$envia  = $_POST["envia"];
+			$ninguno = $_POST["ninguno"];
 		} else {
-			$envia = '';
-		}*/
+			$ninguno = '';
+		}
 		if (isset($_POST['fc']))
 		{
 			$fc  = $_POST["fc"];
@@ -126,6 +126,24 @@
 			$talla  = $_POST["talla"];
 		} else {
 			$talla = '';
+		}
+		if (isset($_POST['antecedentesPer']))
+		{
+			$antecedentesPer  = $_POST["antecedentesPer"];
+		} else {
+			$antecedentesPer = '';
+		}
+		if (isset($_POST['padecimientoAct']))
+		{
+			$padecimientoAct  = $_POST["padecimientoAct"];
+		} else {
+			$padecimientoAct = '';
+		}
+		if (isset($_POST['expFisica']))
+		{
+			$expFisica  = $_POST["expFisica"];
+		} else {
+			$expFisica = '';
 		}
 		if (isset($_POST['motivoEnvio']))
 		{
@@ -183,6 +201,7 @@
 		$desfiCK = $desfibrilador=='1' ? 'checked':'';
 		$ventiCK = $ventilador=='1' ? 'checked':'';
 		$incubaCK = $incubadora=='1' ? 'checked':'';
+		$ningunoCK = $ninguno=='1' ? 'checked':'';
 		
 	$formularioNota = "<table>
 		<tr>
@@ -254,6 +273,10 @@
 			<td><input type='checkbox' class='nombre' id='incubadora' name='incubadora' style='width: 45px; height: 35px' value='1' $incubaCK></td>
 		</tr>
 		<tr>
+			<td><label style='color: beige'>NINGUNO :</label></td>
+			<td><input type='checkbox' class='nombre' id='ninguno' name='ninguno' style='width: 45px; height: 35px' value='1' $ningunoCK></td>
+		</tr>
+		<tr>
 			<td><label style='color: beige'>ESTABLECIMIENTO RECEPTOR :</label></td>
 			<td> <select id='receptor' name='receptor' class='nombre'>
 					<option value='$receptor'>$receptor</option>
@@ -303,8 +326,16 @@
 			<td><input type='text' class='nombre' name='talla' id='talla' style='width: 50px; height: 30px' value='$talla'>Mts</td>
 		</tr>
 		<tr>
-			<td><label style='color: beige'>MOTIVO DE ENVIO :</label></td>
-			<td><textarea class='nombre' id='motivoEnvio' name='motivoEnvio' rows='3' cols='70'>$motivoEnvio</textarea></td>
+			<td><label style='color: beige'>ANTECEDENTES PERSONALES :</label></td>
+			<td><textarea class='nombre' id='antecedentesPer' name='antecedentesPer' rows='3' cols='70'>$antecedentesPer</textarea></td>
+		</tr>
+		<tr>
+			<td><label style='color: beige'>PADECIMIENTO ACTUAL :</label></td>
+			<td><textarea class='nombre' id='padecimientoAct' name='padecimientoAct' rows='3' cols='70'>$padecimientoAct</textarea></td>
+		</tr>
+		<tr>
+			<td><label style='color: beige'>EXPLORACIÓN FÍSICA :</label></td>
+			<td><textarea class='nombre' id='expFisica' name='expFisica' rows='3' cols='70'>$expFisica</textarea></td>
 		</tr>
 		<tr>
 			<td><label style='color: beige'>IMPRESIÓN DIAGNOSTICA :</label></td>
@@ -313,6 +344,10 @@
 		<tr>
 			<td><label style='color: beige'>TERAPEUTICA EMPLEADA :</label></td>
 			<td><textarea class='nombre' id='terapeuticaEmpl' name='terapeuticaEmpl' rows='3' cols='70'>$terapeuticaEmpl</textarea></td>
+		</tr>
+		<tr>
+			<td><label style='color: beige'>MOTIVO DE ENVIO :</label></td>
+			<td><textarea class='nombre' id='motivoEnvio' name='motivoEnvio' rows='3' cols='70'>$motivoEnvio</textarea></td>
 		</tr>
 		<tr>
 			<td><label style='color: beige'>CEDULA MÉDICO QUE ENTREGA AL PACIENTE(*) :</label></td>
@@ -444,7 +479,7 @@
 				if(data==1){
 					/*Reconstruimos la tabla*/
 					$("#Usuarios").html("");
-					$("#Usuarios").load("consultaTraslServ.php", function(){});
+					$("#Usuarios").load("consultaNotaRefTrasl.php", function(){});
 					alert("Se realizo la Operación Correctamente");
 					self.parent.location.reload();
 					/*Fin Reconstruir la tabla*/
@@ -486,7 +521,7 @@
 					if(data==1){
 						/*Reconstruimos la tabla*/
 						$("#Usuarios").html("");
-						$("#Usuarios").load("consultaTraslServ.php", function(){});
+						$("#Usuarios").load("consultaNotaRefTrasl.php", function(){});
 						alert("Se Elimino la Nota de Traslado de Serv. Correctamente");
 						self.parent.location.reload();
 						/*Fin Reconstruir la tabla*/

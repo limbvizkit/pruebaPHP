@@ -34,6 +34,7 @@
 	$antecOld=NULL;
 	$indicaciones=NULL;
 	$fechaFin=NULL;
+	$interrogaFin=NULL;
 	//Query para jalar los datos de la consulta medica
 	$queryAntec = "SELECT *
 				  FROM notaUrgchoque
@@ -280,6 +281,11 @@
 			$interrogatorio=utf8_decode($_POST['interrogatorio']);
 			$interrogatorio = addslashes($interrogatorio);
 		}
+		if (isset($_POST['expFisica']))
+		{
+			$expFisica = utf8_decode($_POST['expFisica']);
+			$expFisica = addslashes($expFisica);
+		}
 		if (isset($_POST['estudiosGabyLab']))
 		{
 			$estudiosGabyLab=utf8_decode($_POST['estudiosGabyLab']);
@@ -354,10 +360,10 @@
 		'.$torax.' '.$abdomen.' '.$extremidades.' '.$diag.' '.$tratamientoFin;*/
 		
 		$queryInsUrg = "INSERT INTO notaTrasladoServ (id,numeroExpediente,folio,fecha,hora,turno,motivoTransferencia,servicioActual,servicioTraslada,
-					fc,fr,ta,temp,peso,talla,interrogatorio,habExt,cabeza,torax,abdomen,extremidades,estudiosGabyLab,
+					fc,fr,ta,temp,peso,talla,interrogatorio,expFisica,habExt,cabeza,torax,abdomen,extremidades,estudiosGabyLab,
 					terapeuticayProcedimientos,cedula,usr)
 					VALUES (NULL,'$expediente','$folio','$fecha','$hora','$turno','$motivoTransferencia','$servicioActual','$servicioTraslada','$fc',
-					'$fr','$ta','$temp','$peso','$talla','$interrogatorio','$habExt','$cabeza','$torax','$abdomen','$extremidades','$estudiosGabyLab',
+					'$fr','$ta','$temp','$peso','$talla','$interrogatorio','$expFisica','$habExt','$cabeza','$torax','$abdomen','$extremidades','$estudiosGabyLab',
 					'$terapeuticayProcedimientos','$cedula','$rol')";
 		
 			$result0 = mysqli_query($conexionMedico, $queryInsUrg);
@@ -546,11 +552,11 @@
 										</div>
 										<!--div class="form-group col-md-6 col-xs-6">
 											<label>SO2 : <span>*</span></label>
-											<input type="text" name="so" class="form-control required" value="<?php echo $soFin ?>" autocomplete="off">
+											<input type="text" name="so" class="form-control required" value="<?php #echo $soFin ?>" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
 											<label>GLUCOSA : <span></span></label>
-											<input type="text" name="glucosa" placeholder="mg/dl" class="form-control" value="<?php echo $glucosaFin ?>" autocomplete="off">
+											<input type="text" name="glucosa" placeholder="mg/dl" class="form-control" value="<?php #echo $glucosaFin ?>" autocomplete="off">
 										</div-->
 										<div class="form-group col-md-6 col-xs-6">
 											<label>PESO (Kg) : <span></span></label>
@@ -586,30 +592,10 @@
                                     <!--input type="text" name="habExt" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
-                    			    <label>ESTADO MENTAL Y HABITUS EXTERIOR : <span>*</span></label>
-									<textarea class="form-control required" name="habExt" id="habExt" cols="10" rows="3"><?php echo $habExtFin ?></textarea>
+                    			    <label>EXPLORACIÓN FÍSICA : <span>*</span></label>
+									<textarea class="form-control required" name="expFisica" id="expFisica" cols="10" rows="3"></textarea>
                                     <!--input type="text" name="habExt" class="form-control" autocomplete="off"-->
-                                </div>
-								<div class="form-group">
-                    			    <label>CABEZA : <span>*</span></label>
-									<textarea class="form-control required" name="cabeza" id="cabeza" cols="10" rows="3"><?php echo $cabezaFin ?></textarea>
-                                    <!--input type="text" name="cabeza" class="form-control" autocomplete="off"-->
-                                </div>
-								<div class="form-group">
-                    			    <label>TÓRAX : <span>*</span></label>
-									<textarea class="form-control required" name="torax" id="torax" cols="10" rows="3"><?php echo $toraxFin ?></textarea>
-                                    <!--input type="text" name="torax" class="form-control" autocomplete="off"-->
-                                </div>
-								<div class="form-group">
-                    			    <label>ABDOMEN : <span>*</span></label>
-									<textarea class="form-control required" name="abdomen" id="abdomen" cols="10" rows="3"><?php echo $abdomenFin ?></textarea>
-                                    <!--input type="text" name="abdomen" class="form-control" autocomplete="off"-->
-                                </div>
-								<div class="form-group">
-                    			    <label>EXTREMIDADES : <span>*</span></label>
-									<textarea class="form-control required" name="extremidades" id="extremidades" cols="10" rows="3"><?php echo $extremidadesFin ?></textarea>
-                                    <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
-                                </div>								
+                                </div>					
                                 <div class="form-wizard-buttons">
                                     <button type="button" class="btn btn-previous">Anterior</button>
                                     <button type="button" class="btn btn-next">Siguiente</button>

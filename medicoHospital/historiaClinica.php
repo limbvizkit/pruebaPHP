@@ -747,7 +747,7 @@
                                     <!--input type="text" name="torax" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
-                    			    <label>MÚSCULO-ESQUELETICO : <span>*</span></label>
+                    			    <label>MÚSCULO-ESQUELÉTICO : <span>*</span></label>
 									<textarea class="form-control required" name="musculoEsquele" id="musculoEsquele" cols="10" rows="3"></textarea>
                                     <!--input type="text" name="abdomen" class="form-control" autocomplete="off"-->
                                 </div>
@@ -916,7 +916,7 @@
                                     <textarea class="form-control" name="estudiosGabinete" id="estudiosGabinete" cols="15" rows="3"></textarea>
                                 </div>
 								<div class="form-group">
-                    			    <label>TERAPEUTICA EMPLEADA Y RESULTADOS OBTENIDOS (TRATAMIENTO) : <span>*</span></label>
+                    			    <label>TERAPÉUTICA EMPLEADA Y RESULTADOS OBTENIDOS (TRATAMIENTO) : <span>*</span></label>
                                     <textarea class="form-control required" name="terapeutica" id="terapeutica" cols="15" rows="3"></textarea>
                                 </div>
 								<div class="form-group">

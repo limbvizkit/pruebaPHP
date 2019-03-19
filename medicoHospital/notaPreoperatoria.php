@@ -25,7 +25,7 @@
 
 	
 	$diagFin=NULL;
-	//Query para jalar los datos de la consulta medica
+	//Query para jalar los datos de la hist clinica
 	$queryAntec = "SELECT *
 				  FROM historiaclinica
 				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
@@ -35,7 +35,7 @@
 		$diagOld= utf8_encode($rowA['diagnostico']);
 		$diagFin=addslashes ($diagOld);
 	}
-
+	#si no tenemos datos en hist clinica vemos si tenemos en urgencias
 	if($diagFin == NULL || $diagFin == ''){
 		$queryAntec = "SELECT *
 				  FROM notaUrgchoque
@@ -46,6 +46,7 @@
 			$diagOld= utf8_encode($rowA1['diag']);
 			$diagFin=addslashes ($diagOld);
 		}
+		#Si no hay tampoco datos en urgencias vemos en la consulta medica
 		if($diagFin == NULL || $diagFin == ''){
 			$queryAntec = "SELECT *
 					  FROM notaUrg
@@ -225,7 +226,7 @@
 								<!-- Step 4 -->
 								<div class="form-wizard-step">
                     				<div class="form-wizard-step-icon"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></div>
-                    				<p>Intervención Quirurgica y Pronóstico</p>
+                    				<p>Intervención Quirúrgica y Pronóstico</p>
                     			</div>
 								<!-- Step 4 -->
                     		</div>
@@ -304,10 +305,10 @@
 								  </div>
 								</div>
 								<!-- Progress Bar -->
-                                <h4>INTERVENCIÓN QUIRURGICA Y PRONOSTICO : <span>Paso 2 - 2</span></h4>
+                                <h4>INTERVENCIÓN QUIRÚRGICA Y PRONOSTICO : <span>Paso 2 - 2</span></h4>
 								<div style="clear:both;"></div>
 								<div class="form-group">
-                    			    <label>RIESGO QUIRURGICO : </label>
+                    			    <label>RIESGO QUIRÚRGICO : </label>
                                     <textarea class="form-control" name="riesgoQx" id="riesgoQx" cols="10" rows="3"></textarea>
                                 </div>
 								<div class="form-group">

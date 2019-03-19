@@ -85,6 +85,12 @@
 		} else {
 			$interrogatorio = '';
 		}
+		if (isset($_POST['expFisica']))
+		{
+			$expFisica  = $_POST["expFisica"];
+		} else {
+			$expFisica = '';
+		}
 		if (isset($_POST['habEx']))
 		{
 			$habEx  = $_POST["habEx"];
@@ -194,24 +200,8 @@
 			<td><textarea class='nombre' id='interrogatorio' name='interrogatorio' rows='3' cols='70'>$interrogatorio</textarea></td>
 		</tr>
 		<tr>
-			<td><label style='color: beige'>Hab. Exterior :</label></td>
-			<td><textarea class='nombre' id='habEx' name='habEx' rows='3' cols='70'>$habEx</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Cabeza :</label></td>
-			<td><textarea class='nombre' id='cabez' name='cabez' rows='3' cols='70'>$cabez</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Torax :</label></td>
-			<td><textarea class='nombre' id='torax' name='torax' rows='3' cols='70'>$torax</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Abdomen :</label></td>
-			<td><textarea class='nombre' id='abdom' name='abdom' rows='3' cols='70'>$abdom</textarea></td>
-		</tr>
-		<tr>
-			<td><label style='color: beige'>Extremidades :</label></td>
-			<td><textarea class='nombre' id='extrm' name='extrm' rows='3' cols='70'>$extrm</textarea></td>
+			<td><label style='color: beige'>EXPLORACIÓN FÍSICA :</label></td>
+			<td><textarea class='nombre' id='expFisica' name='expFisica' rows='3' cols='70'>$expFisica</textarea></td>
 		</tr>
 		<tr>
 			<td><label style='color: beige'>Estudios de Gabinete y Lab :</label></td>

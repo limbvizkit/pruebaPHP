@@ -18,70 +18,20 @@
 	{
 		$folio=$_GET['folio'];
 	}
-	$habExtFin=NULL;
-	$cabezaFin=NULL;
-	$toraxFin=NULL;
-	$abdomenFin=NULL;
-	$extremidadesFin=NULL;
-	$tratamientoFin=NULL;
-	$diagFin=NULL;
-	$nombre_pac =NULL;
-	$fcFin=NULL;
-	$frFin=NULL;
-	$taFin=NULL;
-	$tempFin=NULL;
-	$soFin=NULL;
-	$glucosaFin=NULL;
+	
 	$pesoFin=NULL;
 	$tallaFin=NULL;
-	$turnoFin=NULL;
-	$turnoFinLetra=NULL;
-	$acudeFin=NULL;
-	$antecOld=NULL;
-	//Query para jalar los datos de la consulta medica
+	
+	//Query para jalar los datos de la hist clinica
 	$queryAntec = "SELECT *
-				  FROM notaUrgchoque
+				  FROM historiaclinica
 				  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
+				  ORDER BY id DESC
 				  LIMIT 1";
-
 	$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
-
 	while($rowA = mysqli_fetch_array($antec)){
-		
-		$fcFin=$rowA['fc'];
-		$frFin=$rowA['fr'];
-		$taFin=$rowA['ta'];
-		$tempFin=$rowA['temp'];
-		$soFin=$rowA['so'];
-		$glucosaFin=$rowA['glucosa'];
-		
-		$habExtOld= utf8_encode($rowA['habExt']);
-		$habExtFin=addslashes ($habExtOld);
-		
-		$cabezaOld= utf8_encode($rowA['cabeza']);
-		$cabezaFin=addslashes ($cabezaOld);
-
-		$toraxOld= utf8_encode($rowA['torax']);
-		$toraxFin=addslashes ($toraxOld);
-		
-		$abdomenOld= utf8_encode($rowA['abdomen']);
-		$abdomenFin=addslashes ($abdomenOld);
-
-		$extremidadesOld= utf8_encode($rowA['extremidades']);
-		$extremidadesFin=addslashes ($extremidadesOld);
-		
-		/*$resEstOld=utf8_encode($rowA['resEst']);
-		$resEstFin=addslashes ($resEstOld);
-
-		$tratamientoOld= utf8_encode($rowA['tratamientoFin']);
-		$tratamientoFin=addslashes ($tratamientoOld);*/
-
-		$diagOld= utf8_encode($rowA['diag']);
-		$diagFin=addslashes ($diagOld);
-		/*$vidaFin=$rowA['pronosticoVida'];
-		$funcionFin=$rowA['pronosticoFuncion'];*/
-		$acudeFin=$rowA['acude'];
-		
+		$pesoFin = addslashes($rowA['peso']);
+		$tallaFin = addslashes($rowA['talla']);
 	}
 
 	#Forma POO instanciamos y mandamos llamar un objeto de la instancia
@@ -179,30 +129,10 @@
 			$evolucion=utf8_decode($_POST['evolucion']);
 			$evolucion = addslashes($evolucion);
 		}
-		if (isset($_POST['habExt']))
+		if (isset($_POST['expFisica']))
 		{
-			$habExt=utf8_decode($_POST['habExt']);
-			$habExt = addslashes($habExt);
-		}
-		if (isset($_POST['cabeza']))
-		{
-			$cabeza=utf8_decode($_POST['cabeza']);
-			$cabeza = addslashes($cabeza);
-		}
-		if (isset($_POST['torax']))
-		{
-			$torax=utf8_decode($_POST['torax']);
-			$torax=addslashes($torax);
-		}
-		if (isset($_POST['abdomen']))
-		{
-			$abdomen=utf8_decode($_POST['abdomen']);
-			$abdomen=addslashes ($abdomen);
-		}
-		if (isset($_POST['extremidades']))
-		{
-			$extremidades=utf8_decode($_POST['extremidades']);
-			$extremidades=addslashes ($extremidades);
+			$expFisica=utf8_decode($_POST['expFisica']);
+			$expFisica = addslashes($expFisica);
 		}
 		if (isset($_POST['estudios']))
 		{
@@ -227,11 +157,6 @@
 		{
 			$pronosticoFuncion=utf8_decode($_POST['pronosticoFuncion']);
 		}
-		if (isset($_POST['ingresa']))
-		{
-			$ingresa=utf8_decode($_POST['ingresa']);
-			$ingresa=addslashes($ingresa);
-		}
 		if (isset($_POST['cedula']))
 		{
 			$cedula=$_POST['cedula'];
@@ -241,10 +166,10 @@
 		'.$torax.' '.$abdomen.' '.$extremidades.' '.$diag.' '.$tratamientoFin;*/
 		
 		$queryInsUrg = "INSERT INTO notaEvolucionh (id,numeroExpediente,folio,fecha,hora,servicio,turno,fc,fr,ta,temp,so,glucosa,peso,talla,evolucion,
-							habExt,cabeza,torax,abdomen,extremidades,estudios,diag,tratamientoFin,pronosticoVida,pronosticoFuncion,ingresa,cedula,usr)
+							expFisica,estudios,diag,tratamientoFin,pronosticoVida,pronosticoFuncion,cedula,usr)
 					VALUES (NULL,'$expediente','$folio','$fecha','$hora','$servicio','$turno','$fc','$fr','$ta','$temp','$so','$glucosa','$peso','$talla',
-					'$evolucion','$habExt','$cabeza','$torax','$abdomen','$extremidades','$estudios','$diag','$tratamientoFin','$pronosticoVida',
-					'$pronosticoFuncion','$ingresa','$cedula','$rol')";
+					'$evolucion','$expFisica','$estudios','$diag','$tratamientoFin','$pronosticoVida',
+					'$pronosticoFuncion','$cedula','$rol')";
 		
 			$result0 = mysqli_query($conexionMedico, $queryInsUrg);
 			if(!$result0) {
@@ -484,7 +409,7 @@
 								<div class="form-group">
 									<label>TURNO : <span>*</span></label>
 								   <select id="turno" name="turno" class="form-control required">
-										<option value="<?php echo $turnoFin ?>"><?php echo $turnoFinLetra ?></option>
+										<option value="">SELECCIONAR</option>
 										<option value="M">Matutino</option>
 										<option value="V">Vespertino</option>
 										<option value="N">Nocturno</option>
@@ -496,35 +421,35 @@
 									<div class="row form-inline">
 										<div class="form-group col-md-6 col-xs-6">
 											<label>FC : <span>*</span></label>
-											<input type="text" placeholder="min" name="fc" class="form-control required" value="<?php echo $fcFin ?>" autocomplete="off">
+											<input type="text" placeholder="min" name="fc" class="form-control required" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
 											<label>FR : <span></span>*</label>
-											<input type="text" placeholder="min" name="fr" class="form-control required" value="<?php echo $frFin ?>" autocomplete="off">
+											<input type="text" placeholder="min" name="fr" class="form-control required" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
 											<label>T/A : <span>*</span></label>
-											<input type="text" name="ta" placeholder="mmHg" class="form-control required" value="<?php echo $taFin ?>" autocomplete="off">
+											<input type="text" name="ta" placeholder="mmHg" class="form-control required" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
 											<label>TEMP : <span>*</span></label>
-											<input type="text" name="temp" placeholder="°C" class="form-control required" value="<?php echo $tempFin ?>" autocomplete="off">
+											<input type="text" name="temp" placeholder="°C" class="form-control required" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
 											<label>SO2 : <span>*</span></label>
-											<input type="text" name="so" class="form-control required" value="<?php echo $soFin ?>" autocomplete="off">
+											<input type="text" name="so" class="form-control required" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
 											<label>GLUCOSA : <span></span></label>
-											<input type="text" name="glucosa" placeholder="mg/dl" class="form-control" value="<?php echo $glucosaFin ?>" autocomplete="off">
+											<input type="text" name="glucosa" placeholder="mg/dl" class="form-control" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
 											<label>PESO (Kg) : <span></span></label>
-											<input type="number" step="0.01" name="peso" class="form-control" value="<?php echo $pesoFin ?>" autocomplete="off">
+											<input type="number" step="0.01" name="peso" class="form-control required" value="<?php echo $pesoFin ?>" autocomplete="off">
 										</div>
 										<div class="form-group col-md-6 col-xs-6">
 											<label>TALLA (Mts) : <span></span></label>
-											<input type="number" step="0.01" name="talla" class="form-control" value="<?php echo $tallaFin ?>" autocomplete="off">
+											<input type="number" step="0.01" name="talla" class="form-control required" value="<?php echo $tallaFin ?>" autocomplete="off">
 										</div>
 									</div>									
 								</div>
@@ -552,33 +477,29 @@
                                 <h4>EXPLORACIÓN FISICA : <span>Paso 2 - 3</span></h4>
 								
 								<div class="form-group">
-                    			    <label>ESTADO MENTAL Y HABITUS EXTERIOR : <span>*</span></label>
-									<textarea class="form-control required" name="habExt" id="habExt" cols="10" rows="3"><?php echo $habExtFin ?></textarea>
-                                    <!--input type="text" name="habExt" class="form-control" autocomplete="off"-->
+                    			    <label>EXPLORACIÓN FISICA : <span>*</span></label>
+									<textarea class="form-control required" name="expFisica" id="expFisica" cols="10" rows="3"></textarea>
                                 </div>
-								<div class="form-group">
+								<!--div class="form-group">
                     			    <label>CABEZA : <span>*</span></label>
-									<textarea class="form-control required" name="cabeza" id="cabeza" cols="10" rows="3"><?php echo $cabezaFin ?></textarea>
-                                    <!--input type="text" name="cabeza" class="form-control" autocomplete="off"-->
+									<textarea class="form-control required" name="cabeza" id="cabeza" cols="10" rows="3"></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>TÓRAX : <span>*</span></label>
-									<textarea class="form-control required" name="torax" id="torax" cols="10" rows="3"><?php echo $toraxFin ?></textarea>
-                                    <!--input type="text" name="torax" class="form-control" autocomplete="off"-->
+									<textarea class="form-control required" name="torax" id="torax" cols="10" rows="3"></textarea>
+
                                 </div>
 								<div class="form-group">
                     			    <label>ABDOMEN : <span>*</span></label>
-									<textarea class="form-control required" name="abdomen" id="abdomen" cols="10" rows="3"><?php echo $abdomenFin ?></textarea>
-                                    <!--input type="text" name="abdomen" class="form-control" autocomplete="off"-->
+									<textarea class="form-control required" name="abdomen" id="abdomen" cols="10" rows="3"></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>EXTREMIDADES : <span>*</span></label>
-									<textarea class="form-control required" name="extremidades" id="extremidades" cols="10" rows="3"><?php echo $extremidadesFin ?></textarea>
-                                    <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
-                                </div>
+									<textarea class="form-control required" name="extremidades" id="extremidades" cols="10" rows="3"></textarea>
+                                </div-->
 								<div class="form-group">
                     			    <label>RESULTADOS Y ANÁLISIS DE ESTUDIOS AUXILIARES DE DIAGNOSTICO (INCLUIR JUSTIFICACIÓN DE ESTUDIOS SOLICITADOS) : <span>*</span></label>
-									<textarea class="form-control required" name="estudios" id="estudios" cols="10" rows="3"><?php #echo $resEstFin ?></textarea>
+									<textarea class="form-control required" name="estudios" id="estudios" cols="10" rows="3"></textarea>
                                 </div>
                                 <div class="form-wizard-buttons">
                                     <button type="button" class="btn btn-previous">Anterior</button>
@@ -598,12 +519,12 @@
                                 <h4><span>Paso 3 - 3</span></h4>
 								
 								<div class="form-group">
-                    			    <label>DIAGNÓSTICO : <span>*</span></label>
-                                    <textarea class="form-control required" name="diag" id="diag" cols="15" rows="3"><?php echo $diagFin ?></textarea>
+                    			    <label>DIAGNÓSTICO O PROBLEMAS CLÍNICOS : <span>*</span></label>
+                                    <textarea class="form-control required" name="diag" id="diag" cols="15" rows="3"></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>PLAN DE TRATAMIENTO : <span>*</span></label>
-									<textarea class="form-control required" name="tratamientoFin" id="tratamientoFin" cols="15" rows="3"><?php #echo $tratamientoFin ?></textarea>
+									<textarea class="form-control required" name="tratamientoFin" id="tratamientoFin" cols="15" rows="3"></textarea>
                                 </div>
 								<h4>PRONÓSTICO : </h4>
 								<div class="form-group">
@@ -632,7 +553,7 @@
 									  <input type="radio" name="pronosticoFuncion" value="RESERVADO" style="width: 30px; height: 30px">&nbsp;&nbsp; RESERVADO
 									</label>
                                 </div>
-								<div class="form-group">
+								<!--div class="form-group">
                     			    <label>INGRESA A : <span>*</span></label>
                                     <br>
                                     <label class="radio-inline">
@@ -643,11 +564,11 @@
 									</label>
 									<label class="radio-inline">
 									  <input type="radio" name="ingresa" value="UCIPYN" style="width: 30px; height: 30px">&nbsp;&nbsp; UCIPYN
-									</label>
+									</label-->
 									<!--label class="radio-inline">
 									  <input type="radio" name="ingresa" value="CORTA ESTANCIA"> CORTA ESTANCIA
 									</label-->
-									<label class="radio-inline">
+									<!--label class="radio-inline">
 									  <input type="radio" name="ingresa" value="QUIRÓFANO" style="width: 30px; height: 30px">&nbsp;&nbsp; QUIRÓFANO
 									</label>
 									<label class="radio-inline">
@@ -656,7 +577,7 @@
 									<label class="radio-inline">
 									  <input type="radio" name="ingresa" value="EGRESO" style="width: 30px; height: 30px">&nbsp;&nbsp; EGRESO
 									</label>
-                                </div>
+                                </div-->
 								<!--div class="form-group">
 									<h4>DATOS DEL MÉDICO:</h4>
                     			    <label>CEDULA PROFESIONAL : <span>*</span></label>
@@ -665,7 +586,7 @@
 								<div class="form-group">
 									<h4>DATOS DEL MÉDICO:</h4>
 									&nbsp;<p>&nbsp;&nbsp;&nbsp;&nbsp;CEDULA PROFESIONAL :<span>*</span></p>
-									<input class="form-control" id="cedula" type="text" name="cedula" style="background-color:#9EE5D7" accept-charset="utf-8" placeholder="Número de cedula" autocomplete="off" required>
+									<input class="form-control required" id="cedula" type="text" name="cedula" style="background-color:#9EE5D7" accept-charset="utf-8" placeholder="Número de cedula" autocomplete="off" >
 									<br>
 									<div id="suggestions1"></div>
 								</div>
