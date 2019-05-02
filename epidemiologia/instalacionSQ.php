@@ -40,6 +40,10 @@
 		{
 			$fechaInst=$_POST['fechaInst'];
 		}
+		/*if (isset($_POST['fechaFin']))
+		{
+			$fechaFin=$_POST['fechaFin'];
+		}*/
 		if (isset($_POST['turno']))
 		{
 			$turno=$_POST['turno'];
@@ -127,7 +131,7 @@
 			$result0 = mysqli_query($conexionEpidemio, $queryInsrSQ);
 			if(!$result0) {
 				echo '!<br> ERROR al realizar inserción de datos de Herida Quirúrgica! <br>';
-				echo 'QUERY: '.$queryInsrAVP;
+				echo 'QUERY: '.$queryInsrSQ;
 			} else {
 				echo '<br>!!!! SE GUARDARON DATOS DE HERIDA QUIRÚRGICA CORRECTAMENTE!!!!<br>';
 			}
@@ -240,12 +244,21 @@
                     		    <h4>DATOS GENERALES : <span>Paso 1 - 2</span></h4>
 								<div class="form-group">
                     			    <label>NOMBRE DEL VERIFICADOR : <span>*</span></label>
-                                    <input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control required">
+                                    <!--input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control required"-->
+									<select id="verificador" name="verificador" class="form-control required">
+										<option value="">Seleccione</option>
+										<option value="Gudmaro Mauricio Carvajal Reyes">Mauricio</option>
+										<option value="Alexa Sánchez Solano">Alexa</option>
+									</select>
                                 </div>
 								<div class="form-group">
                     			    <label>FECHA EN QUE SE LLEVÓ A CABO EL PROCEDIMIENTO : <span>*</span></label>
                                     <input type="date" name="fechaInst" class="form-control required">
                                 </div>
+								<!--div class="form-group">
+                    			    <label>FECHA FIN :</label>
+                                    <input type="date" name="fechaFin" class="form-control">
+                                </div-->
 								<div class="form-group">
                     			    <label>TURNO : <span>*</span></label>
 									
@@ -302,22 +315,22 @@
                     			    <label>ÁREA ANATÓMICA DE INTERVENCIÓN QUIRÚRGICA : <span>*</span></label>
                                    <select id="area" name="area" class="form-control required" onchange="verOtra(this.form)">
 										<option value="">Seleccione</option>
-										<option value="CAB">CABEZA</option>
-										<option value="CAR">CARA</option>
-										<option value="CUE">CUELLO</option>
-									   <option value="TOR">TORAX</option>
-									   <option value="BRA">BRAZO</option>
-									   <option value="ABR">ANTEBRAZO</option>
-									   <option value="MAN">MANO</option>
-									   <option value="DED">DEDOS</option>
-									   <option value="ABD">ABDOMEN</option>
-									   <option value="PEL">PELVIS</option>
-									   <option value="MUS">MUSLO</option>
-									   <option value="PI">PIERNA</option>
+										<option value="CABEZA">CABEZA</option>
+										<option value="CARA">CARA</option>
+										<option value="CUELLO">CUELLO</option>
+									   <option value="TORAX">TORAX</option>
+									   <option value="BRAZO">BRAZO</option>
+									   <option value="ANTEBRAZO">ANTEBRAZO</option>
+									   <option value="MANO">MANO</option>
+									   <option value="DEDOS">DEDOS</option>
+									   <option value="ABDOMEN">ABDOMEN</option>
+									   <option value="PELVIS">PELVIS</option>
+									   <option value="MUSLO">MUSLO</option>
+									   <option value="PIERNA">PIERNA</option>
 									   <option value="PIE">PIE</option>
-									   <option value="ESP">ESPALDA</option>
-									   <option value="RS">REGION SACRA</option>
-									   <option value="GLU">GLUTEO</option>
+									   <option value="ESPALDA">ESPALDA</option>
+									   <option value="REGION SACRA">REGION SACRA</option>
+									   <option value="GLUTEO">GLUTEO</option>
 									   <option value="OTRA">OTRA REGIÓN</option>
 									</select>
 									<div id="divOtraArea" class="form-group" style="display:none">

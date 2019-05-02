@@ -40,6 +40,10 @@
 		{
 			$fechaInst=$_POST['fechaInst'];
 		}
+		if (isset($_POST['fechaFin']))
+		{
+			$fechaFin=$_POST['fechaFin'];
+		}
 		if (isset($_POST['turno']))
 		{
 			$turno=$_POST['turno'];
@@ -109,10 +113,10 @@
 			$observaciones=utf8_decode($_POST['observaciones']);
 		}
 		
-		$queryInsrAVP = "INSERT INTO instalacionavp (id,numeroExpediente,folio,verificador,fechaInstalacion,turno,ubicacion,otraUbic,habitacion,
+		$queryInsrAVP = "INSERT INTO instalacionavp (id,numeroExpediente,folio,verificador,fechaInstalacion,fechaFin,turno,ubicacion,otraUbic,habitacion,
 		personaInstalo,nombreInstalo,manosTecPac,manosPac,proteccPac,superiorPac,asepsiaPac,puncionPac,apositoPac,inserPac,identificPac,puncAntPac,
 		observaciones,usr)
-		VALUES (NULL, '$expediente', '$folio', '$verificador', '$fechaInst','$turno', '$ubicacion', '$otro', '$habitacion', '$instalo', '$nombInstalo',
+		VALUES (NULL, '$expediente', '$folio', '$verificador', '$fechaInst','$fechaFin','$turno','$ubicacion', '$otro', '$habitacion', '$instalo', '$nombInstalo',
 		'$manosTecPac','$manosPac', '$proteccPac','$superiorPac','$asepsiaPac','$puncionPac','$apositoPac','$inserPac','$identificPac','$puncAntPac',
 		'$observaciones', '$rol')";
 			
@@ -224,11 +228,20 @@
                     		    <h4>DATOS GENERALES : <span>Paso 1 - 2</span></h4>
 								<div class="form-group">
                     			    <label>NOMBRE DEL VERIFICADOR : <span>*</span></label>
-                                    <input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control required">
+                                    <!--input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control required"-->
+									<select id="verificador" name="verificador" class="form-control required">
+										<option value="">Seleccione</option>
+										<option value="Gudmaro Mauricio Carvajal Reyes">Mauricio</option>
+										<option value="Alexa Sánchez Solano">Alexa</option>
+									</select>
                                 </div>
 								<div class="form-group">
                     			    <label>FECHA DE INSTALACIÓN : <span>*</span></label>
                                     <input type="date" name="fechaInst" class="form-control required">
+                                </div>
+								<div class="form-group">
+                    			    <label>FECHA DE TÉRMINO :</label>
+                                    <input type="date" name="fechaFin" class="form-control">
                                 </div>
 								<div class="form-group">
                     			    <label>TURNO : <span>*</span></label>

@@ -250,6 +250,45 @@ class FuncionesDB extends DBAbstractModel
         }
         $this->close_connection();
     }
+	
+	public function listaConsultaFar($fecha, $fecha2){
+		$fecha1=$fecha.'T00:00:00';
+		$fecha2=$fecha2.'T00:00:00';
+        $this->open_connection();
+        
+        $this->queryCons = "SELECT * FROM (
+							SELECT NO_EXP_PAC, FOLIO_PAC, 
+							RTRIM(CASE WHEN APE_PAT_PAC IS NULL THEN '' ELSE APE_PAT_PAC END)+ ' ' + 
+							RTRIM(CASE WHEN APE_MAT_PAC IS NULL THEN '' ELSE APE_MAT_PAC END) + ' ' + 
+							RTRIM(CASE WHEN DESC_PAC IS NULL THEN '' ELSE DESC_PAC END) AS NOMBRE, FEC_ING_PAC, OBLI_PAC,
+							r.CVE_PAQUET,p.DESC_PAQUET
+							FROM dbo.HPREG07 AS r
+							LEFT JOIN dbo.HPPAQUET AS p ON (r.CVE_PAQUET=p.CVE_PAQUET)
+							WHERE VIA_ING_PAC IN(1,8,9,13,14,15,16,2,3) AND FEC_ING_PAC BETWEEN '$fecha1' AND '$fecha2' AND FEC_SAL_REG07 IS NULL
+							UNION
+							SELECT NO_EXP_PAC, FOLIO_PAC,
+							RTRIM(CASE WHEN APE_PAT_PAC IS NULL THEN '' ELSE APE_PAT_PAC END)+ ' ' + RTRIM(CASE WHEN APE_MAT_PAC IS NULL THEN '' 
+							ELSE APE_MAT_PAC END) + ' ' + RTRIM(CASE WHEN DESC_PAC IS NULL THEN '' ELSE DESC_PAC END) AS NOMBRE, FEC_ING_PAC, OBLI_PAC,
+							r.CVE_PAQUET,p.DESC_PAQUET
+							FROM dbo.HPREG05 as r
+							LEFT JOIN dbo.HPPAQUET AS p ON (r.CVE_PAQUET=p.CVE_PAQUET)
+							WHERE VIA_ING_PAC IN(1,8,9,13,14,15,16,2,3) AND FEC_ING_PAC BETWEEN '$fecha1' AND '$fecha2' AND FEC_SAL_REG05 IS NULL ) AS T ORDER BY FEC_ING_PAC";
+        
+        $this->resCons=sqlsrv_query($this->conn,$this->queryCons);
+        
+        if (!$this->resCons) {
+            echo "<br>NO HAY DATOS PARA MOSTRAR FUNCION Lista Consulta Farmacia<br>".$this->queryCons;
+			die( print_r( sqlsrv_errors(), true));
+            return false;
+        } else {
+            $json = array();
+            while($fila=sqlsrv_fetch_array($this->resCons)){
+                $json[] = ($fila);
+            }
+            return $json;
+        }
+        $this->close_connection();
+    }
     
     public function medicamentoSurtido($Expediente, $Folio){
         $this->open_connection();

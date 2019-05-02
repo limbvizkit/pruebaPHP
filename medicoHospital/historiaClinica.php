@@ -48,9 +48,109 @@
 	if($anniosBool == '0'){
 		$annios = $anniosO->format('%m Mes(es)');
 	}
+	$habExtFin = NULL;
+	$cabezaFin = NULL;
+	$toraxFin = NULL;
+	$abdomenFin = NULL;
+	$extremidadesFin = NULL;
+	$edoCivil=NULL;
+	$ocupacion=NULL;
+	$edoCivilFin=NULL;
+	$lugarOrigen=NULL;
+	$escolaridad=NULL;
+	$religion=NULL;
+	$grupoRH=NULL;
+	$antecedentesHeredo=NULL;
+	$habitacion=NULL;
+	$habitos=NULL;
+	$alimentacion=NULL;
+	$actividadFisica=NULL;
+	$inmunizaciones=NULL;
+	$antecedentesPatologicos=NULL;
+	$tabacoCK =NULL;
+	$alcoholCK =NULL;
+	$drogasCK =NULL;
+	$antecedentesGineco=NULL;
+	$antecedentesPediatricos=NULL;
+	$respiratorio=NULL;
+	$musculoEsquele=NULL;
+	$digestivo=NULL;
+	$genital=NULL;
+	$endocrino=NULL;
+	$nervioso=NULL;
+	$hematologico=NULL;
+	$psicologico=NULL;
+	$urinario=NULL;
+	$cardiocirculatorio=NULL;
+	$pielFaneras=NULL;
+	$genitales=NULL;
+	$neurologico=NULL;
+	$pielFaneras2=NULL;
+	$columnavertebral=NULL;
+
+	//Query para jalar los datos de la Historia clinica anterior si ya tiene
+	$queryAntec = "SELECT *
+				  FROM historiaclinica
+				  WHERE numeroExpediente='$expediente' AND estatus='1'
+				  ORDER BY id DESC
+				  LIMIT 1";
+
+	$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
+	while($rowA = mysqli_fetch_array($antec)){
+		
+		$edoCivil=utf8_encode($rowA['edoCivil']);
+		$ocupacion=utf8_encode($rowA['ocupacion']);
+		$edoCivilFin=utf8_encode($rowA['edoCivil']);
+		$lugarOrigen=utf8_encode($rowA['lugarOrigen']);
+		$escolaridad=utf8_encode($rowA['escolaridad']);
+		$religion=utf8_encode($rowA['religion']);
+		$grupoRH=utf8_encode($rowA['grupoRH']);
+		$antecedentesHeredo=utf8_encode($rowA['antecedentesHeredo']);
+		$habitacion=utf8_encode($rowA['habitacion']);
+		$habitos=utf8_encode($rowA['habitos']);
+		$alimentacion=utf8_encode($rowA['alimentacion']);
+		$actividadFisica=utf8_encode($rowA['actividadFisica']);
+		$inmunizaciones=utf8_encode($rowA['inmunizaciones']);
+		$antecedentesPatologicos=utf8_encode($rowA['antecedentesPatologicos']);
+		
+		$tabaco=$rowA['tabaco'];
+		$alcohol=$rowA['alcohol'];
+		$drogas=$rowA['drogas'];
+		$tabacoCK = $tabaco=='1' ? 'checked':'';
+		$alcoholCK = $alcohol=='1' ? 'checked':'';
+		$drogasCK = $drogas=='1' ? 'checked':'';
+		
+		$antecedentesGineco=utf8_encode($rowA['antecedentesGineco']);
+		$antecedentesPediatricos=utf8_encode($rowA['antecedentesPediatricos']);
+		$respiratorio=utf8_encode($rowA['respiratorio']);
+		$musculoEsquele=utf8_encode($rowA['musculoEsquele']);
+		$digestivo=utf8_encode($rowA['digestivo']);
+		$genital=utf8_encode($rowA['genital']);
+		$endocrino=utf8_encode($rowA['endocrino']);
+		$nervioso=utf8_encode($rowA['nervioso']);
+		$hematologico=utf8_encode($rowA['hematologico']);
+		$psicologico=utf8_encode($rowA['psicologico']);
+		$urinario=utf8_encode($rowA['urinario']);
+		$cardiocirculatorio=utf8_encode($rowA['cardiocirculatorio']);
+		$pielFaneras=utf8_encode($rowA['pielFaneras']);
+		$habExtFin=utf8_encode($rowA['habExt']);
+		$cabezaFin=utf8_encode($rowA['cabeza']);
+		$toraxFin=utf8_encode($rowA['torax']);
+		$abdomenFin=utf8_encode($rowA['abdomen']);
+		$extremidadesFin=utf8_encode($rowA['extremidades']);
+		$genitales=utf8_encode($rowA['genitales']);
+		$neurologico=utf8_encode($rowA['neurologico']);
+		$pielFaneras2=utf8_encode($rowA['pielFaneras2']);
+		$columnavertebral=utf8_encode($rowA['columnavertebral']);
+	}
+
 	$val='0';
 	if(isset($_REQUEST['enviar']))
 	{
+		$tabaco=NULL;
+		$alcohol=NULL;
+		$drogas=NULL;
+		
 		if (isset($_POST['expediente']))
 		{
 			$expediente=$_POST['expediente'];
@@ -501,11 +601,6 @@
 							$docs = mysqli_query($conexionMedico, $queryDocs) or die (mysqli_error($conexionMedico));
 							
 							$padActFin= NULL;
-							$habExtFin = NULL;
-							$cabezaFin = NULL;
-							$toraxFin = NULL;
-							$abdomenFin = NULL;
-							$extremidadesFin = NULL;
 							$genitalesFin = NULL;
 							$neuroFin = NULL;
 							$pielFin = NULL;
@@ -518,6 +613,7 @@
 								$abdomenFin = $row['abdomen'];
 								$extremidadesFin = $row['extremidades'];
 							}
+							
 							if($padActFin == NULL || $padActFin == ''){
 								$queryDocs = "SELECT *
 										  FROM notaUrgchoque
@@ -641,64 +737,64 @@
 								</div>
 								<div class="form-group col-md-6 col-xs-6">
 									<label>OCUPACIÓN : <span>*</span></label>
-									<input type="text" name="ocupacion" class="form-control required" autocomplete="off">
+									<input type="text" name="ocupacion" class="form-control required" autocomplete="off" value="<?php echo $ocupacion ?>">
 								</div>
 								<div class="form-group col-md-6 col-xs-6">
 									<label>LUGAR DE ORIGEN : <span>*</span></label>
-									<input type="text" name="lugarOrigen" class="form-control required" autocomplete="off">
+									<input type="text" name="lugarOrigen" class="form-control required" autocomplete="off" value="<?php echo $lugarOrigen ?>">
 								</div>
 								<div class="form-group col-md-6 col-xs-6">
 									<label> ESCOLARIDAD : <span>*</span></label>
-									<input type="text" name="escolaridad" class="form-control required" autocomplete="off">
+									<input type="text" name="escolaridad" class="form-control required" autocomplete="off" value="<?php echo $escolaridad ?>">
 								</div>
 								<div class="form-group col-md-6 col-xs-6">
 									<label> RELIGIÓN : <span>*</span></label>
-									<input type="text" name="religion" class="form-control required" autocomplete="off">
+									<input type="text" name="religion" class="form-control required" autocomplete="off" value="<?php echo $religion ?>">
 								</div>
 								<div class="form-group col-md-6 col-xs-6">
 									<label>GRUPO Y RH : <span>*</span></label>
-									<input type="text" name="grupoRH" class="form-control required" autocomplete="off">
+									<input type="text" name="grupoRH" class="form-control required" autocomplete="off" value="<?php echo $grupoRH ?>">
 								</div>
 								<div class="form-group">
 									<h4>ANTECEDENTES:</h4>
                     			    <label>ANTECEDENTES HEREDO FAMILIARES : <span>*</span></label>
-                                    <textarea class="form-control required" name="antecedentesHeredo" id="antecedentes" cols="10" rows="3"><?php #echo $antecOld ?></textarea>
+                                    <textarea class="form-control required" name="antecedentesHeredo" id="antecedentes" cols="10" rows="3"><?php echo $antecedentesHeredo ?></textarea>
                                 </div>
 								<br/>
 								<h5>ANTECEDENTES NO PATOLÓGICOS:</h5>
 								<div class="form-group">
                     			    <label>HABITACIÓN : <span>*</span></label>
-                                    <textarea class="form-control required" name="habitacion" id="habitacion" cols="10" rows="3"></textarea>
+                                    <textarea class="form-control required" name="habitacion" id="habitacion" cols="10" rows="3"><?php echo $habitacion ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>HÁBITOS : <span>*</span></label>
-                                    <textarea class="form-control required" name="habitos" id="habitos" cols="10" rows="3"></textarea>
+                                    <textarea class="form-control required" name="habitos" id="habitos" cols="10" rows="3"><?php echo $habitos ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>ALIMENTACIÓN : <span>*</span></label>
-                                    <textarea class="form-control required" name="alimentacion" id="alimentacion" cols="10" rows="3"></textarea>
+                                    <textarea class="form-control required" name="alimentacion" id="alimentacion" cols="10" rows="3"><?php echo $alimentacion ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>ACTIVIDAD FÍSICA : <span>*</span></label>
-                                    <textarea class="form-control required" name="actividadFisica" id="actividadFisica" cols="10" rows="3"></textarea>
+                                    <textarea class="form-control required" name="actividadFisica" id="actividadFisica" cols="10" rows="3"><?php echo $actividadFisica ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>INMUNIZACIONES : <span>*</span></label>
-                                    <textarea class="form-control required" name="inmunizaciones" id="inmunizaciones" cols="10" rows="3"></textarea>
+                                    <textarea class="form-control required" name="inmunizaciones" id="inmunizaciones" cols="10" rows="3"><?php echo $inmunizaciones ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>ANTECEDENTES PATOLÓGICOS : <span>*</span></label>
-                                    <textarea class="form-control required" name="antecedentesPatologicos" id="antecedentesPatologicos" cols="10" rows="3"></textarea>
+                                    <textarea class="form-control required" name="antecedentesPatologicos" id="antecedentesPatologicos" cols="10" rows="3"><?php echo $antecedentesPatologicos ?></textarea>
                                 </div>
-								<div class="form-group">                    			    
+								<div class="form-group">
 									<label class="checkbox-inline"> TABACO
-									  <input type="checkbox" name="tabaco" style="width: 45px; height: 35px" value="1" >
+									  <input type="checkbox" name="tabaco" style="width: 45px; height: 35px" value="1" <?php echo $tabacoCK ?> >
 									</label>
 									<label class="checkbox-inline">ALCOHOL
-									  <input type="checkbox" name="alcohol" style="width: 45px; height: 35px" value="1">
+									  <input type="checkbox" name="alcohol" style="width: 45px; height: 35px" value="1" <?php echo $alcoholCK ?> >
 									</label>
 									<label class="checkbox-inline">DROGAS
-									  <input type="checkbox" name="drogas" style="width: 45px; height: 35px" value="1"> 
+									  <input type="checkbox" name="drogas" style="width: 45px; height: 35px" value="1" <?php echo $drogasCK ?> >
 									</label>
                                 </div>
 								<br>
@@ -708,11 +804,11 @@
                                 </div>
 								<div class="form-group">
                     			    <label>ANTECEDENTES GINECO-OBSTÉTRICOS (si procede): </label>
-                                    <textarea class="form-control" name="antecedentesGineco" id="antecedentesGineco" cols="10" rows="3"></textarea>
+                                    <textarea class="form-control" name="antecedentesGineco" id="antecedentesGineco" cols="10" rows="3"><?php echo $antecedentesGineco ?></textarea>
                                 </div>
 								<div class="form-group">
                     			    <label>ANTECEDENTES PEDIÁTRICOS (si procede): </label>
-                                    <textarea class="form-control" name="antecedentesPediatricos" id="antecedentesPediatricos" cols="10" rows="3"></textarea>
+                                    <textarea class="form-control" name="antecedentesPediatricos" id="antecedentesPediatricos" cols="10" rows="3"><?php echo $antecedentesPediatricos ?></textarea>
                                 </div>
                                 <div class="form-wizard-buttons">
                                     <button type="button" class="btn btn-next">Siguiente</button>
@@ -743,57 +839,57 @@
                                 </div>
 								<div class="form-group">
                     			    <label>RESPIRATORIO : <span>*</span></label>
-									<textarea class="form-control required" name="respiratorio" id="respiratorio" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="respiratorio" id="respiratorio" cols="10" rows="3"><?php echo $respiratorio ?></textarea>
                                     <!--input type="text" name="torax" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>MÚSCULO-ESQUELÉTICO : <span>*</span></label>
-									<textarea class="form-control required" name="musculoEsquele" id="musculoEsquele" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="musculoEsquele" id="musculoEsquele" cols="10" rows="3"><?php echo $musculoEsquele ?></textarea>
                                     <!--input type="text" name="abdomen" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>DIGESTIVO : <span>*</span></label>
-									<textarea class="form-control required" name="digestivo" id="digestivo" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="digestivo" id="digestivo" cols="10" rows="3"><?php echo $digestivo ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>GENITAL : <span>*</span></label>
-									<textarea class="form-control required" name="genital" id="genital" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="genital" id="genital" cols="10" rows="3"><?php echo $genital ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>ENDOCRINO : <span>*</span></label>
-									<textarea class="form-control required" name="endocrino" id="endocrino" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="endocrino" id="endocrino" cols="10" rows="3"><?php echo $endocrino ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>NERVIOSO : <span>*</span></label>
-									<textarea class="form-control required" name="nervioso" id="nervioso" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="nervioso" id="nervioso" cols="10" rows="3"><?php echo $nervioso ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>HEMATOLÓGICO : <span>*</span></label>
-									<textarea class="form-control required" name="hematologico" id="hematologico" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="hematologico" id="hematologico" cols="10" rows="3"><?php echo $hematologico ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>PSICOLÓGICOS : <span>*</span></label>
-									<textarea class="form-control required" name="psicologico" id="psicologico" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="psicologico" id="psicologico" cols="10" rows="3"><?php echo $psicologico ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>URINARIO : <span>*</span></label>
-									<textarea class="form-control required" name="urinario" id="urinario" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="urinario" id="urinario" cols="10" rows="3"><?php echo $urinario ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>CARDIOCIRCULATORIO : <span>*</span></label>
-									<textarea class="form-control required" name="cardiocirculatorio" id="cardiocirculatorio" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="cardiocirculatorio" id="cardiocirculatorio" cols="10" rows="3"><?php echo $cardiocirculatorio ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>PIEL Y FANERAS : <span>*</span></label>
-									<textarea class="form-control required" name="pielFaneras" id="pielFaneras" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="pielFaneras" id="pielFaneras" cols="10" rows="3"><?php echo $pielFaneras ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
                                 <div class="form-wizard-buttons">
@@ -877,22 +973,22 @@
                                 </div>
 								<div class="form-group">
                     			    <label>GENITALES : <span>*</span></label>
-									<textarea class="form-control required" name="genitales" id="genitales" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="genitales" id="genitales" cols="10" rows="3"><?php echo $genitales ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>NEUROLÓGICO : <span>*</span></label>
-									<textarea class="form-control required" name="neurologico" id="neurologico" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="neurologico" id="neurologico" cols="10" rows="3"><?php echo $neurologico ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>PIEL Y FANERAS : <span>*</span></label>
-									<textarea class="form-control required" name="pielFaneras2" id="pielFaneras2" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="pielFaneras2" id="pielFaneras2" cols="10" rows="3"><?php echo $pielFaneras2 ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
 								<div class="form-group">
                     			    <label>COLUMNA VERTEBRAL : <span>*</span></label>
-									<textarea class="form-control required" name="columnavertebral" id="columnavertebral" cols="10" rows="3"></textarea>
+									<textarea class="form-control required" name="columnavertebral" id="columnavertebral" cols="10" rows="3"><?php echo $columnavertebral ?></textarea>
                                     <!--input type="text" name="extremidades" class="form-control" autocomplete="off"-->
                                 </div>
                                 <div class="form-wizard-buttons">

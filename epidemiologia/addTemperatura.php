@@ -210,8 +210,13 @@
                                 <h4>TEMPERATURA : <span>Paso 1 - 1</span></h4>
 								<!--div style="clear:both;"></div-->							
                     			    <div class="form-group">
-                    			    	<label>NOMBRE DEL VERIFICADOR :</label>
-                                    <input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control">
+                    			    	<label>NOMBRE DEL VERIFICADOR :*</label>
+                                    	<!--input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control"-->
+										<select id="verificador" name="verificador" class="form-control required">
+											<option value="">Seleccione</option>
+											<option value="Gudmaro Mauricio Carvajal Reyes">Mauricio</option>
+											<option value="Alexa Sánchez Solano">Alexa</option>
+										</select>
                                 	</div>
                                 <div class="form-group">
                     			    <label>FECHA DE MEDICIÓN : <span>*</span></label>

@@ -248,6 +248,13 @@
 	if($rowNPre!= NULL){
     	$descPre = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE NOTA PREOPERATORIA</span>";
 	}
+	$queryImg = 'SELECT * FROM imagenologia WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1' ;
+                $img = mysqli_query($conexionMedico, $queryImg) or die (mysqli_error($conexion));
+                $rowNImg = mysqli_fetch_array($img);
+	$descImg=null;
+	if($rowNImg!= NULL){
+    	$descImg = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE SOLICITUD A IMAGENOLOGÍA</span>";
+	}
 
 ?>
 
@@ -303,10 +310,10 @@
 				<input type="radio" name="sky-tabs" id="sky-tab8" class="sky-tab-content-8">
 				<label for="sky-tab8"><span><span><i class="fa fa-file-o"></i>NOTA PREOPERATORIA</span></span></label>
 				
-				<!--input type="radio" name="sky-tabs" id="sky-tab9" class="sky-tab-content-9">
-				<label for="sky-tab9"><span><span><i class="fa fa-file-text-o"></i>NOTA POSTOPERATORIA</span></span></label>
+				<input type="radio" name="sky-tabs" id="sky-tab9" class="sky-tab-content-9">
+				<label for="sky-tab9"><span><span><i class="fa fa-file-text-o"></i>IMAGENOLOGÍA</span></span></label>
 				
-				<input type="radio" name="sky-tabs" id="sky-tab10" class="sky-tab-content-10">
+				<!--input type="radio" name="sky-tabs" id="sky-tab10" class="sky-tab-content-10">
 				<label for="sky-tab10"><span><span><i class="fa fa-file"></i>NOTA PRE-ANESTÉSICA</span></span></label>
 				
 				<input type="radio" name="sky-tabs" id="sky-tab11" class="sky-tab-content-11">
@@ -464,15 +471,24 @@
 						</div>
 					</li>
 					
-					<!--li class="sky-tab-content-9">
+					<li class="sky-tab-content-9">
 						<div class="typography">
-							<h1>NOTA POSTOPERATORIA</h1>
+							<h1>IMAGENOLOGÍA</h1>
+							<h2><?php echo $descImg ?></h2>
 							<p>
+								<input type="button" value="Solicitud a Imagenología" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('solImagen.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
+								<!--input type="button" value="Generar PDF de Nota Preoperatoria" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php #echo $expediente_pac ?>&folio=<?php #echo $folio_pac ?>&name=preoperatoriaUrg', '_blank').focus()"/-->
+							</p>
+							<p>
+								<input type="button" value="Consultar Solicitudes a Imagenología" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('consultaSolImagen.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
 						</div>
 					</li>
 					
-					<li class="sky-tab-content-10">
+					<!--li class="sky-tab-content-10">
 						<div class="typography">
 							<h1>NOTA PRE-ANESTÉSICA</h1>
 							<p>

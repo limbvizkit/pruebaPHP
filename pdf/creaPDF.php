@@ -116,7 +116,7 @@
 		}
 		
 		//Declaramos la cabecera
-		$cabecera = array("FECHA: ".$fechaFin."          HORA DE INICIO DE CONSULTA: ".$horaIC." Hrs.          TURNO: ".$turno,"NOMBRE: ".$nombre_pac,"FECHA DE NACIMIENTO: ".$fecha_nac_pac."          EDAD: ".utf8_decode($annios)."          SEXO: ".$sexo_pac,utf8_decode("PROCEDE: ".$obligado_pac),utf8_decode("Domicilio: ".$calle_pac .' Col. '.$col_pac.' '.$cp_pac.' '.$ciudad_pac),"Tel: ".$tel_pac.utf8_decode("       PERSONA QUE ACOMPAÑA: ".$compa_pac),"ARRIBO EN:  ".$acudeFin);
+		$cabecera = array("EXPEDIENTE: ".$expediente."  FOLIO: ".$folio."  FECHA: ".$fechaFin."   HORA: ".$horaIC." Hrs.   TURNO: ".$turno,"NOMBRE: ".$nombre_pac,"FECHA DE NACIMIENTO: ".$fecha_nac_pac."          EDAD: ".utf8_decode($annios)."          SEXO: ".$sexo_pac,utf8_decode("PROCEDE: ".$obligado_pac),utf8_decode("Domicilio: ".$calle_pac .' Col. '.$col_pac.' '.$cp_pac.' '.$ciudad_pac),"Tel: ".$tel_pac.utf8_decode("       PERSONA QUE ACOMPAÑA: ".$compa_pac),"ARRIBO EN:  ".$acudeFin);
 		
 		$pdf = new PDF();
 		$pdf->setCabeza($cabecera);
@@ -318,7 +318,7 @@
 		$horaN1 = new DateTime($rowM['hora']);
 		$horaT = $horaN1->format('H:i');*/				
 		
-		$cabecera = array("FECHA: ".$fechaFin."          HORA DE INICIO DE CONSULTA: ".$horaIC." Hrs.          TURNO: ".$turno,utf8_decode("NOMBRE: ".$nombre_pac),"FECHA DE NACIMIENTO: ".$fecha_nac_pac."          EDAD: ".utf8_decode($annios)."          SEXO: ".$sexo_pac,utf8_decode("PROCEDE: ".$obligado_pac),utf8_decode("Domicilio: ".$calle_pac .'  Col. '.$col_pac.' '.$cp_pac.' '.$ciudad_pac),"Tel: ".$tel_pac.utf8_decode("       PERSONA QUE ACOMPAÑA: ".$compa_pac),"ARRIBO EN:  ".$rowC1['acude']);
+		$cabecera = array("EXPEDIENTE: ".$expediente."  FOLIO: ".$folio."  FECHA: ".$fechaFin."   HORA: ".$horaIC." Hrs.   TURNO: ".$turno,utf8_decode("NOMBRE: ".$nombre_pac),"FECHA DE NACIMIENTO: ".$fecha_nac_pac."          EDAD: ".utf8_decode($annios)."          SEXO: ".$sexo_pac,utf8_decode("PROCEDE: ".$obligado_pac),utf8_decode("Domicilio: ".$calle_pac .'  Col. '.$col_pac.' '.$cp_pac.' '.$ciudad_pac),"Tel: ".$tel_pac.utf8_decode("       PERSONA QUE ACOMPAÑA: ".$compa_pac),"ARRIBO EN:  ".$rowC1['acude']);
 		
 		$pdf = new PDF();
 		$pdf->setCabeza($cabecera);
@@ -517,10 +517,10 @@
 				echo 'HORA: '.$horaIndic[1]['horaI'];*/
 				//$pdf->MultiCell(0,7,'Conteo:'.$longitud,1,'L');
 		}
-		/*$hora1G = new DateTime($rowC1['hora']);
-		$horaNewG = $hora1G->format('H:i');*/
+		$hora1G = new DateTime($rowC1['horaG']);
+		$horaNewG = $hora1G->format('H:i');
 		
-		$cabecera = array("FECHA: ".$fechaFinG."  HORA: ".$rowC1['horaG']." hrs.","NOMBRE COMPLETO DEL PACIENTE: ".$rowC1['nPaciente'],"FECHA DE NACIMIENTO: ".$fechaFinN,"ALERGIAS: ".$rowC1['alergias'],utf8_decode("MÉDICO TRATANTE: ").$rowC1['medTratante'],utf8_decode("DIAGNÓSTICO: ").$rowC1['diagnostico']);
+		$cabecera = array("FECHA: ".$fechaFinG."   HORA: ".$horaNewG." hrs.","NOMBRE COMPLETO DEL PACIENTE: ".$rowC1['nPaciente'],"FECHA DE NACIMIENTO: ".$fechaFinN,"ALERGIAS: ".$rowC1['alergias'],utf8_decode("MÉDICO TRATANTE: ").$rowC1['medTratante'],utf8_decode("DIAGNÓSTICO: ").$rowC1['diagnostico']);
 		
 		$pdf = new PDF();
 		$pdf->setEspacio('TRUE');
@@ -750,7 +750,7 @@
 			$longitud = count($medicam);
 		}
 		
-		$cabecera = array("FECHA: ".$fechaFinG,"NOMBRE COMPLETO DEL PACIENTE: ".$rowC1['nombrePac'],"FECHA DE NACIMIENTO: ".$fechaFinN.'   EDAD: '.utf8_decode($annios),"ALERGIAS: ".$rowC1['alergias'],utf8_decode("DIAGNÓSTICO: ").$rowC1['diag']);
+		$cabecera = array("EXPEDIENTE: ".$expediente."  FOLIO: ".$folio."   FECHA: ".$fechaFinG,"NOMBRE COMPLETO DEL PACIENTE: ".$rowC1['nombrePac'],"FECHA DE NACIMIENTO: ".$fechaFinN.'   EDAD: '.utf8_decode($annios),"ALERGIAS: ".$rowC1['alergias'],utf8_decode("DIAGNÓSTICO: ").$rowC1['diag']);
 		
 		$pdf = new PDF();
 		$pdf->setEspacio('TRUE');
@@ -1036,11 +1036,16 @@
 	//Esta parte es la que Genera el PDF NOTA DE EVOLUCION
 	if($_GET['name'] == 'nevoh') {
 		
+		$id=NULL;
+
 		if(isset ($_GET['exp'])){
 			$expediente = $_GET['exp'];
 		}
 		if(isset ($_GET['folio']) ){
 			$folio = $_GET['folio'];
+		}
+		if(isset ($_GET['id']) ){
+			$id = $_GET['id'];
 		}
 		
 		#Forma POO instanciamos y mandamos llamar un objeto de la instancia
@@ -1088,10 +1093,15 @@
 		}
 		$turno = null;
 		$acudeFin = NULL;
+		$idEvo=NULL;
+		if($id != NULL && $id != ''){
+			$idEvo= ' AND id='.$id.' ';
+		}
+
 		#echo 'LLEGO idResguardo: '.$idResguardo;
 		#Query para Sacar los datos del primer Recuadro (Datos Basicos)
 
-		$queryCuadro1 = "SELECT * FROM notaEvolucionh WHERE numeroExpediente = '$expediente' AND folio= '$folio' AND estatus=1 ORDER BY id DESC";
+		$queryCuadro1 = "SELECT * FROM notaEvolucionh WHERE numeroExpediente = '$expediente' AND folio= '$folio'".$idEvo." AND estatus=1 ORDER BY id DESC";
 		$result0 = mysqli_query($conexionMedico, $queryCuadro1);
 		$rowC1 = mysqli_fetch_array($result0);
 		
@@ -1222,11 +1232,15 @@
 	//Esta parte es la que Genera el PDF NOTA traslado de servicio
 	if($_GET['name'] == 'nts') {
 		
+		$id=NULL;
 		if(isset ($_GET['exp'])){
 			$expediente = $_GET['exp'];
 		}
 		if(isset ($_GET['folio']) ){
 			$folio = $_GET['folio'];
+		}
+		if(isset ($_GET['id']) ){
+			$id = $_GET['id'];
 		}
 		
 		#Forma POO instanciamos y mandamos llamar un objeto de la instancia
@@ -1267,16 +1281,20 @@
 		}
 		$turno = null;
 		$acudeFin = NULL;
+		$idTS=NULL;
+		if($id != NULL && $id != ''){
+			$idTS= ' AND id='.$id.' ';
+		}
 		#echo 'LLEGO idResguardo: '.$idResguardo;
 		#Query para Sacar los datos del primer Recuadro (Datos Basicos)
-		$queryCuadro1 = "SELECT * FROM notaTrasladoServ WHERE numeroExpediente = '$expediente' AND folio= '$folio' AND estatus=1 ORDER BY id DESC";
+		$queryCuadro1 = "SELECT * FROM notaTrasladoServ WHERE numeroExpediente = '$expediente' AND folio= '$folio'".$idTS." AND estatus=1 ORDER BY id DESC";
 		$result0 = mysqli_query($conexionMedico, $queryCuadro1);
 		$rowC1 = mysqli_fetch_array($result0);
-		if($rowC1 == NULL){
-			$queryCuadro1 = "SELECT * FROM notaTrasladoServh WHERE numeroExpediente = '$expediente' AND folio= '$folio' AND estatus=1 ORDER BY id DESC";
+		/*if($rowC1 == NULL){
+			$queryCuadro1 = "SELECT * FROM notaTrasladoServh WHERE numeroExpediente = '$expediente' AND folio= '$folio'".$idTS." AND estatus=1 ORDER BY id DESC";
 			$result0 = mysqli_query($conexionMedico, $queryCuadro1);
 			$rowC1 = mysqli_fetch_array($result0);
-		}
+		}*/
 		
 		$horaN = new DateTime($rowC1['hora']);
 		$horaIC = $horaN->format('H:i');
@@ -1402,6 +1420,199 @@
 			
 			$pdf->Output(); //Salida al navegador del pdf
 		}
+/********************************************************************************************************************************************************/
+	//Esta parte es la que Genera el PDF NOTA traslado de servicio Hospital
+	if($_GET['name'] == 'ntsh') {
+		
+		$id=NULL;
+		if(isset ($_GET['exp'])){
+			$expediente = $_GET['exp'];
+		}
+		if(isset ($_GET['folio']) ){
+			$folio = $_GET['folio'];
+		}
+		if(isset ($_GET['id']) ){
+			$id = $_GET['id'];
+		}
+		
+		#Forma POO instanciamos y mandamos llamar un objeto de la instancia
+		$usuario1 = new FuncionesDB();
+		#La funcion retorna un arreglo lo mandamos a una variable
+		$resultado[] = $usuario1->consultaBasicos($expediente,$folio);
+		#El arreglo esta vacio 
+		if (!empty($resultado[0])) {
+		$nombre_pac = utf8_decode($resultado[0][0]['NOMBRE']);
+	    $edad_pac = $resultado[0][0]['EDAD_PAC'];
+   	    $sexo_pac = $resultado[0][0]['SEXO_PAC'];
+			
+		if($sexo_pac == 'M') {
+			$sexo_pac='MASCULINO';
+		} else {
+			$sexo_pac='FEMENINO';
+		}
+	    /*$nombre_med = $resultado[0][0]['DESC_MEDICO'];
+	   	$especialidad_med = $resultado[0][0]['DESC_ESPEC'];
+		$cedula_med = $resultado[0][0]['CEDULA_MEDICO'];*/
+	    $date2 = $resultado[0][0]['NACIO_PA'];
+	    $fecha_nac_pac = $date2->format('d/m/Y');
+		$hoy = new DateTime();
+		$anniosO = $hoy->diff($date2);
+		$annios = $anniosO->format('%y Año(s)');
+		$anniosBool = $anniosO->format('%y');
+		if($anniosBool == '0'){
+			$annios = $anniosO->format('%m Mes(es)');
+		}
+		#Direccion del paciente
+		$calle_pac = trim($resultado[0][0]['DIR_PAC']);
+		$col_pac = trim($resultado[0][0]['COL_PAC']);
+		$ciudad_pac = trim($resultado[0][0]['CD_PAC']);
+		$cp_pac = trim($resultado[0][0]['CP_PAC']);
+		$obligado_pac = $resultado[0][0]['OBLI_PAC'];
+		$tel_pac = trim($resultado[0][0]['TEL_PAC']);
+		$compa_pac = trim($resultado[0][0]['DATO_OPCIONAL8_PAC']);
+		}
+		$turno = null;
+		$acudeFin = NULL;
+		$idTS=NULL;
+		if($id != NULL && $id != ''){
+			$idTS= ' AND id='.$id.' ';
+		}
+		#echo 'LLEGO idResguardo: '.$idResguardo;
+		#Query para Sacar los datos del primer Recuadro (Datos Basicos)
+		/*$queryCuadro1 = "SELECT * FROM notaTrasladoServ WHERE numeroExpediente = '$expediente' AND folio= '$folio'".$idTS." AND estatus=1 ORDER BY id DESC";
+		$result0 = mysqli_query($conexionMedico, $queryCuadro1);
+		$rowC1 = mysqli_fetch_array($result0);
+		if($rowC1 == NULL){*/
+		$queryCuadro1 = "SELECT * FROM notaTrasladoServh WHERE numeroExpediente = '$expediente' AND folio= '$folio'".$idTS." AND estatus=1 ORDER BY id DESC";
+		$result0 = mysqli_query($conexionMedico, $queryCuadro1);
+		$rowC1 = mysqli_fetch_array($result0);
+		//}
+		
+		$horaN = new DateTime($rowC1['hora']);
+		$horaIC = $horaN->format('H:i');
+		$fecha = strtotime($rowC1['fecha']);
+		$fechaFin = date('d/m/Y',$fecha);
+		
+		if($rowC1['turno'] == 'M'){
+			$turno='MATUTINO';
+		} else if($rowC1['turno'] == 'V'){
+			$turno='VESPERTINO';
+		} if($rowC1['turno'] == 'N'){
+			$turno='NOCTURNO';
+		}
+		//$acudeFin = $rowC1['acude'];
+		//Colocar habitacion del paciente si es que tiene
+		$cuarto_pac = trim($resultado[0][0]['CVE_CUARTO']);
+		$habitacion_pac=NULL;
+		if($cuarto_pac != NULL && $cuarto_pac != ''){
+			$habitacion_pac=utf8_decode("   HABITACIÓN: ").$cuarto_pac;
+		}
+		
+		//Datos para medico segun la Cedula Colocada
+		$resultadoMed[] = $usuario1->medicosCed($rowC1['cedula']);
+		$nombre_med = $resultadoMed[0][0]['DESC_MEDICO'];
+	   	$especialidad_med = $resultadoMed[0][0]['DESC_ESPEC'];
+		$cedula_med = $resultadoMed[0][0]['CEDULA_MEDICO'];
+		
+		$cabecera = array("EXPEDIENTE: ".$rowC1['numeroExpediente']."   FOLIO: ".$rowC1['folio'].$habitacion_pac,"FECHA: ".$fechaFin."          HORA: ".$horaIC." Hrs.          TURNO: ".$turno,"NOMBRE: ".$nombre_pac,"FECHA DE NACIMIENTO: ".$fecha_nac_pac."          EDAD: ".utf8_decode($annios)."          SEXO: ".$sexo_pac,"DOMICILIO: ".$calle_pac .' Col. '.$col_pac.' '.$cp_pac.' '.$ciudad_pac,"Tel: ".$tel_pac);
+		//$cabecera = array("FECHA: ".$fechaFin."     HORA: ".$horaIC." Hrs.     TURNO: ".$turno,"NOMBRE: ".$nombre_pac,"FECHA DE NACIMIENTO: ".$fecha_nac_pac."     EDAD: ".utf8_decode($annios)."     SEXO: ".$sexo_pac,"","","","");
+		
+		$pdf = new PDF();
+		$pdf->setCabeza($cabecera);
+		#$pdf->Header('1');
+		$pdf->AddPage('P', 'Letter'); //Vertical, Carta
+		//$pdf->SetFont('Arial','B',12); //Arial, negrita, 12 puntos
+		
+		//Estas lineas es para poner color al el teto de un cell
+		/*if($rowM['color']=='AMARILLO'){
+			 $pdf->SetTextColor(255,255,0);
+			 $color=$pdf->Cell(153,165,$rowM['color'],0,1,'C');
+		} else if($rowM['color']=='ROJO'){
+
+			 $pdf->SetTextColor(255,0,0);
+			 $color=$pdf->Cell(153,165,$rowM['color'],0,1,'C');
+		} else if($rowM['color']=='VERDE'){
+			 $pdf->SetTextColor(0,255,0);
+			 $color=$pdf->Cell(153,165,$rowM['color'],0,1,'C');
+		}*/
+		 $pdf->SetTextColor(0);
+			#Variables
+			//Array de cadenas para la cabecera
+			/*$cabecera = array(utf8_decode("                                                      NOTA DE TRASLADO DE SERVICIO"),"FECHA: ".$fechaFin."     HORA: ".$horaIC." Hrs.     TURNO: ".$turno,"NOMBRE: ".$nombre_pac,"FECHA DE NACIMIENTO: ".$fecha_nac_pac."     EDAD: ".utf8_decode($annios)."     SEXO: ".$sexo_pac);*/
+			#$datosPersona = array($fecha1,$area,$entrega,$recibe);
+			#$datosPersona = array(utf8_encode($rowC1[2]),utf8_encode($rowC1[3]),utf8_encode($rowC1[4]),utf8_encode($rowC1[5]));
+
+			
+			//imprimimos un texto
+			#$pdf->MultiCell(0,5,utf8_decode('APLICA: Cuando el activo fijo, equipo menor y herramienta de trabajo es NUEVO O USADO y se ha inventariado, identificándose dentro de un área especificada.'));
+			#$pdf->Cell(0,7,utf8_decode('identificándose dentro de un área especificada.'),0, 0, 'L');
+			//$pdf->Header('2');
+			//$pdf->tablaSimple($cabecera); //Método que integra datos
+			//$pdf->Ln(1);
+			$pdf->SetFont('Arial','B',10); //Arial, negrita, 12 puntos
+			$pdf->SetFillColor(200,200,200);
+			$pdf->setTitulo('NOTA DE TRASLADO DE SERVICIO');
+			$pdf->SetXY(60,12);
+			$pdf->Cell(145,7,utf8_decode('NOTA DE TRASLADO DE SERVICIO'),1, 1 , 'C',true);
+
+			$pdf->SetFont('Arial','',9);
+			//$pdf->Rect(10,70,200,22,'');
+			$pdf->SetY(60);
+		
+			$pdf->SetFont('Arial','',9);
+			//$pdf->Rect(10,70,200,22,'');
+			$pdf->SetFillColor(200,200,200);
+			$pdf->Cell(0,7,'MOTIVO DE TRANSFERENCIA: '.$rowC1['motivoTransferencia'],1, 1 , 'L',true);
+			$pdf->Cell(0,7,'SERVICIO ACTUAL: '.$rowC1['servicioActual'],1, 1 , 'L',true);
+			$pdf->Cell(0,7,'SERVICIO AL QUE SE TRASLADA: '.$rowC1['servicioTraslada'],1, 1 , 'L',true);
+			$pdf->Ln();
+			$pdf->Cell(0,7,'SIGNOS VITALES ',1, 1 , 'C',true);
+			//$pdf->SetFillColor(255,255,255);
+			$pdf->MultiCell(0,7,'TA:'.$rowC1['ta'].' mmHg     FC: '.$rowC1['fc'].' min     FR: '.$rowC1['fr'].' min    Temp.: '.$rowC1['temp'].utf8_decode('°C     PESO: ').$rowC1['peso'].' Kg     TALLA: '.$rowC1['talla'].' Mts ',1, 'L');
+			//$pdf->MultiCell(0,7,'PESO: '.$rowC1['peso'].' Kg     TALLA: '.$rowC1['talla'].' Mts ',0, 'L');
+			//$pdf->Rect(10,95,200,10,'');
+			//$pdf->Rect(10,105,200,20,'');			
+			/*$pdf->Ln(5);
+			$pdf->MultiCell(0,7,'TRATAMIENTO (CONCILIACION DE MEDICAMENTOS): '.$rowC1['tratamiento'],1, 'L');*/
+			#Pad act
+			$pdf->Ln();
+			$pdf->Cell(0,7,utf8_decode('RESUMEN DE PADECIMIENTO ACTUAL (INCLUIR ESTADO ACTUAL AL MOMENTO DE CAMBIO DE ÁREA)'),1, 1 , 'C',true);
+			$pdf ->MultiCell(0,7,'PADECIMIENTO ACTUAL: '.$rowC1['interrogatorio'],1,'L');
+			#Interrog
+			/*$pdf->Ln();
+			$pdf->Cell(0,7,utf8_decode('EXPLORACIÓN FÍSICA'),1, 1 , 'C',true);*/
+			//$pdf->MultiCell(0,7,'SIGNOS VITALES: HORA: '.$horaIC.' Hrs.  FC: '.$rowC1['fc'].' min  FR: '.$rowC1['fr'].' min  T/A:'.$rowC1['ta'].' mmHg  TEMP: '.$rowC1['temp'].utf8_decode('°C  SO2: ').$rowC1['so'],1,'L');
+			#Multicell es por si se llena la linea da un salto automaticamente
+			$pdf->Cell(0,7,utf8_decode('EXPLORACIÓN FÍSICA'),1, 1 , 'C',true);
+			$pdf ->MultiCell(0,7,$rowC1['expFisica'],1,'L');
+			/*$pdf ->MultiCell(0,7,'ESTADO MENTAL Y HABITUS EXTERIOR: '.$rowC1['habExt'],1,'L');
+			$pdf ->MultiCell(0,7,'CABEZA: '.$rowC1['cabeza'],1,'L');
+			$pdf ->MultiCell(0,7,utf8_decode('TÓRAX: ').$rowC1['torax'],1,'L');
+			$pdf ->MultiCell(0,7,'ABDOMEN: '.$rowC1['abdomen'],1,'L');
+			$pdf ->MultiCell(0,7,'EXTREMIDADES: '.$rowC1['extremidades'],1,'L');*/
+			
+			#Diag
+			$pdf->Ln();
+			$pdf->Cell(0,7,utf8_decode('ESTUDIOS DE GABINETE Y LABORATORIO'),1, 1 ,'C',true);
+			$pdf->MultiCell(0,7,$rowC1['estudiosGabyLab'],1,'L');
+		
+			$pdf->Ln();
+			$pdf->Cell(0,7,utf8_decode('TERAPÉUTICA EMPLEADA Y/O PROCEDIMIENTOS REALIZADOS'),1, 1 ,'C',true);
+			$pdf->MultiCell(0,7,$rowC1['terapeuticayProcedimientos'],1,'L');
+			//Termina hoja1
+			//2da Pagina
+			$pdf->Ln();
+			$pdf->Cell(0,7,utf8_decode('NOMBRE Y FIRMA DEL MÉDICO:'),0,1,'C');
+			$pdf->Ln(15);
+			$pdf->Cell(0,7,'_______________________________________',0,1,'C');
+			$pdf->Cell(0,7,'                 '.utf8_decode($nombre_med),0,1,'C');
+			$pdf->Cell(0,7,'CEDULA PROFESIONAL: '.$cedula_med,0,1,'C');
+			$pdf->Cell(0,7,utf8_decode('                    ESPECIALIDAD: '.$especialidad_med),0,1,'C');
+			//$pdf->Footer('2');
+			
+			$pdf->Output(); //Salida al navegador del pdf
+		}
+/********************************************************************************************************************************************************/
 /********************************************************************************************************************************************************/
 	//Esta parte es la que Genera el PDF NOTA de referencia y traslado
 	if($_GET['name'] == 'nrt') {
@@ -2578,7 +2789,7 @@
 		
 		$pdf = new PDF();
 		$pdf->setCabeza($cabecera);
-		$pdf->setEspacio("TRUE");
+		//$pdf->setEspacio("TRUE");
 		#$pdf->Header('1');
 		$pdf->AddPage('P', 'Letter'); //Vertical, Carta
 		//$pdf->SetFont('Arial','B',6); //Arial, negrita, 12 puntos
@@ -2888,7 +3099,7 @@
 			$fecha_ingreso_pac = $date3->format('d/m/Y');
 			
 			$hr1 = $resultado[0][0]['HR_ING_PAC'];
-			$hr_ingreso_pac = $hr1->format('d/m/Y');
+			$hr_ingreso_pac = $hr1->format('H:i');
 		}
 		$turno = NULL;
 		$acudeFin = NULL;
@@ -2967,7 +3178,15 @@
 		$horaN1 = new DateTime($rowC1['horaEgreso']);
 		$hora1 = $horaN1->format('H:i');
 		
-		$pdf->MultiCell(0,7,'FECHA DE INGRESO: '.$fecha_ingreso_pac.'   FECHA Y HORA DE EGRESO: '.$fechaFin2.' '.$hora1.' Hrs.',1, 'L');
+		$fe1 = $date3->format('Y-m-d');
+		$fe2 = date('Y-m-d',$fecha2);
+		
+		$datetime1 = new DateTime($fe1);
+		$datetime2 = new DateTime($fe2);
+		$estancia = $datetime1->diff($datetime2);
+		$diasEst = $estancia->format('%a');
+		
+		$pdf->MultiCell(0,7,'FECHA Y HORA DE INGRESO: '.$fecha_ingreso_pac.'  '.$hr_ingreso_pac.'Hrs   FECHA Y HORA DE EGRESO: '.$fechaFin2.'  '.$hora1.utf8_decode('Hrs  DÍAS DE ESTANCIA: ').$diasEst,1, 'L');
 		$pdf->MultiCell(0,7,utf8_decode('DIAGNÓSTICO DE INGRESO: ').$rowC1['diagnosticoIngreso'],1, 'L');
 		$pdf->MultiCell(0,7,utf8_decode('DIAGNÓSTICO DE EGRESO: ').$rowC1['diagnosticoEgreso'],1, 'L');
 		
@@ -3210,6 +3429,551 @@
 		$pdf->Cell(0,7,utf8_decode('                    ESPECIALIDAD: '.$especialidad_med),0,1,'C');
 		//$pdf->Footer('2');
 
+		$pdf->Output(); //Salida al navegador del pdf
+	}
+/***************************************************************************************************************************************************************************************************/
+//Esta parte es la que Genera el PDF Imagenologia
+	if($_GET['name'] == 'imagenologia') {
+		
+		if(isset ($_GET['exp'])){
+			$expediente = $_GET['exp'];
+		} else{
+			$expediente=NULL;
+		}
+		
+		if(isset ($_GET['folio'])){
+			$folio = $_GET['folio'];
+		} else {
+			$folio=NULL;
+		}
+		
+		if(isset ($_GET['idImagenologia'])){
+			$idImagenologia = $_GET['idImagenologia'];
+		} else {
+			$idImagenologia = NULL;
+		}
+		
+		if($expediente != NULL || $expediente != ''){
+			#Forma POO instanciamos y mandamos llamar un objeto de la instancia
+			$usuario1 = new FuncionesDB();
+			#La funcion retorna un arreglo lo mandamos a una variable
+			$resultado[] = $usuario1->consultaBasicos($expediente,$folio);
+			#El arreglo esta vacio 
+			if (!empty($resultado[0])) {
+				$nombre_pac = utf8_decode($resultado[0][0]['NOMBRE']);
+				$edad_pac = $resultado[0][0]['EDAD_PAC'];
+				$sexo_pac = $resultado[0][0]['SEXO_PAC'];
+				if($sexo_pac == 'M') {
+					$sexo_pac='MASCULINO';
+				} else {
+					$sexo_pac='FEMENINO';
+				}
+				/*$nombre_med = $resultado[0][0]['DESC_MEDICO'];
+				$especialidad_med = $resultado[0][0]['DESC_ESPEC'];
+				$cedula_med = $resultado[0][0]['CEDULA_MEDICO'];*/
+				$date2 = $resultado[0][0]['NACIO_PA'];
+				$fecha_nac_pac = $date2->format('d/m/Y');
+				$hoy = new DateTime();
+				$anniosO = $hoy->diff($date2);
+				$annios = $anniosO->format('%y Año(s)');
+				$anniosBool = $anniosO->format('%y');
+				if($anniosBool == '0'){
+					$annios = $anniosO->format('%m Mes(es)');
+				}
+				#Direccion del paciente
+				$calle_pac = trim($resultado[0][0]['DIR_PAC']);
+				$col_pac = trim($resultado[0][0]['COL_PAC']);
+				$ciudad_pac = trim($resultado[0][0]['CD_PAC']);
+				$cp_pac = trim($resultado[0][0]['CP_PAC']);
+				$obligado_pac = $resultado[0][0]['OBLI_PAC'];
+				$tel_pac = trim($resultado[0][0]['TEL_PAC']);
+				$compa_pac = trim($resultado[0][0]['DATO_OPCIONAL8_PAC']);
+			}
+		}
+		
+		$turno = null;
+		$acudeFin = NULL;
+		
+		if($expediente != NULL || $expediente != ''){
+			$queryCuadro1 = "SELECT * FROM imagenologia WHERE numeroExpediente = '$expediente' AND folio= '$folio' AND id='$idImagenologia' AND estatus=1 ORDER BY id DESC";
+		} else {
+			$queryCuadro1 = "SELECT * FROM imagenologia WHERE id='$idImagenologia' AND estatus=1 ORDER BY id DESC";
+		}
+		
+		$result0 = mysqli_query($conexionMedico, $queryCuadro1);
+		$rowC1 = mysqli_fetch_array($result0);
+		
+		$fecha = strtotime($rowC1['fechaGuardado']);
+		$fechaFin = date('d/m/Y',$fecha);
+		$horaFin = date('H:i', $fecha);
+		
+		if($rowC1['turno'] == 'M'){
+			$turno='MATUTINO';
+		} else if($rowC1['turno'] == 'V'){
+			$turno='VESPERTINO';
+		} if($rowC1['turno'] == 'N'){
+			$turno='NOCTURNO';
+		}
+		
+		if($rowC1['tiroides'] != NULL &&  $rowC1['tiroides'] != ''){
+			$tiroides='X';
+		} else {
+			$tiroides='';
+		}
+		if($rowC1['mama'] != NULL &&  $rowC1['mama'] != ''){
+			$mama='X';
+		} else {
+			$mama='';
+		}
+		if($rowC1['higadoVesiculayPancreas'] != NULL &&  $rowC1['higadoVesiculayPancreas'] != ''){
+			$higadoVesiculayPancreas='X';
+		} else {
+			$higadoVesiculayPancreas='';
+		}
+		if($rowC1['renal'] != NULL &&  $rowC1['renal'] != ''){
+			$renal='X';
+		} else {
+			$renal='';
+		}
+		if($rowC1['abdominal'] != NULL &&  $rowC1['abdominal'] != ''){
+			$abdominal='X';
+		} else {
+			$abdominal='';
+		}
+		if($rowC1['uteroOvariosyVejiga'] != NULL &&  $rowC1['uteroOvariosyVejiga'] != ''){
+			$uteroOvariosyVejiga='X';
+		} else {
+			$uteroOvariosyVejiga='';
+		}
+		if($rowC1['pelvico'] != NULL &&  $rowC1['pelvico'] != ''){
+			$pelvico='X';
+		} else {
+			$pelvico='';
+		}
+		if($rowC1['obstetrico'] != NULL &&  $rowC1['obstetrico'] != ''){
+			$obstetrico='X';
+		} else {
+			$obstetrico='';
+		}
+		if($rowC1['vejigayProstata'] != NULL &&  $rowC1['vejigayProstata'] != ''){
+			$vejigayProstata='X';
+		} else {
+			$vejigayProstata='';
+		}
+		if($rowC1['tejidosBlandos'] != NULL &&  $rowC1['tejidosBlandos'] != ''){
+			$tejidosBlandos='X';
+		} else {
+			$tejidosBlandos='';
+		}
+		if($rowC1['transrectal'] != NULL &&  $rowC1['transrectal'] != ''){
+			$transrectal='X';
+		} else {
+			$transrectal='';
+		}
+		if($rowC1['transvaginal'] != NULL &&  $rowC1['transvaginal'] != ''){
+			$transvaginal='X';
+		} else {
+			$transvaginal='';
+		}
+		if($rowC1['carotideoBilateral'] != NULL &&  $rowC1['carotideoBilateral'] != ''){
+			$carotideoBilateral='X';
+		} else {
+			$carotideoBilateral='';
+		}
+		if($rowC1['carotideoBiTxt'] != NULL &&  $rowC1['carotideoBiTxt'] != ''){
+			$carotideoBiTxt = $rowC1['carotideoBiTxt'];
+		} else {
+			$carotideoBiTxt='';
+		}
+		
+		if($rowC1['miembroSuperiorUnilateral'] != NULL &&  $rowC1['miembroSuperiorUnilateral'] != ''){
+			$miembroSuperiorUnilateral='X';
+		} else {
+			$miembroSuperiorUnilateral='';
+		}
+		if($rowC1['miembroSupUniTxt'] != NULL &&  $rowC1['miembroSupUniTxt'] != ''){
+			$miembroSupUniTxt = $rowC1['miembroSupUniTxt'];
+		} else {
+			$miembroSupUniTxt='';
+		}
+		if($rowC1['miembroSuperiorBilateral'] != NULL &&  $rowC1['miembroSuperiorBilateral'] != ''){
+			$miembroSuperiorBilateral='X';
+		} else {
+			$miembroSuperiorBilateral='';
+		}
+		if($rowC1['miembroSupBiTxt'] != NULL &&  $rowC1['miembroSupBiTxt'] != ''){
+			$miembroSupBiTxt = $rowC1['miembroSupBiTxt'];
+		} else {
+			$miembroSupBiTxt='';
+		}
+		if($rowC1['miembroInferiorUnilateral'] != NULL &&  $rowC1['miembroInferiorUnilateral'] != ''){
+			$miembroInferiorUnilateral='X';
+		} else {
+			$miembroInferiorUnilateral='';
+		}
+		if($rowC1['miembroInfUniTxt'] != NULL &&  $rowC1['miembroInfUniTxt'] != ''){
+			$miembroInfUniTxt = $rowC1['miembroInfUniTxt'];
+		} else {
+			$miembroInfUniTxt='';
+		}
+		if($rowC1['miembroInferiorBilateral'] != NULL &&  $rowC1['miembroInferiorBilateral'] != ''){
+			$miembroInferiorBilateral='X';
+		} else {
+			$miembroInferiorBilateral='';
+		}
+		if($rowC1['miembroInfBiTxt'] != NULL &&  $rowC1['miembroInfBiTxt'] != ''){
+			$miembroInfBiTxt = $rowC1['miembroInfBiTxt'];
+		} else {
+			$miembroInfBiTxt='';
+		}
+		if($rowC1['higadoHipertensionPortal'] != NULL &&  $rowC1['higadoHipertensionPortal'] != ''){
+			$higadoHipertensionPortal='X';
+		} else {
+			$higadoHipertensionPortal='';
+		}
+		if($rowC1['higadoPortTxt'] != NULL &&  $rowC1['higadoPortTxt'] != ''){
+			$higadoPortTxt = $rowC1['higadoPortTxt'];
+		} else {
+			$higadoPortTxt='';
+		}
+		if($rowC1['regionSimple'] != NULL &&  $rowC1['regionSimple'] != ''){
+			$regionSimple='X';
+		} else {
+			$regionSimple='';
+		}
+		if($rowC1['regionSimp1Txt'] != NULL &&  $rowC1['regionSimp1Txt'] != ''){
+			$regionSimp1Txt = $rowC1['regionSimp1Txt'];
+		} else {
+			$regionSimp1Txt='';
+		}
+		if($rowC1['regionContrastada'] != NULL &&  $rowC1['regionContrastada'] != ''){
+			$regionContrastada='X';
+		} else {
+			$regionContrastada='';
+		}
+		if($rowC1['regionContr1Txt'] != NULL &&  $rowC1['regionContr1Txt'] != ''){
+			$regionContr1Txt = $rowC1['regionContr1Txt'];
+		} else {
+			$regionContr1Txt='';
+		}
+		if($rowC1['cortesSenosParanasales'] != NULL &&  $rowC1['cortesSenosParanasales'] != ''){
+			$cortesSenosParanasales = 'X';
+		} else {
+			$cortesSenosParanasales='';
+		}
+		if($rowC1['craneoSimple'] != NULL &&  $rowC1['craneoSimple'] != ''){
+			$craneoSimple = 'X';
+		} else {
+			$craneoSimple='';
+		}
+		if($rowC1['craneoContrastado'] != NULL &&  $rowC1['craneoContrastado'] != ''){
+			$craneoContrastado = 'X';
+		} else {
+			$craneoContrastado='';
+		}
+		if($rowC1['oidoAxialyCoronal'] != NULL &&  $rowC1['oidoAxialyCoronal'] != ''){
+			$oidoAxialyCoronal = 'X';
+		} else {
+			$oidoAxialyCoronal='';
+		}
+		if($rowC1['urotac'] != NULL &&  $rowC1['urotac'] != ''){
+			$urotac = 'X';
+		} else {
+			$urotac='';
+		}
+		if($rowC1['regionesSimples'] != NULL &&  $rowC1['regionesSimples'] != ''){
+			$regionesSimples = 'X';
+		} else {
+			$regionesSimples='';
+		}
+		if($rowC1['regionesSimp2Txt'] != NULL &&  $rowC1['regionesSimp2Txt'] != ''){
+			$regionesSimp2Txt = $rowC1['regionesSimp2Txt'];
+		} else {
+			$regionesSimp2Txt='';
+		}
+		if($rowC1['regionesContrastadas'] != NULL &&  $rowC1['regionesContrastadas'] != ''){
+			$regionesContrastadas = 'X';
+		} else {
+			$regionesContrastadas='';
+		}
+		if($rowC1['regionesContr2Txt'] != NULL &&  $rowC1['regionesContr2Txt'] != ''){
+			$regionesContr2Txt = $rowC1['regionesContr2Txt'];
+		} else {
+			$regionesContr2Txt='';
+		}
+		if($rowC1['columna'] != NULL &&  $rowC1['columna'] != ''){
+			$columna = 'X';
+		} else {
+			$columna='';
+		}
+		if($rowC1['columnaTxt'] != NULL &&  $rowC1['columnaTxt'] != ''){
+			$columnaTxt = $rowC1['columnaTxt'];
+		} else {
+			$columnaTxt='';
+		}
+		if($rowC1['craneo'] != NULL &&  $rowC1['craneo'] != ''){
+			$craneo = 'X';
+		} else {
+			$craneo='';
+		}
+		if($rowC1['senosParanasales'] != NULL &&  $rowC1['senosParanasales'] != ''){
+			$senosParanasales = 'X';
+		} else {
+			$senosParanasales='';
+		}
+		if($rowC1['columnaCervical'] != NULL &&  $rowC1['columnaCervical'] != ''){
+			$columnaCervical = 'X';
+		} else {
+			$columnaCervical='';
+		}
+		if($rowC1['columnaDorsal'] != NULL &&  $rowC1['columnaDorsal'] != ''){
+			$columnaDorsal = 'X';
+		} else {
+			$columnaDorsal='';
+		}
+		if($rowC1['columnaLumbar'] != NULL &&  $rowC1['columnaLumbar'] != ''){
+			$columnaLumbar = 'X';
+		} else {
+			$columnaLumbar='';
+		}
+		if($rowC1['teledeTorax'] != NULL &&  $rowC1['teledeTorax'] != ''){
+			$teledeTorax = 'X';
+		} else {
+			$teledeTorax='';
+		}
+		if($rowC1['teleTorxTxt'] != NULL &&  $rowC1['teleTorxTxt'] != ''){
+			$teleTorxTxt = $rowC1['teleTorxTxt'];
+		} else {
+			$teleTorxTxt='';
+		}
+		if($rowC1['toraxOseo'] != NULL &&  $rowC1['toraxOseo'] != ''){
+			$toraxOseo = 'X';
+		} else {
+			$toraxOseo='';
+		}
+		if($rowC1['toraxOseoTxt'] != NULL &&  $rowC1['toraxOseoTxt'] != ''){
+			$toraxOseoTxt = $rowC1['toraxOseoTxt'];
+		} else {
+			$toraxOseoTxt='';
+		}
+		if($rowC1['esternon'] != NULL &&  $rowC1['esternon'] != ''){
+			$esternon = 'X';
+		} else {
+			$esternon='';
+		}
+		if($rowC1['abdomenSimple'] != NULL &&  $rowC1['abdomenSimple'] != ''){
+			$abdomenSimple = 'X';
+		} else {
+			$abdomenSimple='';
+		}
+		if($rowC1['abdomenSimpTxt'] != NULL &&  $rowC1['abdomenSimpTxt'] != ''){
+			$abdomenSimpTxt = $rowC1['abdomenSimpTxt'];
+		} else {
+			$abdomenSimpTxt='';
+		}
+		if($rowC1['abdomendePie'] != NULL &&  $rowC1['abdomendePie'] != ''){
+			$abdomendePie = 'X';
+		} else {
+			$abdomendePie='';
+		}
+		if($rowC1['abdomenPieTxt'] != NULL &&  $rowC1['abdomenPieTxt'] != ''){
+			$abdomenPieTxt = $rowC1['abdomenPieTxt'];
+		} else {
+			$abdomenPieTxt='';
+		}
+		if($rowC1['serieGastroDuodenal'] != NULL &&  $rowC1['serieGastroDuodenal'] != ''){
+			$serieGastroDuodenal = 'X';
+		} else {
+			$serieGastroDuodenal='';
+		}
+		if($rowC1['serieGastroTxt'] != NULL &&  $rowC1['serieGastroTxt'] != ''){
+			$serieGastroTxt = $rowC1['serieGastroTxt'];
+		} else {
+			$serieGastroTxt='';
+		}
+		if($rowC1['colonporEnema'] != NULL &&  $rowC1['colonporEnema'] != ''){
+			$colonporEnema = 'X';
+		} else {
+			$colonporEnema='';
+		}
+		if($rowC1['colonEnemaTxt'] != NULL &&  $rowC1['colonEnemaTxt'] != ''){
+			$colonEnemaTxt = $rowC1['colonEnemaTxt'];
+		} else {
+			$colonEnemaTxt='';
+		}
+		if($rowC1['transitoIntestinal'] != NULL &&  $rowC1['transitoIntestinal'] != ''){
+			$transitoIntestinal = 'X';
+		} else {
+			$transitoIntestinal='';
+		}
+		if($rowC1['transitoIntesTxt'] != NULL &&  $rowC1['transitoIntesTxt'] != ''){
+			$transitoIntesTxt = $rowC1['transitoIntesTxt'];
+		} else {
+			$transitoIntesTxt='';
+		}
+		if($rowC1['urografiaExcretora'] != NULL &&  $rowC1['urografiaExcretora'] != ''){
+			$urografiaExcretora = 'X';
+		} else {
+			$urografiaExcretora='';
+		}
+		if($rowC1['urografiaExcrTxt'] != NULL &&  $rowC1['urografiaExcrTxt'] != ''){
+			$urografiaExcrTxt = $rowC1['urografiaExcrTxt'];
+		} else {
+			$urografiaExcrTxt='';
+		}
+		if($rowC1['cristograma'] != NULL &&  $rowC1['cristograma'] != ''){
+			$cristograma = 'X';
+		} else {
+			$cristograma='';
+		}
+		if($rowC1['cristogramaTxt'] != NULL &&  $rowC1['cristogramaTxt'] != ''){
+			$cristogramaTxt = $rowC1['cristogramaTxt'];
+		} else {
+			$cristogramaTxt='';
+		}
+		if($rowC1['perfilograma'] != NULL &&  $rowC1['perfilograma'] != ''){
+			$perfilograma = 'X';
+		} else {
+			$perfilograma='';
+		}
+		if($rowC1['perfilogramaTxt'] != NULL &&  $rowC1['perfilogramaTxt'] != ''){
+			$perfilogramaTxt = $rowC1['perfilogramaTxt'];
+		} else {
+			$perfilogramaTxt='';
+		}
+		if($rowC1['watters'] != NULL &&  $rowC1['watters'] != ''){
+			$watters = 'X';
+		} else {
+			$watters='';
+		}
+		if($rowC1['wattersTxt'] != NULL &&  $rowC1['wattersTxt'] != ''){
+			$wattersTxt = $rowC1['wattersTxt'];
+		} else {
+			$wattersTxt='';
+		}
+		if($rowC1['articulacionesTemporamandibulares'] != NULL &&  $rowC1['articulacionesTemporamandibulares'] != ''){
+			$articulacionesTemporamandibulares = 'X';
+		} else {
+			$articulacionesTemporamandibulares='';
+		}
+		if($rowC1['lateraldeCuello'] != NULL &&  $rowC1['lateraldeCuello'] != ''){
+			$lateraldeCuello = 'X';
+		} else {
+			$lateraldeCuello='';
+		}
+		if($rowC1['edadOsea'] != NULL &&  $rowC1['edadOsea'] != ''){
+			$edadOsea = 'X';
+		} else {
+			$edadOsea='';
+		}
+		if($rowC1['ot'] != NULL &&  $rowC1['ot'] != ''){
+			$ot='X';
+		} else {
+			$ot='';
+		}
+		if($rowC1['otros'] != NULL &&  $rowC1['otros'] != ''){
+			$otros = $rowC1['otros'];
+		} else {
+			$otros='';
+		}
+		//$acudeFin = $rowC1['acude'];
+		//Datos para medico segun la Cedula Colocada
+		$resultadoMed[] = $usuario1->medicosCed($rowC1['cedula']);
+		$nombre_med = $resultadoMed[0][0]['DESC_MEDICO'];
+	   	$especialidad_med = $resultadoMed[0][0]['DESC_ESPEC'];
+		$cedula_med = $resultadoMed[0][0]['CEDULA_MEDICO'];
+		//$cabecera = array(utf8_decode("                                             "),utf8_decode('                                                           "La notificación es voluntaria y no punitiva"'),"Fecha de ocurrencia: ".$fechaFin."     Turno: ".$turno,"Personal que Reporta: ".$rowC1['reporta'],"Servicio: ".$rowC1['servicio']);
+		
+		$cabecera = array("EXPEDIENTE: ".$rowC1['numeroExpediente']."   FOLIO: ".$rowC1['folio'],"FECHA: ".$fechaFin."     HORA: ".$horaFin." hrs.     TURNO: ".$turno."   SERVICIO: ".$rowC1['servicio'],"NOMBRE: ".$nombre_pac,"FECHA DE NACIMIENTO: ".$fecha_nac_pac."          EDAD: ".utf8_decode($annios)."          SEXO: ".$sexo_pac,utf8_decode("DOMICILIO: ".$calle_pac .' Col. '.$col_pac.' '.$cp_pac.' '.$ciudad_pac),"Tel: ".$tel_pac);
+		
+		$pdf = new PDF();
+		$pdf->setCabeza($cabecera);
+		$pdf->setEspacio('TRUE');
+		//$pdf=new PDF_MC_Table();
+		#$pdf->Header('1');
+		$pdf->AddPage('P', 'Letter'); //Vertical, Carta
+
+		 $pdf->SetTextColor(0);
+			
+		$pdf->SetFont('Arial','B',10); //Arial, negrita, 12 puntos
+		$pdf->SetFillColor(200,200,200);
+		$pdf->setTitulo('IMAGENOLOGÍA');
+		$pdf->SetXY(60,12);
+		$pdf->Cell(145,7,utf8_decode('IMAGENOLOGÍA'),1, 1 , 'C',true);
+
+		//$pdf->tablaSimple($cabecera); //Método que integra datos
+		//$pdf->Ln(10);
+		$pdf->SetFont('Arial','B',10);
+		$pdf->SetFillColor(200,200,200);
+		$pdf->SetY(55);
+		$pdf->Cell(0,7,utf8_decode('ULTRASONOGRAFÍA: '),0, 1 , 'L');
+		$pdf->SetFont('Arial','',10);
+		//Tratar de hacer una tabla
+		$pdf->SetWidths(array(40,50,61,45));
+		$pdf->Row(array('( '.$tiroides.' ) Tiroides','( '.$mama.' ) Mama',utf8_decode('( '.$higadoVesiculayPancreas.' ) Hígado, Vesícula y Páncreas'),'( '.$renal.' ) Renal'));
+		$pdf->Row(array('( '.$abdominal.' ) Abdominal',utf8_decode('( '.$uteroOvariosyVejiga.' ) Útero, Ovarios y Vejiga'),utf8_decode('( '.$pelvico.' ) Pélvico'),'( '.$obstetrico.utf8_decode(' ) Obstétrico')));
+		$pdf->Row(array('( '.$vejigayProstata.' ) Vejiga y Prostata','( '.$tejidosBlandos.' ) Tejidos Blandos','( '.$transrectal.' ) Transrectal','( '.$transvaginal.' ) Transvaginal'));
+		
+		$pdf->Ln();
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(0,7,utf8_decode('DOPPLER COLOR: '),0, 1 , 'L');
+		$pdf->SetFont('Arial','',9);
+		$pdf->SetWidths(array(66,65,65));
+		$pdf->Row(array('( '.$carotideoBilateral.' ) Carotideo Bilateral: '.$carotideoBiTxt,'( '.$miembroSuperiorUnilateral.' ) Miembro Superior Unilateral: '.$miembroSupUniTxt,'( '.$miembroSuperiorBilateral.utf8_decode(' ) Miembro Superior Bilateral: '.$miembroSupBiTxt)));
+		$pdf->Row(array('( '.$miembroInferiorUnilateral.' ) Miembro Inferior Unilateral: '.$miembroInfUniTxt,'( '.$miembroInferiorBilateral.' ) Miembro Inferior Bilateral: '.$miembroInfBiTxt,'( '.$higadoHipertensionPortal.utf8_decode(' ) Hígado - Hipertensión Portal: ').$higadoPortTxt));
+		
+		$pdf->Ln();
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(0,7,utf8_decode('TOMOGRAFÍA: '),0, 1 , 'L');
+		$pdf->SetFont('Arial','',9);
+		$pdf->SetWidths(array(76,75,45));
+		$pdf->Row(array('( '.$regionSimple.utf8_decode(' ) 1 Región Simple: ').$regionSimp1Txt,'( '.$regionContrastada.utf8_decode(' ) 1 Región Contrastada: ').$regionContr1Txt,'( '.$craneoSimple.utf8_decode(' ) Cráneo Simple')));
+		$pdf->SetWidths(array(41,45,35,75));
+		$pdf->Row(array('( '.$craneoContrastado.utf8_decode(' ) Cráneo Contrastado'),'( '.$oidoAxialyCoronal.utf8_decode(' ) Oído Axial y Coronal'),'( '.$urotac.' ) UROTAC',utf8_decode('( '.$regionesSimples.' ) 2 Regiones Simples: ').$regionesSimp2Txt));
+		$pdf->SetWidths(array(76,75,45));
+		$pdf->Row(array('( '.$regionesContrastadas.utf8_decode(' ) 2 Regiones Contrastada: ').$regionesContr2Txt,'( '.$columna.' ) Columna: '.$columnaTxt,'( '.$cortesSenosParanasales.' ) 8 Cortes Senos Paranasales'));
+		
+		$pdf->Ln();
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(0,7,utf8_decode('RADIOLOGÍA: '),0, 1 , 'L');
+		$pdf->SetFont('Arial','',9);
+		$pdf->SetWidths(array(26,40,40,45,45));
+		$pdf->Row(array('( '.$craneo.utf8_decode(' ) Cráneo'),'( '.$senosParanasales.' ) Senos Paranasales','( '.$columnaCervical.' ) Columna Cervical','( '.$columnaDorsal.' ) Columna Dorsal','( '.$columnaLumbar.' ) Columna Lumbar'));
+		$pdf->SetWidths(array(76,75,45));
+		$pdf->Row(array('( '.$teledeTorax.utf8_decode(' ) Tele de Tórax: ').$teleTorxTxt,'( '.$toraxOseo.utf8_decode(' ) Tórax Óseo: ').$toraxOseoTxt,'( '.$esternon.utf8_decode(' ) Esternón')));
+		$pdf->SetWidths(array(66,65,65));
+		$pdf->Row(array('( '.$abdomenSimple.utf8_decode(' ) Abdomen Simple: ').$abdomenSimpTxt,'( '.$abdomendePie.utf8_decode(' ) Abdomen de Pie: ').$abdomenPieTxt,'( '.$serieGastroDuodenal.utf8_decode(' ) Serie Gastro-Duodenal: ').$serieGastroTxt));
+		$pdf->Row(array('( '.$colonporEnema.utf8_decode(' ) Colon por Enema: ').$colonEnemaTxt,'( '.$transitoIntestinal.utf8_decode(' ) Tránsito Intestinal: ').$transitoIntesTxt,'( '.$urografiaExcretora.utf8_decode(' ) Urografía Excretora: ').$urografiaExcrTxt));
+		$pdf->Row(array('( '.$cristograma.utf8_decode(' ) Cistograma: ').$cristogramaTxt,'( '.$perfilograma.utf8_decode(' ) Perfilograma: ').$perfilogramaTxt,'( '.$watters.utf8_decode(' ) Watters: ').$wattersTxt));
+		$pdf->SetWidths(array(41,40,30,85));
+		$pdf->Row(array('( '.$articulacionesTemporamandibulares.utf8_decode(' ) Articulaciónes Temporamandibulares'),'( '.$lateraldeCuello.utf8_decode(' ) Lateral del Cuello'),'( '.$edadOsea.utf8_decode(' ) Edad Ósea'),'( '.$ot.' ) Otros: '.$otros));
+		
+		$pdf->Ln();
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(0,7,utf8_decode('DATOS CLÍNICOS Y/O INDICACIONES ESPECIALES'),0, 1 , 'L');
+
+		$pdf->SetFont('Arial','',10);
+		$pdf->MultiCell(0,7,$rowC1['datosClinicos'], 1, 'L');
+		$pdf->Ln();
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(0,7,utf8_decode('DIAGNÓSTICO'),0, 1 , 'L');
+
+		$pdf->SetFont('Arial','',10);
+		$pdf->MultiCell(0,7,$rowC1['diagnostico'], 1, 'L');
+		$pdf->Ln(35);
+		$pdf->Cell(0,7,utf8_decode('NOMBRE Y FIRMA DEL MÉDICO TRATANTE:'),0,1,'C');
+		$pdf->Ln(10);
+		$pdf->Cell(0,7,'_______________________________________',0,1,'C');
+		$pdf->SetFont('Arial','',9);
+		if($nombre_med != NULL || $nombre_med != ''){
+			$pdf->Cell(0,7,'                 '.utf8_decode($nombre_med),0,1,'C');
+		} else {
+			$pdf->Cell(0,7,'                 '.$rowC1['nombreMedicoTratante'],0,1,'C');
+		}
+		$pdf->Cell(0,7,'CEDULA PROFESIONAL: '.$cedula_med,0,1,'C');
+		$pdf->Cell(0,7,utf8_decode('                    ESPECIALIDAD: '.$especialidad_med),0,1,'C');
+		
+		//$pdf->Footer();
 		$pdf->Output(); //Salida al navegador del pdf
 	}
 

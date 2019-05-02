@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	header('Content-Type: text/html;charset=utf-8');
   	
 	#Archivo con la conexion para MYSQL
@@ -199,6 +199,11 @@
 
 	if(isset($_REQUEST['enviar']))
 	{
+		$habExt=NULL;
+		$cabeza=NULL;
+		$torax=NULL;
+		$abdomen=NULL;
+		$extremidades=NULL;
 		if (isset($_POST['expediente']))
 		{
 			$expediente=$_POST['expediente'];

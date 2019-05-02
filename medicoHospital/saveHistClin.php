@@ -10,12 +10,12 @@ require_once('../conexion/configMedico.php');
 	} else {
 		$idHistClin = '';
 	}
-	/*if (isset($_POST['fecha']))
+	if (isset($_POST['fecha']))
 	{
 		$fecha  = $_POST["fecha"];
 	} else {
 		$fecha = '';
-	}*/
+	}
 	if (isset($_POST['hora']))
 	{
 		$hora  = $_POST["hora"];
@@ -442,7 +442,7 @@ require_once('../conexion/configMedico.php');
 			genitales='$genitales',neurologico='$neurologico',pielFaneras2='$pielFaneras2',columnavertebral='$columnavertebral',
 			estudiosGabinete='$estudiosGabinete',terapeutica='$terapeutica',criteriosEspecializadas='$criteriosEspecializadas',
 			educacionEspecial='$educacionEspecial',gestionEquipo='$gestionEquipo',procesosAdmin='$procesosAdmin',diagnostico='$diagnostico',
-			pronosticoVida='$pronosticoVida',pronosticoFuncion='$pronosticoFuncion',cedula='$cedula' WHERE id='$idHistClin'";
+			pronosticoVida='$pronosticoVida',pronosticoFuncion='$pronosticoFuncion',cedula='$cedula', fecha='$fecha' WHERE id='$idHistClin'";
 		
 		$result0 = mysqli_query($conexionMedico, $queryUpdDHistClin) or die (mysqli_error($conexionMedico));
 			

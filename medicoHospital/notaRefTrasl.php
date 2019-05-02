@@ -33,6 +33,7 @@
 	$fechaFin=NULL;
 	$padecimientoFin=NULL;
 	$expFisicaFin=NULL;
+	$diagFin=NULL;
 
 	//Query para jalar los datos de la consulta medica
 	$queryAntec = "SELECT *
@@ -67,6 +68,8 @@
 		$expFisicaOld= utf8_encode($rowA['expFisica']);
 		$expFisicaFin=addslashes ($expFisicaOld);
 		
+		echo 'DIAG1:'.$diagFin.'YA';
+		
 	}
 
 	$queryAntec1 = "SELECT *
@@ -94,10 +97,9 @@
 		$padecimientoFin=addslashes ($padecimientoOld);
 		
 		if($diagFin==NULL || $diagFin==''){
-			$diagOld= utf8_encode($rowA['diag']);
+			$diagOld= utf8_encode($rowA1['diagnostico']);
 			$diagFin=addslashes ($diagOld);
 		}
-		
 		$antecPerold= utf8_encode($rowA1['antecedentesPatologicos']);
 		$antecPerFin=addslashes ($antecPerold);
 		

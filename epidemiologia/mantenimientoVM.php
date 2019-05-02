@@ -165,7 +165,12 @@
                                 </div>
 								<div class="form-group">
                     			    <label>NOMBRE DEL VERIFICADOR : <span>*</span></label>
-                                    <input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control required">
+                                    <!--input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control required"-->
+									<select id="verificador" name="verificador" class="form-control required">
+										<option value="">Seleccione</option>
+										<option value="Gudmaro Mauricio Carvajal Reyes">Mauricio</option>
+										<option value="Alexa Sánchez Solano">Alexa</option>
+									</select>
                                 </div>																
 								<div class="form-group">
                     			    <label>1. HIGIENE DE MANOS EN LOS 5 MOMENTOS : </label>

@@ -135,6 +135,8 @@
 									<td style="display: none"><?php echo $row['fecha'] ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['servicio']) ?></td>
 									<td style="display: none"><?php echo $row['turno'] ?></td>
+									<td style="display: none"><?php echo $expediente ?></td>
+									<td style="display: none"><?php echo $folio ?></td>
 									<?php } ?>
 								</tr>
 							</tbody>
@@ -231,13 +233,15 @@
 				fechaFin  = $(nTds[21]).text();
 				servicio  = $(nTds[22]).text();
 				turno  = $(nTds[23]).text();
+				expediente  = $(nTds[24]).text();
+				folio  = $(nTds[25]).text();
 
 				$("#div_User").fadeIn();
 				$("#div_User").html("<div id='cargando' style='display:none; color: green;text-align:center' width='100%' height='100%'><img width='16' height='16' src='../img/ajax-loader.gif' /> Cargando...</b></div>");
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarEvolucion.php",{idNotaEvoh:idNotaEvoh,fecha:fecha,hora:hora,evolucion:evolucion,estudios:estudios,tratamientoF:tratamientoF,fc:fc,fr:fr,ta:ta,temp:temp,so:so,glucosa:glucosa,peso:peso,talla:talla,expFisica:expFisica,diagn:diagn,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,cedula:cedula,horaFin:horaFin,fechaFin:fechaFin,servicio:servicio,turno:turno} ,function(){
+				$("#div_User").load("modificarEvolucion.php",{idNotaEvoh:idNotaEvoh,fecha:fecha,hora:hora,evolucion:evolucion,estudios:estudios,tratamientoF:tratamientoF,fc:fc,fr:fr,ta:ta,temp:temp,so:so,glucosa:glucosa,peso:peso,talla:talla,expFisica:expFisica,diagn:diagn,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,cedula:cedula,horaFin:horaFin,fechaFin:fechaFin,servicio:servicio,turno:turno,expediente:expediente,folio:folio} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });

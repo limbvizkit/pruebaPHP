@@ -12,9 +12,13 @@
 	$pesoPac=NULL;
 	$tallaPac=NULL;
 	$conciliacionPac=NULL;
+	$conciliacionE=NULL;
+	$conciliacionCambServ=NULL;
+	$conciliacionCambMed=NULL;
 	$traeMedicamentoPac=NULL;
 	$tieneCultivo=NULL;
 	$casa=NULL;
+	$medEgre=NULL;
 	$cultivo=NULL;
 	$diagnosticoPac=NULL;
 	$concomitantesPac=NULL;
@@ -157,8 +161,8 @@
 	#Query's para obtener datos basicos y los medicamentos capturados de un paciente
 	if(isset($_REQUEST['updMed']) || isset($_REQUEST['enviar'])){
 		#Obtenemos datos basicos de MYSQL si es que ya los tiene el paciente
-		$queryBasicos = 'SELECT habitacion,fechaEgreso,alergias,peso,talla,conciliacion,traeMedicamento, diagnostico,concomitantes, depCreatinina,
-						 CASE ingresa WHEN "1" THEN "HOSPITAL" ELSE "URGENCIAS" END AS ingresa1, medicamentoCasa, tieneCultivo, cultivo
+		$queryBasicos = 'SELECT habitacion,fechaEgreso,alergias,peso,talla,conciliacion,conciliacionE,conciliacionCambServ,conciliacionCambMed,traeMedicamento, diagnostico,concomitantes, depCreatinina,
+						 CASE ingresa WHEN "1" THEN "HOSPITAL" ELSE "URGENCIAS" END AS ingresa1,medicamentoCasa,medEgre,tieneCultivo,cultivo
 						 FROM paciente WHERE numeroExpediente='.'"'.$expediente.'" AND (folio = 0 || folio= '.'"'.$folio.'")';
 		$idBas = mysqli_query($conexion, $queryBasicos ) or die (mysqli_error($conexion));
 		$idbas1 = mysqli_fetch_array($idBas );
@@ -169,11 +173,15 @@
 			$pesoPac = $idbas1 ['peso'];
 			$tallaPac = $idbas1 ['talla'];
 			$conciliacionPac = $idbas1 ['conciliacion'];
+			$conciliacionE = $idbas1 ['conciliacionE'];
+			$conciliacionCambServ = $idbas1 ['conciliacionCambServ'];
+			$conciliacionCambMed = $idbas1 ['conciliacionCambMed'];
 			$traeMedicamentoPac = $idbas1 ['traeMedicamento'];
 			$diagnosticoPac = $idbas1 ['diagnostico'];
 			$concomitantesPac = $idbas1 ['concomitantes'];
 			$depCreati = $idbas1 ['depCreatinina'];
 			$casa = $idbas1 ['medicamentoCasa'];
+			$medEgre = $idbas1 ['medEgre'];
 			$cuarto = $idbas1 ['habitacion'];
 			$tieneCultivo = $idbas1 ['tieneCultivo'];
 			$cultivo = $idbas1 ['cultivo'];
@@ -255,9 +263,27 @@
 		}
 			
 		if(isset ($_POST['conciliacion'])){
-			$conciliacion= '1';
+			$conciliacion = $_POST['conciliacion'];
 		} else {
-			$conciliacion= '0';
+			$conciliacion = NULL;
+		}
+		
+		if(isset ($_POST['conciliacionE'])){
+			$conciliacionE = $_POST['conciliacionE'];
+		} else {
+			$conciliacionE = NULL;
+		}
+		
+		if(isset ($_POST['conciliacionCambServ'])){
+			$conciliacionCambServ = $_POST['conciliacionCambServ'];
+		} else {
+			$conciliacionCambServ = NULL;
+		}
+		
+		if(isset ($_POST['conciliacionCambMed'])){
+			$conciliacionCambMed = $_POST['conciliacionCambMed'];
+		} else {
+			$conciliacionCambMed = NULL;
 		}
 	
 		if(isset ($_POST['tieneMedic'])){
@@ -270,6 +296,12 @@
 			$casa= utf8_decode($_POST['casa']);
 		} else {
 			$casa= NULL;
+		}
+		
+		if(isset ($_POST['medEgre'])){
+			$medEgre = utf8_decode($_POST['medEgre']);
+		} else {
+			$medEgre = NULL;
 		}
 
 		if(isset ($_POST['cultivo'])){
@@ -318,9 +350,10 @@
 		#Ya tiene Datos básicos entonces es actualizacion
 		if($idDBFin != NULL){
 			$queryUpdDB = "UPDATE paciente SET habitacion = '$habitacion', fechaEgreso = '$fechaEgreso',
-			 ingresa = '$ingresa', alergias = '$alergias', peso = '$peso', talla = '$talla', conciliacion = '$conciliacion',
-			 traeMedicamento = '$traeMedic', diagnostico = '$diag', concomitantes = '$enferm', depCreatinina = '$depCreati', medicamentoCasa= '$casa', tieneCultivo= '$tieneCultivo', cultivo= '$cultivo', usr= '$rol'
-			  WHERE numeroExpediente = '$expediente' AND (folio = 0 || folio= '$folio')";
+			 	ingresa = '$ingresa', alergias = '$alergias', peso = '$peso', talla = '$talla', conciliacion = '$conciliacion',conciliacionE='$conciliacionE',conciliacionCambServ='$conciliacionCambServ',
+			 	conciliacionCambMed='$conciliacionCambMed',traeMedicamento = '$traeMedic', diagnostico = '$diag',concomitantes = '$enferm',depCreatinina = '$depCreati',medicamentoCasa= '$casa',medEgre='$medEgre',
+			 	tieneCultivo= '$tieneCultivo', cultivo= '$cultivo', usr= '$rol'
+			 WHERE numeroExpediente = '$expediente' AND (folio = 0 || folio= '$folio')";
 			$result0 = mysqli_query($conexion, $queryUpdDB) or die (mysqli_error($conexion));
 			
 			if(!$result0){
@@ -334,10 +367,10 @@
 			}
 		}else{#No tiene datos basicos entonces es nueva insercion
 			#Guardamos todos los valores recibidos en MySQL
-			$query = "INSERT INTO paciente (numeroExpediente, folio, habitacion, fechaIngreso, fechaEgreso, ingresa, nombre, edad, sexo,
-		    fechaNacimiento, alergias, peso, talla, conciliacion, traeMedicamento, medico, especialidad, diagnostico, concomitantes, depCreatinina, medicamentoCasa, tieneCultivo, cultivo, usr)
-			VALUES ('$expediente', '$folio', '$habitacion', '$fecha_ing_pac1', '$fechaEgreso', '$ingresa', '$nomPac', '$edad', '$sexo',
-			 '$fecNacPac', '$alergias', '$peso', '$talla', '$conciliacion', '$traeMedic', '$nombreMed1', '$stringEM', '$diag', '$enferm', '$depCreati', '$casa', '$tieneCultivo', '$cultivo', '$rol')";
+			$query = "INSERT INTO paciente (numeroExpediente, folio, habitacion, fechaIngreso, fechaEgreso, ingresa, nombre, edad, sexo, fechaNacimiento, alergias, peso, talla, conciliacion, conciliacionE,
+				conciliacionCambServ, conciliacionCambMed,traeMedicamento, medico, especialidad, diagnostico, concomitantes, depCreatinina, medicamentoCasa, medEgre, tieneCultivo, cultivo, usr)
+			VALUES ('$expediente', '$folio', '$habitacion', '$fecha_ing_pac1', '$fechaEgreso', '$ingresa', '$nomPac', '$edad', '$sexo', '$fecNacPac', '$alergias', '$peso', '$talla', '$conciliacion', '$conciliacionE',
+				'$conciliacionCambServ','$conciliacionCambMed','$traeMedic', '$nombreMed1', '$stringEM', '$diag', '$enferm', '$depCreati', '$casa', '$medEgre', '$tieneCultivo', '$cultivo', '$rol')";
 	
 			$result = mysqli_query($conexion, $query);
 			if(!$result){
@@ -361,9 +394,8 @@
     $resultado[] = $usuario1->consultaBasicos($expediente,$folio);
 	#El arreglo esta vacio 
     if (empty($resultado[0])) {
-    	#Obtenemos datos de MYSQL si es que existen para el expediente dado
-    	$queryBasicos1 = "SELECT nombre,numeroExpediente,folio,edad,sexo,diagnostico,medico,especialidad,habitacion,fechaIngreso,fechaNacimiento, medicamentoCasa, cultivo
-    					  FROM paciente WHERE numeroExpediente LIKE '%$expediente' AND (folio = 0 || folio= '$folio')";
+    	#Obtenemos datos de MYSQL si es que existen para el expediente dado nombre,numeroExpediente,folio,edad,sexo,diagnostico,medico,especialidad,habitacion,fechaIngreso,fechaNacimiento, medicamentoCasa, cultivo
+    	$queryBasicos1 = "SELECT * FROM paciente WHERE numeroExpediente LIKE '%$expediente' AND (folio = 0 || folio= '$folio')";
 		$idBas1 = mysqli_query($conexion, $queryBasicos1) or die (mysqli_error($conexion));
 		$idbas2 = mysqli_fetch_array($idBas1);
 		if($idbas2 != NULL) {
@@ -493,7 +525,7 @@
 </style>
 </head>
 <!--Al cargar la pagina checamos si tiene conciliacion y trae medicamentos para marcar los checkbox correspondientes-->
-<body onload="checarC(<?php echo $conciliacionPac ?>); checarM(<?php echo $traeMedicamentoPac ?>); checarCul(<?php echo $tieneCultivo ?>); reportes(<?php echo $permisos ?>);" class="styleBD">
+<body onload="checarCul(<?php echo $tieneCultivo ?>); reportes(<?php echo $permisos ?>);" class="styleBD">
 <!--script type="text/javascript">
 if((navigator.userAgent.match(/MSIE/i)) || (navigator.userAgent.match(/Googlebot/i)) || (navigator.userAgent.match(/Chrome/i)) 
 	|| (navigator.userAgent.match(/Firefox/i))) {
@@ -553,12 +585,53 @@ if((navigator.userAgent.match(/MSIE/i)) || (navigator.userAgent.match(/Googlebot
 		<strong>DEPURACIÓN DE CREATININA:&nbsp;</strong>
 		<input id="show_creati" name="depCreati" style="width: 94px; height: 40px" type="text" placeholder="valor" value="<?php echo $depCreati?>" disabled />
 		<br/><br/>
-		<strong>CONCILIACIÓN: (<input id="conciliacion" name="conciliacion" type="checkbox" style="width: 45px; height: 35px" disabled />)
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		TRAE MEDICAMENTOS: (<input id="traeMedic" name="tieneMedic" type="checkbox" style="width: 45px; height: 35px" disabled />)
-		</strong>
+		<strong><center>CONCILIACIÓN:</center>
+		<br/>
+		<?php 
+			$conciIngrS = NULL;
+	  		$conciIngrN = NULL;
+	  		$conciliacionPac == "1" ? $conciIngrS='checked':$conciIngrN='checked';
+	  
+	  		$conciEgreS = NULL;
+	  		$conciEgreN = NULL;
+	  		$conciliacionE == "1" ? $conciEgreS='checked':$conciEgreN='checked';
+	  
+	  		$conciCambsS = NULL;
+	  		$conciCambsN = NULL;
+	  		$conciCambsNA = NULL;
+	  		if($conciliacionCambServ == "SI"){
+				$conciCamsS ='checked';
+			} else if($conciliacionCambServ == "NO"){
+				$conciCambsN = 'checked';
+			} else {
+				$conciCambsNA = 'checked';
+			}
+	  
+	  		$conciCambmS = NULL;
+	  		$conciCambmN = NULL;
+	  		$conciCambmNA = NULL;
+	  		if($conciliacionCambMed == "SI"){
+				$conciCammS ='checked';
+			} else if($conciliacionCambMed == "NO"){
+				$conciCambmN = 'checked';
+			} else {
+				$conciCambmNA = 'checked';
+			}
+			
+		?>
+		AL INGRESO: SI: <input id="conciliacion" name="conciliacion" type="radio" value="1" style="width: 45px; height: 35px" <?php echo $conciIngrS ?> /> NO: <input id="conciliacion" name="conciliacion" type="radio" value="0" style="width: 45px; height: 35px" <?php echo $conciIngrN ?> />
+		<!--input id="traeMedic" name="tieneMedic" type="checkbox" style="width: 45px; height: 35px" disabled /-->
 		<br/><br/>
-		<input id="medcasa" type="text" name="casa" style="width: 797px; height: 40px" placeholder="Colocar Medicamentos de Casa" value="<?php echo utf8_encode($casa)?>" disabled />
+		<input id="casa" type="text" name="casa" style="width: 797px; height: 40px" placeholder="Colocar Medicamentos de Ingreso" value="<?php echo utf8_encode($casa)?>" disabled />
+		<br/><br/>
+		AL EGRESO: SI: <input id="conciliacionE" name="conciliacionE" type="radio" value="1" style="width: 45px; height: 35px" <?php echo $conciEgreS ?>/> NO: <input id="conciliacionE" name="conciliacionE" type="radio" value="0" style="width: 45px; height: 35px" <?php echo $conciEgreN ?>/>
+		<br/><br/>
+		<input id="medEgre" type="text" name="medEgre" style="width: 797px; height: 40px" placeholder="Colocar Medicamentos de Egreso" value="<?php echo utf8_encode($medEgre)?>" disabled />
+		<br/><br/>
+		AL CAMBIO DE SERVICIO: SI: <input id="conciliacionCambServ" name="conciliacionCambServ" type="radio" value="SI" style="width: 45px; height: 35px" <?php echo $conciCambsS ?> /> NO: <input id="conciliacionCambServ" name="conciliacionCambServ" type="radio" value="NO" style="width: 45px; height: 35px" <?php echo $conciCambsN ?>/> NO APLICA: <input id="conciliacionCambServ" name="conciliacionCambServ" type="radio" value="NO APLICA" style="width: 45px; height: 35px" <?php echo $conciCambsNA ?>/>
+		<br/><br/>
+		AL CAMBIO DE MÉDICO: SI: <input id="conciliacionCambMed" name="conciliacionCambMed" type="radio" value="SI" style="width: 45px; height: 35px" <?php echo $conciCambmS ?> /> NO: <input id="conciliacionCambMed" name="conciliacionCambMed" type="radio" value="NO" style="width: 45px; height: 35px" <?php echo $conciCambmN ?>/> NO APLICA: <input id="conciliacionCambMed" name="conciliacionCambMed" type="radio" value="NO APLICA" style="width: 45px; height: 35px" <?php echo $conciCambmNA ?>/>
+		</strong>
 		<br/><br/>
 		<strong> CULTIVO: (<input id="cultivo" name="tieneCultivo" type="checkbox" style="width: 45px; height: 35px" disabled />)
 		</strong>

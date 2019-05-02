@@ -17,9 +17,9 @@
 		$folio=$_GET['folio'];
 	}
 	$queryDocs = "SELECT *
-			  FROM notaTrasladoServh
+			  FROM imagenologia
 			  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
-			  ORDER BY fecha, hora";
+			  ORDER BY fechaGuardado";
 	$docs = mysqli_query($conexionMedico, $queryDocs) or die (mysqli_error($conexionMedico));
 	$c=1;
 ?>
@@ -31,7 +31,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>CONSULTA HISTÓRICO NOTA DE TRASLADO DE SERVICIOS</title>
+        <title>CONSULTA IMAGENOLOGÍA</title>
         <!-- Google Font -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 		<!-- BootStrap Stylesheet -->
@@ -66,7 +66,7 @@
 						
 						Use anyone class "form-body-classic" or "form-body-material" or "form-body-stylist" for set your form element design.
 						-->
-							<h1>HISTÓRICO NOTAS TRASLADO DE SERVICIOS</h1>
+							<h1>HISTÓRICO IMAGENOLOGÍA</h1>
 							<span>*Si desea ver todos los campos, modificar o borrar un registro dar click cobre el</span>
 						<table id="simple" class="display">
 							<thead>
@@ -74,10 +74,9 @@
 									<th >No.</th>
 									<th style="display: none">ID</th>
 									<th>FECHA</th>
-									<th>HORA</th>
-									<th>MOTIVO DE TRASNFERENCIA</th>
-									<th>SERVICIO ACTUAL</th>
-									<th>SERVICIO AL QUE SE TRASLADA</th>
+									<th>EXPEDIENTE</th>
+									<th>FOLIO</th>
+									<th>DIAGNOSTICO</th>
 									<th style="display: none">2</th>
 									<th style="display: none">3</th>
 									<th style="display: none">4</th>
@@ -91,49 +90,48 @@
 									<th style="display: none">12</th>
 									<th style="display: none">13</th>
 									<th style="display: none">14</th>
-									<th style="display: none">15</th>
-									<th style="display: none">16</th>
-									<th style="display: none">17</th>
-									<th style="display: none">18</th>
-									<th style="display: none">18</th>																		
 								</tr>
 							</thead>
 							<tbody>
 								<?php
 									while($row = mysqli_fetch_array($docs)){
-										$fecha = strtotime($row['fecha']);
+										$fecha = strtotime($row['fechaGuardado']);
 										$fechaFin = date('d/m/Y',$fecha);
 										
-										$hora = strtotime($row['hora']);
-										$horaFin = date('H:i',$hora);
+										/*$hora = strtotime($row['hora']);
+										$horaFin = date('H:i',$hora);*/
 								?>
 								<tr id="nota">
 									<td><?php echo $c++ ?></td>
 									<td style="display: none"><?php echo $row['id'] ?></td>
 									<td><?php echo $fechaFin ?></td>
-									<td><?php echo $horaFin.'hrs' ?></td>
-									<td><?php echo utf8_encode($row['motivoTransferencia']) ?></td>
-									<td><?php echo utf8_encode($row['servicioActual']) ?></td>
-									<td><?php echo utf8_encode($row['servicioTraslada']) ?></td>
-									<td style="display: none"><?php echo $row['hora'] ?></td>
-									<td style="display: none"><?php echo $row['fecha'] ?></td>
-									<td style="display: none"><?php echo $row['turno'] ?></td>
-									<td style="display: none"><?php echo $row['fc'] ?></td>
-									<td style="display: none"><?php echo $row['fr'] ?></td>
-									<td style="display: none"><?php echo $row['ta'] ?></td>
-									<td style="display: none"><?php echo $row['so'] ?></td>
-									<td style="display: none"><?php echo $row['glucosa'] ?></td>
-									<td style="display: none"><?php echo $row['temp'] ?></td>									
-									<td style="display: none"><?php echo $row['peso'] ?></td>
-									<td style="display: none"><?php echo $row['talla'] ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['interrogatorio']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['expFisica']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['estudiosGabyLab']) ?></td>
-									<td style="display: none"><?php echo utf8_encode($row['terapeuticayProcedimientos']) ?></td>
+									<td><?php echo utf8_encode($row['numeroExpediente']) ?></td>
+									<td><?php echo utf8_encode($row['folio']) ?></td>
+									<td><?php echo utf8_encode($row['diagnostico']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['servicio']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['turno']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['datosClinicos']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['tiroides']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['mama']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['higadoVesiculayPancreas']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['renal']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['abdominal']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['uteroOvariosyVejiga']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['pelvico']) ?></td>	
+									<td style="display: none"><?php echo utf8_encode($row['obstetrico']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['vejigayProstata']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['tejidosBlandos']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['transrectal']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['transvaginal']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['carotideoBilateral']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['carotideoBiTxt']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['miembroSuperiorUnilateral']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['miembroSupUniTxt']) ?></td>
+									<td style="display: none"><?php echo utf8_encode($row['miembroSuperiorBilateral']) ?></td>
 									<td style="display: none"><?php echo $row['cedula'] ?></td>
-									<td style="display: none"><?php echo $expediente ?></td>
-									<td style="display: none"><?php echo $folio ?></td>
-									
+									<td style="display: none"><?php echo $row['fechaGuardado'] ?></td>
+									<td style="display: none"><?php echo $row['numeroExpediente'] ?></td>
+									<td style="display: none"><?php echo $row['folio'] ?></td>
 									<?php } ?>
 								</tr>
 							</tbody>
@@ -207,38 +205,37 @@
 			  $('#simple').on('click', '#nota', function () {
 					//var sTitle;
 				var nTds = $('td', this);
-				idNotaTraslServh = $(nTds[1]).text();
+				idImagenologia = $(nTds[1]).text();
 				fecha = $(nTds[2]).text();
-				hora = $(nTds[3]).text();
-				motivoTransferencia = $(nTds[4]).text();
-				servicioActual = $(nTds[5]).text();
-				servicioTraslada = $(nTds[6]).text();
-				horaFin = $(nTds[7]).text();
-				fechaFin = $(nTds[8]).text();
-				turno = $(nTds[9]).text();
-				fc = $(nTds[10]).text();
-				fr = $(nTds[11]).text();
-				ta = $(nTds[12]).text();
-			 	so = $(nTds[13]).text();
-				glucosa = $(nTds[14]).text();
-				temp = $(nTds[15]).text();
-				peso = $(nTds[16]).text();
-				talla = $(nTds[17]).text();
-				interrogatorio  = $(nTds[18]).text();
-				expFisica = $(nTds[19]).text();
-				estudiosGabyLab = $(nTds[20]).text();
-				terapeuticayProcedimientos = $(nTds[21]).text();
-				cedula  = $(nTds[22]).text();
-				expediente  = $(nTds[23]).text();
-				folio  = $(nTds[24]).text();
-				
+				diag  = $(nTds[5]).text();
+				servicio  = $(nTds[6]).text();
+				turno  = $(nTds[7]).text();
+				datosClinicos  = $(nTds[8]).text();
+				tiroides  = $(nTds[9]).text();
+				mama  = $(nTds[10]).text();
+				higadoVesiculayPancreas  = $(nTds[11]).text();
+				renal  = $(nTds[12]).text();
+				abdominal  = $(nTds[13]).text();
+				uteroOvariosyVejiga  = $(nTds[14]).text();
+				pelvico  = $(nTds[15]).text();
+				obstetrico  = $(nTds[16]).text();
+				vejigayProstata  = $(nTds[17]).text();
+				tejidosBlandos  = $(nTds[18]).text();
+				transrectal  = $(nTds[19]).text();
+				transvaginal  = $(nTds[20]).text();
+				carotideoBilateral  = $(nTds[21]).text();
+				carotideoBiTxt  = $(nTds[22]).text();
+				cedula  = $(nTds[26]).text();
+				fechaGuarda  = $(nTds[27]).text();
+				exp  = $(nTds[28]).text();
+				folio  = $(nTds[29]).text();
 
 				$("#div_User").fadeIn();
 				$("#div_User").html("<div id='cargando' style='display:none; color: green;text-align:center' width='100%' height='100%'><img width='16' height='16' src='../img/ajax-loader.gif' /> Cargando...</b></div>");
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarTraslServ.php",{idNotaTraslServh:idNotaTraslServh,fecha:fecha,hora:hora,motivoTransferencia:motivoTransferencia,servicioActual:servicioActual,servicioTraslada:servicioTraslada,horaFin:horaFin,fechaFin:fechaFin,turno:turno,fc:fc,fr:fr,ta:ta,so:so,glucosa:glucosa,temp:temp,peso:peso,talla:talla,interrogatorio:interrogatorio,expFisica:expFisica,estudiosGabyLab:estudiosGabyLab,terapeuticayProcedimientos:terapeuticayProcedimientos,cedula:cedula,expediente:expediente,folio:folio} ,function(){
+				$("#div_User").load("modificarSolImagen.php",{idImagenologia:idImagenologia,fecha:fecha,diag:diag,servicio:servicio,turno:turno,datosClinicos:datosClinicos,tiroides:tiroides,mama:mama,higadoVesiculayPancreas:higadoVesiculayPancreas,renal:renal,abdominal:abdominal,uteroOvariosyVejiga:uteroOvariosyVejiga,pelvico:pelvico,obstetrico:obstetrico,vejigayProstata:vejigayProstata,tejidosBlandos:tejidosBlandos,transrectal:transrectal,transvaginal:transvaginal,carotideoBilateral:carotideoBilateral,carotideoBiTxt:carotideoBiTxt,cedula:cedula,fechaGuarda:fechaGuarda,exp:exp,folio:folio} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });

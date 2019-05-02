@@ -406,7 +406,7 @@
 	$formularioNota = "<table>
 		<tr>
 			<td><label style='color: beige'>Fecha(*) :</label></td>
-			<td><input type='date' class='nombre' name='fecha' id='fecha' value='$fechaFin' disabled></td>
+			<td><input type='date' class='nombre' name='fecha' id='fecha' value='$fechaFin'></td>
 		<tr>
 		<tr>
 			<td><label style='color: beige'>Hora(*) :</label></td>

@@ -105,7 +105,7 @@
 		If you need to change the form color then you have to just change the CSS file name!! Do it very simply, like as "form-wizard-red.css" for make it red color. Our template other colors name is there ( black, blue, red, pink, purple, teal, green, yellow, orange, brown, cyan, lime ). Replace the name and make it awesome!!!
 		*****-->
     </head>
-    <body>		
+    <body>
         <!-- main content -->
         <section class="form-box">
             <div class="container">
@@ -209,12 +209,16 @@
 								<!--div style="clear:both;"></div-->							
                     			    <div class="form-group">
                     			    	<label>NOMBRE DEL VERIFICADOR : <span>*</span></label>
-                                    <input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control required">
-                                																		
+                                    	<!--input type="text" name="verificador" placeholder="Nombre" autocomplete="off" class="form-control required"-->
+										<select id="verificador" name="verificador" class="form-control required">
+											<option value="">Seleccione</option>
+											<option value="Gudmaro Mauricio Carvajal Reyes">Mauricio</option>
+											<option value="Alexa Sánchez Solano">Alexa</option>
+										</select>
                                 	</div>
 								 <div class="form-group">
-                    			    	<label>INFECCIÓN : <span>*</span></label>
-                                    <input type="text" name="infeccion" placeholder="Nombre de Infección" autocomplete="off" class="form-control required">                                																		
+                    			    	<label>FACTOR DE RIESGO : <span>*</span></label>
+                                    <input type="text" name="infeccion" placeholder="Factor" autocomplete="off" class="form-control required">
                                 	</div>
                                 <div class="form-group">
                     			    <label>FECHA DE INICIO : <span>*</span></label>
@@ -255,7 +259,6 @@
                             </fieldset>
 							<!-- Form Step 2 -->
                     	</form>
-						
 						</div>
 						<!-- Form Wizard -->
                     </div>

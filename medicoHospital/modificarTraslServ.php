@@ -121,6 +121,18 @@
 		} else {
 			$cedula = '';
 		}
+		if (isset($_POST['expediente']))
+		{
+			$expediente  = $_POST["expediente"];
+		} else {
+			$expediente = '';
+		}
+		if (isset($_POST['folio']))
+		{
+			$folio  = $_POST["folio"];
+		} else {
+			$folio = '';
+		}
 	
 	$formularioNota = "<table>
 		<tr>
@@ -209,6 +221,11 @@
 	<br>
 	<input type='hidden' name='idNotaTraslServh' id='idNotaTraslServh' value='$idNotaTraslServh' >
 	<div><input type='submit' value='Guardar' class='btn btn-success' name='boton' id='enviarNota'>";
+	
+	$docPDF = "<input type='button' value='PDF' class='btn btn-danger' name='lvc' style='height: 50px; width: 80px'
+	  	onClick=window.open(\"../pdf/creaPDF.php?exp=$expediente&folio=$folio&id=$idNotaTraslServh&name=ntsh\").focus() />";
+	  
+		echo $docPDF;
 
 		$btBorrarNota = "<input type='button' value='Borrar' class='btn btn-danger' name='boton' id='Borrar'>";
 		$formulario = $formularioNota;

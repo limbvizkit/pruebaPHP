@@ -122,7 +122,7 @@
 				<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 				</head>
 				<body><strong>NO EXISTEN DATOS PARA EL EXPEDIENTE COLOCADO</strong> <br><br>';
-	    	echo '&nbsp;&nbsp;<input type="image" src="img/reg.png" value="REGRESAR" onclick=location.href="javascript:history.back(-1);" height="75" width="161">
+	    	echo '&nbsp;&nbsp;<input type="image" src="../img/reg.png" value="REGRESAR" onclick=location.href="javascript:history.back(-1);" height="75" width="161">
 	    	<table style="width: 100%">
 	    	</body></html>';
 	    	exit();
@@ -284,22 +284,22 @@
 				
 				<input type="radio" name="sky-tabs" id="sky-tab2" class="sky-tab-content-2">
 				<label for="sky-tab2"><span><span><i class="fa fa-archive"></i>HISTORIA CLÍNICA</span></span></label>
-				
+				<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
 				<input type="radio" name="sky-tabs" id="sky-tab3" class="sky-tab-content-3">
 				<label for="sky-tab3"><span><span><i class="fa fa-file-text-o"></i>NOTA DE INGRESO</span></span></label>
 				
 				<input type="radio" name="sky-tabs" id="sky-tab4" class="sky-tab-content-4">
 				<label for="sky-tab4"><span><span><i class="fa fa-user-md"></i>NOTA PREOPERATORIA</span></span></label>
-				
+				<?php } ?>
 				<input type="radio" name="sky-tabs" id="sky-tab5" class="sky-tab-content-5">
 				<label for="sky-tab5"><span><span><i class="fa fa-bar-chart-o"></i>NOTA DE EVOLUCIÓN=</span></span></label>
 				
 				<input type="radio" name="sky-tabs" id="sky-tab6" class="sky-tab-content-6">
 				<label for="sky-tab6"><span><span><i class="fa fa-medkit"></i>NOTA DE TRASLADO DE SERVICIOS=</span></span></label>
-				
+				<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
 				<input type="radio" name="sky-tabs" id="sky-tab7" class="sky-tab-content-7">
 				<label for="sky-tab7"><span><span><i class="fa fa-ambulance"></i>NOTA DE REFERENCIA Y TRASLADO=</span></span></label>
-				
+				<?php } ?>
 				<input type="radio" name="sky-tabs" id="sky-tab8" class="sky-tab-content-8">
 				<label for="sky-tab8"><span><span><i class="fa fa-file-o"></i>NOTA DE EGRESO</span></span></label>
 				
@@ -352,6 +352,7 @@
 						<div class="typography">
 							<h1>HISTORIA CLÍNICA</h1>
 							<h2><?php echo $desc ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
 							<p>
 								<input type="button" value="Agregar Historia Clínica" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('historiaClinica.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF Historia Clínica" class="btn btn-danger" name="historiaClinica" 
@@ -362,6 +363,13 @@
 								<input type="button" value="Consultar Historia Clinica" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaHistoriaClin.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
+							<?php } else { ?>
+							<p>
+							<input type="button" value="Generar PDF Historia Clínica" class="btn btn-danger" name="historiaClinica" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=historiaClinica', '_blank').focus()"/>
+							</p>
+							<?php } ?>
 						</div>
 					</li>
 					
@@ -403,6 +411,7 @@
 						<div class="typography">
 							<h1>NOTA DE EVOLUCIÓN</h1>
 							<h2><?php echo $descEv ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
 							<p>
 								<input type="button" value="Agregar Nota de Evolución" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaEvolucion.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF Nota de Evolución" class="btn btn-danger" name="lvc" 
@@ -413,6 +422,11 @@
 								<input type="button" value="Consultar Nota de Evolución" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaEvolucion.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
+							<?php } else { ?>
+								<input type="button" value="Generar PDF Nota de Evolución" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=nevoh', '_blank').focus()"/>
+							<?php } ?>
 						</div>
 					</li>
 					
@@ -420,16 +434,22 @@
 						<div class="typography">
 							<h1>NOTA DE TRASLADO DE SERVICIO</h1>
 							<h2><?php echo $descTraslServ ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
 							<p>
 								<input type="button" value="Agregar Nota de Traslado de Servicio" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaTraslServ.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF Nota de Traslado de Servicio" class="btn btn-danger" name="lvc" 
 									   style="height: 50px; width: 300px" 
-									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=nts', '_blank').focus()"/>
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=ntsh', '_blank').focus()"/>
 							</p>
 							<p>
 								<input type="button" value="Consultar Nota de Traslado de Servicio" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaTraslServ.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
+							<?php } else { ?>
+								<input type="button" value="Generar PDF Nota de Traslado de Servicio" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=ntsh', '_blank').focus()"/>
+							<?php } ?>
 						</div>
 					</li>
 					
@@ -453,6 +473,7 @@
 						<div class="typography">
 							<h1>NOTA DE EGRESO HOSPITALARIO</h1>
 							<h2><?php echo $descE ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
 							<p>
 								<input type="button" value="Agregar Nota de Egreso" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaEgreso.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF de Nota de Egreso" class="btn btn-danger" name="lvc" 
@@ -463,6 +484,11 @@
 								<input type="button" value="Consultar Notas de Egreso" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaNotaEgreso.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
+							<?php } else { ?>
+								<input type="button" value="Generar PDF de Nota de Egreso" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=notaEgreso', '_blank').focus()"/>
+							<?php } ?>
 						</div>
 					</li>
 					

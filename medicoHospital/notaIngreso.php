@@ -77,7 +77,7 @@
 		
 		$tipoInterrogaFin=$rowA['tipoInterroga'];
 		$horaFin=$rowA['hora'];
-		$edoCivilFin=$rowA['edoCivil'];
+		$edoCivilFin=utf8_encode($rowA['edoCivil']);
 		$grupoRHFin=$rowA['grupoRH'];
 		
 		$ocupacionOld= utf8_encode($rowA['ocupacion']);
@@ -720,7 +720,7 @@
 										<option value="<?php echo $edoCivilFin ?>"><?php echo $edoCivilFin ?></option>
 										<option value="SOLTERO">SOLTERO</option>
 										<option value="CASADO">CASADO</option>
-										<option value="UNION LIBRE">UNION LIBRE</option>
+										<option value="UNION LIBRE">UNIÓN LIBRE</option>
 									   <option value="VIUDO">VIUDO</option>
 									</select>
 								</div>

@@ -75,9 +75,9 @@
 			
 			//Ocupamos permiso para ver todo lo del medico o solo lo de Triage
 			$vista = NULL;
-			if($permisos == '3' && $hospital != '1'){
+			if($permisos == '3' && $hospital != '1' && $rol != 'imarmolejo'){
 				$vista = 'tabs.php';
-			}else if($hospital == '1') {
+			}else if($hospital == '1' || $rol=='imarmolejo') {
 				$vista = '../medicoHospital/tabs.php';
 			} else {
 				$vista = 'tabsTriage.php';
@@ -273,7 +273,7 @@
 	</form>
 	
 	<hr style="height:10px; background-color: darkcyan">
-	<?php if( $permisos == '3'){ ?>
+	<?php if( $permisos == '3' && $rol != 'imarmolejo'){ ?>
 		<form method="post" id="search" autocomplete="off">
 			<div class="auto-style1">
 				<h3>FORMATOS DE HOSPITAL</h3>
@@ -292,7 +292,7 @@
 			<input type="hidden" name="hospital" value="1" />
 		</form>
 	<?php } ?>
-	<?php if( $permisos == '3'){ ?>
+	<?php if( $permisos == '3' && $rol != 'imarmolejo'){ ?>
 	<hr style="height:10px; background-color: darkcyan" >
 	<div class="auto-style1" >
 		<span class="auto-style3" align="center"> FORMULARIOS DE URGENCIAS:</span>
@@ -301,7 +301,7 @@
 		<p class="auto-style5" > <input class="btn btn-primary" type="button" value="URGENCIAS" onClick=location.href="tabsUrg.php?rol=<?php echo $rol ?>&permisos=<?php echo $permisos ?>" style="width: 137px; height: 44px" /></p>
 	<br/>
 	<br/>
-	<?php } else { ?>
+	<?php } else if($rol != 'imarmolejo'){ ?>
 		<hr>
 		<div class="text-center">
 		<!--form action="excel.php" method = "post">

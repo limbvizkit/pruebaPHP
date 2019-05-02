@@ -6,12 +6,27 @@
 	#Configuracion para colocar día y mes en español
 	date_default_timezone_set('America/Mexico_City');//America/Mexico_City   UTC
 	setlocale(LC_ALL,'');
-	
+
 	$fechaA=date('Y-m-d');
+	$fechaB=date('Y-m-d');
+
+	#Se presiono el boton enviar
+  	if(isset($_REQUEST['enviar']))
+	{
+		if (isset($_POST['fecha1']))
+		{
+			$fechaA=$_POST['fecha1'];
+		}
+		if (isset($_POST['fecha2']))
+		{
+			$fechaB=$_POST['fecha2'];
+		}
+	}
+
 	#Forma POO instanciamos y mandamos llamar un objeto de la instancia
 	$usuario1 = new FuncionesDB();
 	#La funcion retorna un arreglo lo mandamos a una variable
-	$resultado[] = $usuario1->listaConsulta($fechaA);
+	$resultado[] = $usuario1->listaConsultaFar($fechaA,$fechaB);
 	#El arreglo esta vacio 
 	if (!empty($resultado[0])) {
 		$nombre_pac = utf8_decode($resultado[0][0]['NOMBRE']);
@@ -26,14 +41,13 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="refresh" content="60"; URL=lista2.php >
     <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="../../css/datatables.min.css" >
+	<link rel="stylesheet" type="text/css" href="../../css/datatables.min.css">
 	<script type="text/javascript" src="../../js/datatables.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#simple').dataTable({
-				"pageLength": "20",
+				"pageLength": "15",
 				"language": {
 	    	        "lengthMenu": "Mostrar _MENU_ Filas",
 	    	        "zeroRecords": "Sin Resultados - Intente otra frase",
@@ -187,7 +201,7 @@
 <center>
 	<div class="in" id="cuadro">
 		&nbsp;<div id="titulo">
-		<h1>PACIENTES REGISTRADOS PARA CONSULTA</h1>
+		<h1>PACIENTES</h1>
 		<script type="text/javascript">
 			function makeArray() {
 				for (i = 0; i<makeArray.arguments.length; i++)
@@ -203,111 +217,71 @@
 			document.write("Hoy es "+ day + " de " + months[month] + " del " + year);
 		</script>
 		</div>
-		<b><p>No Atendido</p> <p class="auto-style5"> Atendido </p> <p class="auto-style6"> Ingresó a Triage </p></b>
 		<table id="simple">
 			<thead>
 				<tr class="centro">
 				    <td class="auto-style3">No.</td>
-					<!--td class="auto-style3">Hora</td-->
 					<td class="auto-style3">EXPEDIENTE</td>
 					<td class="auto-style3">FOLIO</td>
 					<td class="auto-style3">NOMBRE DEL PACIENTE</td>
-					<td class="auto-style3">HORA DE INGRESO</td>
+					<td class="auto-style3">FECHA DE INGRESO</td>
+					<td class="auto-style3">EMPRESA/ASEGURADORA</td>
+					<td class="auto-style3">PAQUETE</td>
 				</tr>
 			</thead>
 			<tbody>
 			 <?php $c=1; ?>
-				<?php for($r=0;$r<count($resultado[0]);$r++){
-					$turnoFin = NULL;
-					$turnoFin1 = NULL;
-					$fechaFin  = NULL;
-					$expediente = $resultado[0][$r]['NO_EXP_PAC'];
-					$folio = $resultado[0][$r]['FOLIO_PAC'];
-					$pasa= FALSE;
-					$triage=FALSE;
-	
-					$queryAntec = "SELECT *
-								  FROM notaUrgchoque
-								  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
-								  LIMIT 1";
-					//echo '01: '.$queryAntec;
-					$antec = mysqli_query($conexionMedico, $queryAntec) or die (mysqli_error($conexionMedico));
-					while($rowA = mysqli_fetch_array($antec)){
-						$turnoFin=$rowA['turno'];
-						//$fechaFin =substr($rowA['fecha'],0,10);
-						$pasa=TRUE;
-						//echo '1: '.$queryAntec;
-					}
-	
-					if($turnoFin== NULL || $turnoFin == ''){
-						$queryAntec1 = "SELECT *
-								  FROM notaUrg
-								  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
-								  LIMIT 1";
-						$antec1 = mysqli_query($conexionMedico, $queryAntec1) or die (mysqli_error($conexionMedico));
-						while($rowB = mysqli_fetch_array($antec1)) {							
-							$turnoFin1=$rowB['turno'];
-							//$fechaFin =substr($rowA['fecha'],0,10);
-							$pasa=TRUE;
-							//echo '2: '.$queryAntec;
-						}
-					}
-	
-					if($turnoFin1 == NULL || $turnoFin1 == ''){
-						$queryAntec2 = "SELECT *
-								  FROM notaurgtriage
-								  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
-								  LIMIT 1";
-						$antec2 = mysqli_query($conexionMedico, $queryAntec2) or die (mysqli_error($conexionMedico));
-						while($rowC = mysqli_fetch_array($antec2)) {							
-							$turnoFin=$rowC['turno'];
-							//$fechaFin =substr($rowA['fecha'],0,10);
-							$pasa=TRUE;
-							$triage=TRUE;
-							//echo '2: '.$queryAntec;
-						}
-					}
-					if($pasa){
-						$color='auto-style5';
-					} else {
-						$color='auto-style4';
-					}
-	
-					if($triage && $rowA == NULL && $rowB == NULL ){
-						$color='auto-style6';
-					}
-				?>
+				<?php for($r=0;$r<count($resultado[0]);$r++){?>
 					<tr>
-						<td class=<?php echo $color?>>
+						<td>
 						<strong><?php echo $c++ ?>
 						</strong>
 						</td>							
-						<td class=<?php echo $color?>>
+						<td>
 							<strong>
 							<?php echo $resultado[0][$r]['NO_EXP_PAC']?>
 							</strong>
 						</td>
-						<td class=<?php echo $color?>>
+						<td>
 							<strong>
 							<?php echo $resultado[0][$r]['FOLIO_PAC']?>
 							</strong>
 						</td>
-						<td class=<?php echo $color?>>
+						<td>
 							<strong>
 							<?php echo $resultado[0][$r]['NOMBRE']?>
 							</strong>
 						</td>
-						<td class=<?php echo $color?>>
+						<td>
 							<strong>
-							<?php $newDate =$resultado[0][$r]['HR_ING_PAC'];
-								$newDate = $newDate->format('H:i');
-								echo $newDate.' hrs';?>
+							<?php $newDate =$resultado[0][$r]['FEC_ING_PAC'];
+								$newDate = $newDate->format('d/m/Y');
+								echo $newDate;?>
+							</strong>
+						</td>
+						<td>
+							<strong>
+							<?php echo $resultado[0][$r]['OBLI_PAC']?>
+							</strong>
+						</td>
+						<td>
+							<strong>
+							<?php echo $resultado[0][$r]['DESC_PAQUET']?>
 							</strong>
 						</td>
 					</tr>
 				<?php } ?>
 			</tbody>
 		</table>
+		<form method="post" action="" autocomplete="off">
+			<strong style="background:#BAD1F5">Consultar por rango de fechas</strong>
+			<br/><br/>
+			DE <input type="date" name="fecha1" /> A
+			<input type="date" name="fecha2" />
+			<br/>
+			<br/>
+			<input class="btn btn-success" type="submit" name="enviar" value="CONSULTAR" style="width: 137px; height: 40px" />
+		</form>
 			<!--img alt="sesion" src="sesion.png" height="450" width="724" -->
 		<!--/div-->
 	</div>
