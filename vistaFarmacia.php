@@ -279,7 +279,8 @@
 				</p>';
 				echo '<a class="btn btn-primary" href="visorArchivos/indexNew.php?rol='.$rol.'&permisos='.$permisos.'" style="height: 50px; width: 210px; font-size: large;">ADMIN DE ARCHIVOS</a>';
 				echo '<br /><br /><br /><a class="btn btn-primary" href="vistaAtencionClnt.php?rol='. $rol.'" style="width: 200px; height: 50px; font-size: large;"> INCIDENCIAS </a>';
-				echo '<br /><br /><br /><a class="btn btn-primary" href="visorArchivos/visorArchivos.php?rol='.$rol.'" style="width: 250px; height: 40px"> VISOR DE ARCHIVOS INTERNOS </a>';
+				echo '<br /><br /><br /><a class="btn btn-primary" href="visorArchivos/visorArchivos.php?rol='.$rol.'" style="width: 300px; height: 50px; font-size: large;"> VISOR DE ARCHIVOS INTERNOS </a>';
+				echo '<br /><br /><br /><a class="btn btn-primary" href="medico/index.php?rol='.$rol.'&permisos=3" style="width: 250px; height: 50px; font-size: large;"> FORMATOS HOSPITAL </a>';
 
 			}
 		?>

@@ -258,10 +258,11 @@ require_once('conexion/configLogin.php');
 						        <option value="10"> ALMACEN </option>
 						        <option value="38"> ATENCIÓN A CLIENTES </option>
 						        <option value="27"> BANCO DE SANGRE </option>
-						        <option value="2"> BIOESTADÍSTICA Y CALIDAD </option>
+						        <option value="2"> BIOESTADÍSTICA </option>
 								<option value="40"> BIOMÉDICO </option>
 						        <option value="16"> CAFETERÍA Y NUTRICIÓN </option>
 						        <option value="32"> CAJA </option>
+						        <option value="41"> CALIDAD </option>
 						        <option value="6"> COBRANZA </option>
 						        <option value="12"> COMPRAS </option>
 						        <option value="9"> CONTABILIDAD </option>
@@ -272,9 +273,11 @@ require_once('conexion/configLogin.php');
 						        <option value="24"> DIRECCIÓN FINANCIERA </option>
 								<option value="25"> DIRECCIÓN GENERAL </option>
 						        <option value="17"> ENFERMERÍA </option>
+						        <option value="42"> ENSEÑANZA E INVESTIGACIÓN </option>
 								<option value="18"> EPIDEMIOLOGÍA </option>
 								<option value="3"> FARMACIA </option>
 								<option value="4"> FARMACIA CLÍNICA </option>
+								<option value="43"> FINANCIERA </option>
 								<option value="28"> IMAGENOLOGÍA </option>
 								<option value="34"> INHALOTERAPIA </option>
 								<option value="11"> INVESTIGACIÓN </option>
