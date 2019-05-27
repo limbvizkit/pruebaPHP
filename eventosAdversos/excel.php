@@ -181,14 +181,12 @@ if($nombre == 'HistoricoEventosAdversos'){
 	$c = 1;
 	while($row = mysqli_fetch_array($result1)){
 		if($c == 1){
-			$excel.="\nNo.\tNúmero Expediente\tFolio\tFecha\tTurno\tReporta\tServicio\tDiagnostico\tTipoEvento\tRelacionado a Med.\tAlcanzóPaciente\tDañoPaciente\tEvento\tComoPaso\tPorQuePaso\tMedicamento\tGenérico\tPresentación\tDosis\tVíaAdmin\tIntervalo\tAdquisiciónIncorrectaDelMed.\tCondicionesInadecuadasEnTransporte.\tCondicionesInadecuadasEnAlmacenamientoDelMed.\tDispensaciónIncoirrectaDelMed.\tEtiquetadoIncompleto-Incorrecto\tFaltaDeIdentificaciónDeMed.AltoRiesgo\tMed.Caducado-MalasCondiciones\tLetraIlegible-ConfusaEnIndic.Medica\tFaltaDeNotificaciónDeAlergias\tMedicamentoConAspecto-NombreParecido\tFaltaDobleVerif.DePreparaciónyAdmin.DeMed.\tFaltaDeRegistroDeLosMed.EnExp.Clín.\tFaltaDeIdentificaciónCorrectaDelPaciente\tSeAdministraElMed.aPacienteIncorrecto\tSeAdministraUnMedicamentoNoPreescrito\tOmisiónDeUnMedicamento\tSeAdministraMedicamentoIncorrecto\tPreescripciónIncompleta\tTrasncripciónIncompleta\tPreparaciónIncorrecta\tDispositivoIncorrecto\tTécnicaDeAdministraciónIncorrecta\tVíaDeAdmon.Incorrecta\tAdministraDosis-PotenciaIncorrecta\tDuracióndelTratamientoIncorrecto\tHoraDeAdmin.Incorrecta\tIntervaloDeFrecuenciaIncorrecto\tVelocidadDeInfuciónIncorrecta\tOtros\tTextoDeOtros\n";
+			$excel.="\nNo.\tNúmero Expediente\tFolio\tFechaReporte\tTurno\tPaciente\tServicio\tOtro Servicio\tTipoEvento\tHabitacion\tNacimientoPaciente\tFechaOcurrio\tEvento\n";
 		}
-		$diag= preg_replace("/[\n|\r|\n\r]/i"," ",$row["diag"]);
+		$paciente= preg_replace("/[\n|\r|\n\r]/i"," ",$row["paciente"]);
 		$evento= preg_replace("/[\n|\r|\n\r]/i"," ",$row["evento"]);
-		$como= preg_replace("/[\n|\r|\n\r]/i"," ",$row["como"]);
-		$porQue= preg_replace("/[\n|\r|\n\r]/i"," ",$row["porQue"]);
-		$otros= preg_replace("/[\n|\r|\n\r]/i"," ",$row["otros"]);
-		$excel.= $c++."\t".$row["numeroExpediente"]."\t".$row["folio"]."\t".$row["fecha"]."\t".$row["turno"]."\t".utf8_encode($row["reporta"])."\t".utf8_encode($row["servicio"])."\t".utf8_encode($diag)."\t".utf8_encode($row["tipoEvento"])."\t".$row["relacionado"]."\t".$row["alcanzoPac"]."\t".$row["danioPac"]."\t".utf8_encode($evento)."\t".utf8_encode($como)."\t".utf8_encode($porQue)."\t".utf8_encode($row["medicamento"])."\t".utf8_encode($row["generico"])."\t".utf8_encode($row["presentacion"])."\t".utf8_encode($row["dosis"])."\t".utf8_encode($row["viaAdmin"])."\t".utf8_encode($row["intervalo"])."\t".$row["aim"]."\t".$row["cidt"]."\t".$row["ciam"]."\t".$row["dim"]."\t".$row["eii"]."\t".$row["fimar"]."\t".$row["mcmc"]."\t".$row["licim"]."\t".$row["fma"]."\t".$row["manp"]."\t".$row["fdvpam"]."\t".$row["frmec"]."\t".$row["ficp"]."\t".$row["ampi"]."\t".$row["amnp"]."\t".$row["omisionMed"]."\t".$row["ami"]."\t".$row["presInc"]."\t".$row["transInc"]."\t".$row["prepInc"]."\t".$row["dispoInc"]."\t".$row["tai"]."\t".$row["vai"]."\t".$row["adpi"]."\t".$row["dti"]."\t".$row["hai"]."\t".$row["ifi"]."\t".$row["vii"]."\t".$row["ot"]."\t".utf8_encode($otros)."\n";
+		$servicioTxt= preg_replace("/[\n|\r|\n\r]/i"," ",$row["servicioTxt"]);
+		$excel.= $c++."\t".$row["numeroExpediente"]."\t".$row["folio"]."\t".$row["fecha"]."\t".$row["turno"]."\t".utf8_encode($row["paciente"])."\t".utf8_encode($row["servicio"])."\t".utf8_encode($servicioTxt)."\t".utf8_encode($row["tipoEvento"])."\t".$row["habitacion"]."\t".$row["nacimientoPaciente"]."\t".$row["fechaOcurrio"]."\t".utf8_encode($evento)."\n";
 	}
 }
 

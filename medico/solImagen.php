@@ -23,9 +23,8 @@
 	} else {
 		$folio=NULL;
 	}
-
 	
-	$diagFin=NULL;
+	/*$diagFin=NULL;
 	$antecedentesFin=NULL;
 	$interrogatorioFin=NULL;
 
@@ -46,7 +45,7 @@
 		$diagOld= utf8_encode($rowA['diag']);
 		$diagFin=addslashes ($diagOld);
 		
-	}
+	}*/
 	
 	if(isset($_REQUEST['enviar']))
 	{
@@ -308,6 +307,11 @@
 		{
 			$craneo=utf8_decode($_POST['craneo'].'_0');
 		}
+		if (isset($_POST['craneoTxt']))
+		{
+			$craneoTxt=utf8_decode($_POST['craneoTxt']);
+			$craneoTxt=addslashes($craneoTxt);
+		}
 		if (isset($_POST['senosParanasales']))
 		{
 			$senosParanasales=utf8_decode($_POST['senosParanasales'].'_0');
@@ -328,20 +332,20 @@
 		{
 			$teledeTorax=utf8_decode($_POST['teledeTorax'].'_0');
 		}
-		if (isset($_POST['teleTorxTxt']))
+		/*if (isset($_POST['teleTorxTxt']))
 		{
 			$teleTorxTxt=utf8_decode($_POST['teleTorxTxt']);
 			$teleTorxTxt=addslashes($teleTorxTxt);
-		}
+		}*/
 		if (isset($_POST['toraxOseo']))
 		{
 			$toraxOseo=utf8_decode($_POST['toraxOseo'].'_0');
 		}
-		if (isset($_POST['toraxOseoTxt']))
+		/*if (isset($_POST['toraxOseoTxt']))
 		{
 			$toraxOseoTxt=utf8_decode($_POST['toraxOseoTxt']);
 			$toraxOseoTxt=addslashes($toraxOseoTxt);
-		}
+		}*/
 		if (isset($_POST['esternon']))
 		{
 			$esternon=utf8_decode($_POST['esternon'].'_0');
@@ -439,13 +443,13 @@
 		{
 			$edadOsea=utf8_decode($_POST['edadOsea'].'_0');
 		}
-		if (isset($_POST['ot']))
-		{
-			$ot=utf8_decode($_POST['ot'].'_0');
-		}
 		if (isset($_POST['otros']))
 		{
-			$otros=utf8_decode($_POST['otros']);
+			$ot=utf8_decode($_POST['otros'].'_0');
+		}
+		if (isset($_POST['otrosTxt']))
+		{
+			$otros=utf8_decode($_POST['otrosTxt']);
 			$otros=addslashes($otros);
 		}
 		/*if (isset($_POST['nombreMedicoTratante']))
@@ -462,16 +466,16 @@
 		$queryInsImagen = "INSERT INTO imagenologia (id,numeroExpediente,folio,servicio,turno,datosClinicos,diagnostico,tiroides,mama,higadoVesiculayPancreas,renal,abdominal,uteroOvariosyVejiga,pelvico,
 							obstetrico,vejigayProstata,tejidosBlandos,transrectal,transvaginal,carotideoBilateral,carotideoBiTxt,miembroSuperiorUnilateral,miembroSupUniTxt,miembroSuperiorBilateral,miembroSupBiTxt,
 							miembroInferiorUnilateral,miembroInfUniTxt,miembroInferiorBilateral,miembroInfBiTxt,higadoHipertensionPortal,higadoPortTxt,regionSimple,regionSimp1Txt,regionContrastada,regionContr1Txt,
-							cortesSenosParanasales,craneoSimple,craneoContrastado,oidoAxialyCoronal,urotac,regionesSimples,regionesSimp2Txt,regionesContrastadas,regionesContr2Txt,columna,columnaTxt,craneo,senosParanasales,
-							columnaCervical,columnaDorsal,columnaLumbar,teledeTorax,teleTorxTxt,toraxOseo,toraxOseoTxt,esternon,abdomenSimple,abdomenSimpTxt,abdomendePie,abdomenPieTxt,serieGastroDuodenal,serieGastroTxt,
+							cortesSenosParanasales,craneoSimple,craneoContrastado,oidoAxialyCoronal,urotac,regionesSimples,regionesSimp2Txt,regionesContrastadas,regionesContr2Txt,columna,columnaTxt,craneo,craneoTxt,
+							senosParanasales,columnaCervical,columnaDorsal,columnaLumbar,teledeTorax,toraxOseo,esternon,abdomenSimple,abdomenSimpTxt,abdomendePie,abdomenPieTxt,serieGastroDuodenal,serieGastroTxt,
 							colonporEnema,colonEnemaTxt,transitoIntestinal,transitoIntesTxt,urografiaExcretora,urografiaExcrTxt,cristograma,cristogramaTxt,perfilograma,perfilogramaTxt,watters,wattersTxt,
-							articulacionesTemporamandibulares,lateraldeCuello,edadOsea,ot,otros,cedula,usr)
+							articulacionesTemporamandibulares,lateraldeCuello,edadOsea,otros,otrosTxt,cedula,usr)
 							VALUES (NULL,'$expediente','$folio','$servicio','$turno','$datosClinicos','$diagnostico','$tiroides','$mama','$higado','$renal','$abdominal','$utero','$pelvico','$obstetrico','$vejiga',
 							'$tejidosBlandos','$transRectal','$transVaginal','$carotideoBi','$carotideoBiTxt','$miembroSuperiorUnilateral','$miembroSupUniTxt','$miembroSuperiorBilateral','$miembroSupBiTxt',
 							'$miembroInferiorUnilateral','$miembroInfUniTxt','$miembroInferiorBilateral','$miembroInfBiTxt','$higadoHipertensionPortal','$higadoPortTxt','$regionSimple','$regionSimp1Txt',
 							'$regionContrastada','$regionContr1Txt','$cortesSenosParanasales','$craneoSimple','$craneoContrastado','$oidoAxialyCoronal','$urotac','$regionesSimples','$regionesSimp2Txt',
-							'$regionesContrastadas','$regionesContr2Txt','$columna','$columnaTxt','$craneo','$senosParanasales','$columnaCervical','$columnaDorsal','$columnaLumbar','$teledeTorax','$teleTorxTxt','$toraxOseo',
-							'$toraxOseoTxt','$esternon','$abdomenSimple','$abdomenSimpTxt','$abdomendePie','$abdomenPieTxt','$serieGastroDuodenal','$serieGastroTxt','$colonporEnema','$colonEnemaTxt','$transitoIntestinal',
+							'$regionesContrastadas','$regionesContr2Txt','$columna','$columnaTxt','$craneo','$craneoTxt','$senosParanasales','$columnaCervical','$columnaDorsal','$columnaLumbar','$teledeTorax','$toraxOseo',
+							'$esternon','$abdomenSimple','$abdomenSimpTxt','$abdomendePie','$abdomenPieTxt','$serieGastroDuodenal','$serieGastroTxt','$colonporEnema','$colonEnemaTxt','$transitoIntestinal',
 							'$transitoIntesTxt','$urografiaExcretora','$urografiaExcrTxt','$cristograma','$cristogramaTxt','$perfilograma','$perfilogramaTxt','$watters','$wattersTxt','$articulacionesTemporamandibulares',
 							'$lateraldeCuello','$edadOsea','$ot','$otros','$cedula','$rol')";
 		$result0 = mysqli_query($conexionMedico, $queryInsImagen);
@@ -566,9 +570,9 @@
 						Use anyone class "form-body-classic" or "form-body-material" or "form-body-stylist" for set your form element design.
 						-->
 						<?php 
-							$prueba = eliminar_tildes('Serie Gastro-Duodenal');
+							/*$prueba = eliminar_tildes('Hígado - Hipertensión Portal_0');
 							$prueba = lcfirst($prueba);
-							echo $prueba;
+							echo $prueba;*/
 							
 							/*$charset= 'UTF-8'; //'ISO-8859-1';
 							$str=null;
@@ -655,7 +659,7 @@
                                 </div>
 								<div class="form-group">
 									<label>DIAGNÓSTICO : <span>*</span></label>
-									<textarea class="form-control required" name="diagnostico" id="diagnostico" cols="10" rows="3"><?php echo $diagFin ?></textarea>
+									<textarea class="form-control required" name="diagnostico" id="diagnostico" cols="10" rows="3"></textarea>
 								</div>
                                 <div class="form-wizard-buttons">
                                     <button type="button" class="btn btn-next">Siguiente</button>
@@ -960,6 +964,8 @@
 											</td>
 											<td>
 												Cráneo
+												<br>
+												<input type="text" name="craneoTxt" >
 											</label>
 											</td>
 											<label class="checkbox-inline">
@@ -1002,8 +1008,8 @@
 											</td>
 											<td>
 												Tele de Tórax
-												<br>
-												<input type="text" name="teleTorxTxt" >
+												<!--br>
+												<input type="text" name="teleTorxTxt" -->
 											</label>
 											</td>
 											<label class="checkbox-inline">
@@ -1012,8 +1018,8 @@
 											</td>
 											<td>
 												Tórax Óseo
-												<br>
-												<input type="text" name="toraxOseoTxt" >
+												<!--br>
+												<input type="text" name="toraxOseoTxt" -->
 											</label>
 											</td>
 											<label class="checkbox-inline">
@@ -1136,7 +1142,7 @@
 											</label>
 											<label class="checkbox-inline">
 											<td>
-												<input type="checkbox" name="ot" id="ot"  onchange="mostrarOt()" style="width: 45px; height: 35px" value="Otros" >
+												<input type="checkbox" name="otros" id="otros"  onchange="mostrarOt()" style="width: 45px; height: 35px" value="Otros" >
 											</td>
 											<td>
 												Otros (Especificar):</label>
@@ -1147,7 +1153,7 @@
 								</div>
 									<div id="otro" style="display:none">
 									<div class="form-group" style="height: 100px">
-										<textarea class="form-control" name="otros" id="otros" cols="10" rows="3"></textarea>
+										<textarea class="form-control" name="otrosTxt" id="otrosTxt" cols="10" rows="3"></textarea>
 									</div>
 								</div>
 
@@ -1238,7 +1244,7 @@
 		});
 			function mostrarOt() {
 				 element = document.getElementById("otro");
-				check = document.getElementById("ot");
+				check = document.getElementById("otros");
 				if (check.checked) {
 					element.style.display='block';
 				} else {
@@ -1290,8 +1296,8 @@
 			$cadena );
 
 		$cadena = str_replace(
-			array('ñ', 'Ñ', 'ç', 'Ç', '-'),
-			array('n', 'N', 'c', 'C', ''),
+			array('ñ', 'Ñ', 'ç', 'Ç', '-','_'),
+			array('n', 'N', 'c', 'C', '', ''),
 			$cadena
 		);
 		

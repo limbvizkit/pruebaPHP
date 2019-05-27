@@ -1,0 +1,26 @@
+body{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,207cca+50,7db9e8+100 */
+	background: #7db9e8; /* Old browsers */
+	background: -moz-linear-gradient(top, #7db9e8 0%, #207cca 50%, #7db9e8 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #7db9e8 0%,#207cca 50%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #7db9e8 0%,#207cca 50%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+}
+
+.swicher{float:left;margin-bottom:30px;}
+
+.switcher-title{color:#fff;text-shadow:0px 2px 2px #333;font-size:20px;text-align:center;display:block;width:100%;}
+
+.btn-color{border:0px solid #fff;box-shadow:0px 0px 2px 2px #333;}
+.btn-color#blue{background:#6753D8;color:#fff;}
+.btn-color#black{background:#424242;color:#fff;}
+.btn-color#red{background:#e53935;color:#fff;}
+.btn-color#pink{background:#d81b60;color:#fff;}
+.btn-color#purple{background:#6CCDCF;color:#fff;}
+.btn-color#teal{background:#00897b;color:#fff;}
+.btn-color#green{background:#388e3c;color:#fff;}
+.btn-color#yellow{background:#ff8f00;color:#fff;}
+.btn-color#orange{background:#ff5722;color:#fff;}
+.btn-color#brown{background:#795548;color:#fff;}
+.btn-color#cyan{background:#00838f;color:#fff;}
+.btn-color#lime{background:#9e9d24;color:#fff;}

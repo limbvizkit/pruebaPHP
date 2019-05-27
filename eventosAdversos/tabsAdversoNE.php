@@ -61,10 +61,12 @@
 							<p>
 								<input type="button" value="Agregar Notificación" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('eventoAdverso.php?rol=<?php echo $rol ?>', '_blank').focus()" />
 							</p>
+							<?php if($rol=='administrador'){ ?>
 							<p>
 								<input type="button" value="CONSULTAR HISTÓRICO" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaAdverso.php?rol=<?php echo $rol ?>', '_blank').focus()"/>
 							</p>
+							<?php } ?>
 						</div>
 					</li>
 				

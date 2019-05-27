@@ -24,6 +24,9 @@
 	}
 	
 //vamos a ver si podemos separar con Expediente y sin Expediente
+$nombre_pac = NULL;
+$fec_nacPac = NULL;
+$hab_pac = NULL;
 if($expediente != NULL || trim($expediente) != '') {
 	#Forma POO instanciamos y mandamos llamar un objeto de la instancia
     $usuario1 = new FuncionesDB();
@@ -34,6 +37,7 @@ if($expediente != NULL || trim($expediente) != '') {
 	$folio_pac = $resultado[0][0]['FOLIO_PAC'];
 	$edad_pac = $resultado[0][0]['EDAD_PAC'];
    	$sexo_pac = $resultado[0][0]['SEXO_PAC'];
+	$hab_pac = $resultado[0][0]['CVE_CUARTO'];
 
 	if($sexo_pac == 'M'){
 		$sexo_pac='MASCULINO';
@@ -55,38 +59,10 @@ if($expediente != NULL || trim($expediente) != '') {
 	}
 }
 
+	$tipoEvento=NULL;
 	if(isset($_REQUEST['enviar']))
 	{
-		$aim=NULL;
-		$cidt=NULL;
-		$ciam=NULL;
-		$dim=NULL;
-		$eii=NULL;
-		$fimar=NULL;
-		$mcmc=NULL;
-		$licim=NULL;
-		$fma=NULL;
-		$manp=NULL;
-		$fdvpam=NULL;
-		$frmec=NULL;
-		$ficp=NULL;
-		$ampi=NULL;
-		$amnp=NULL;
-		$omisionMed=NULL;
-		$ami=NULL;
-		$presInc=NULL;
-		$transInc=NULL;
-		$prepInc=NULL;
-		$dispoInc=NULL;
-		$tai=NULL;
-		$vai=NULL;
-		$adpi=NULL;
-		$dti=NULL;
-		$hai=NULL;
-		$ifi=NULL;
-		$vii=NULL;
-		$ot=NULL;
-
+		
 		if (isset($_POST['expediente']))
 		{
 			$expediente=$_POST['expediente'];
@@ -108,215 +84,54 @@ if($expediente != NULL || trim($expediente) != '') {
 		{
 			$turno=$_POST['turno'];
 		}
-		if (isset($_POST['reporta']))
-		{
-			$reporta=utf8_decode($_POST['reporta']);
-			$reporta=addslashes ($reporta);
-		}
+		
 		if (isset($_POST['servicio']))
 		{
 			$servicio=utf8_decode($_POST['servicio']);
 			$servicio=addslashes ($servicio);
 		}		
-		if (isset($_POST['diag']))
+		if (isset($_POST['servicioTxt']))
 		{
-			$diag=utf8_decode($_POST['diag']);
-			$diag=addslashes ($diag);
+			$servicioTxt=utf8_decode($_POST['servicioTxt']);
+			$servicioTxt=addslashes($servicioTxt);
 		}
 		if (isset($_POST['tipoEvento']))
 		{
 			$tipoEvento=utf8_decode($_POST['tipoEvento']);
 			$tipoEvento = addslashes($tipoEvento);
 		}		
-		if (isset($_POST['relacionado']))
+		if (isset($_POST['habitacion']))
 		{
-			$relacionado=$_POST['relacionado'];
+			$habitacion=utf8_decode($_POST['habitacion']);
+			$habitacion = addslashes($habitacion);
 		}
-		if (isset($_POST['alcanzoPac']))
+		if (isset($_POST['paciente']))
 		{
-			$alcanzoPac=$_POST['alcanzoPac'];
+			$paciente=utf8_decode($_POST['paciente']);
+			$paciente=addslashes($paciente);
 		}
-		if (isset($_POST['danioPac']))
+		if (isset($_POST['nacimientoPaciente']))
 		{
-			$danioPac=$_POST['danioPac'];
+			$nacimientoPaciente=utf8_decode($_POST['nacimientoPaciente']);
+			$nacimientoPaciente=addslashes($nacimientoPaciente);
+		}
+		if (isset($_POST['fechaOcurrio']))
+		{
+			$fechaOcurrio=utf8_decode($_POST['fechaOcurrio']);
+			$fechaOcurrio=addslashes($fechaOcurrio);
 		}
 		if (isset($_POST['evento']))
 		{
 			$evento=utf8_decode($_POST['evento']);
 			$evento = addslashes($evento);
 		}
-		if (isset($_POST['como']))
-		{
-			$como=utf8_decode($_POST['como']);
-			$como = addslashes($como);
-		}
-		if (isset($_POST['porQue']))
-		{
-			$porQue=utf8_decode($_POST['porQue']);
-			$porQue=addslashes($porQue);
-		}
-		if (isset($_POST['medicamento']))
-		{
-			$medicamento=utf8_decode($_POST['medicamento']);
-			$medicamento=addslashes($medicamento);
-		}
-		if (isset($_POST['generico']))
-		{
-			$generico=utf8_decode($_POST['generico']);
-			$generico=addslashes($generico);
-		}
-		if (isset($_POST['presentacion']))
-		{
-			$presentacion=utf8_decode($_POST['presentacion']);
-			$presentacion=addslashes($presentacion);
-		}
-		if (isset($_POST['dosis']))
-		{
-			$dosis=utf8_decode($_POST['dosis']);
-			$dosis=addslashes($dosis);
-		}
-		if (isset($_POST['viaAdmin']))
-		{
-			$viaAdmin=utf8_decode($_POST['viaAdmin']);
-			$viaAdmin=addslashes($viaAdmin);
-		}
-		if (isset($_POST['intervalo']))
-		{
-			$intervalo=utf8_decode($_POST['intervalo']);
-			$intervalo=addslashes($intervalo);
-		}
-		if (isset($_POST['aim']))
-		{
-			$aim=$_POST['aim'];
-		}
-		if (isset($_POST['cidt']))
-		{
-			$cidt=$_POST['cidt'];
-		}
-		if (isset($_POST['ciam']))
-		{
-			$ciam=$_POST['ciam'];
-		}
-		if (isset($_POST['dim']))
-		{
-			$dim=$_POST['dim'];
-		}
-		if (isset($_POST['eii']))
-		{
-			$eii=$_POST['eii'];
-		}
-		if (isset($_POST['fimar']))
-		{
-			$fimar=$_POST['fimar'];
-		}
-		if (isset($_POST['mcmc']))
-		{
-			$mcmc=$_POST['mcmc'];
-		}
-		if (isset($_POST['licim']))
-		{
-			$licim=$_POST['licim'];
-		}
-		if (isset($_POST['fma']))
-		{
-			$fma=$_POST['fma'];
-		}
-		if (isset($_POST['manp']))
-		{
-			$manp=$_POST['manp'];
-		}
-		if (isset($_POST['fdvpam']))
-		{
-			$fdvpam=$_POST['fdvpam'];
-		}
-		if (isset($_POST['frmec']))
-		{
-			$frmec=$_POST['frmec'];
-		}
-		if (isset($_POST['ficp']))
-		{
-			$ficp=$_POST['ficp'];
-		}
-		if (isset($_POST['ampi']))
-		{
-			$ampi=$_POST['ampi'];
-		}
-		if (isset($_POST['amnp']))
-		{
-			$amnp=$_POST['amnp'];
-		}
-		if (isset($_POST['omisionMed']))
-		{
-			$omisionMed=$_POST['omisionMed'];
-		}
-		if (isset($_POST['ami']))
-		{
-			$ami=$_POST['ami'];
-		}
-		if (isset($_POST['presInc']))
-		{
-			$presInc=$_POST['presInc'];
-		}
-		if (isset($_POST['transInc']))
-		{
-			$transInc=$_POST['transInc'];
-		}
-		if (isset($_POST['prepInc']))
-		{
-			$prepInc=$_POST['prepInc'];
-		}
-		if (isset($_POST['dispoInc']))
-		{
-			$dispoInc=$_POST['dispoInc'];
-		}
-		if (isset($_POST['tai']))
-		{
-			$tai=$_POST['tai'];
-		}
-		if (isset($_POST['vai']))
-		{
-			$vai=$_POST['vai'];
-		}
-		if (isset($_POST['adpi']))
-		{
-			$adpi=$_POST['adpi'];
-		}
-		if (isset($_POST['dti']))
-		{
-			$dti=$_POST['dti'];
-		}
-		if (isset($_POST['hai']))
-		{
-			$hai=$_POST['hai'];
-		}
-		if (isset($_POST['ifi']))
-		{
-			$ifi=$_POST['ifi'];
-		}
-		if (isset($_POST['vii']))
-		{
-			$vii=$_POST['vii'];
-		}
-		if (isset($_POST['ot']))
-		{
-			$ot=$_POST['ot'];
-		}
-		if (isset($_POST['otros']))
-		{
-			$otros=utf8_decode($_POST['otros']);
-			$otros=addslashes($otros);
-		}
 		
 		/*echo 'LLEGO : '.$antecedentes.' '.$tratamiento.' '.$interrogatorio.' '.$hora.' '.$fc.' '.$fr.' '.$ta.' '.$temp.' '.$so.' '.$habExt.' '.$cabeza.' 
 		'.$torax.' '.$abdomen.' '.$extremidades.' '.$diag.' '.$tratamientoFin;*/
 		
-		$queryInsAdv = "INSERT INTO eventoAdverso(id,numeroExpediente,folio,fecha,turno,reporta,servicio,diag,tipoEvento,relacionado,alcanzoPac,danioPac,
-							evento,como,porQue,medicamento,generico,presentacion,dosis,viaAdmin,intervalo,aim,cidt,ciam,dim,eii,fimar,mcmc,licim,fma,manp,
-							fdvpam,frmec,ficp,ampi,amnp,omisionMed,ami,presInc,transInc,prepInc,dispoInc,tai,vai,adpi,dti,hai,ifi,vii,ot,otros,usr)
-					VALUES (NULL,'$expediente','$folio','$fecha','$turno','$reporta','$servicio','$diag','$tipoEvento','$relacionado','$alcanzoPac',
-					'$danioPac','$evento','$como','$porQue','$medicamento','$generico','$presentacion','$dosis','$viaAdmin','$intervalo','$aim',
-					'$cidt','$ciam','$dim','$eii','$fimar','$mcmc','$licim','$fma','$manp','$fdvpam','$frmec','$ficp','$ampi','$amnp','$omisionMed',
-					'$ami','$presInc','$transInc','$prepInc','$dispoInc','$tai','$vai','$adpi','$dti','$hai','$ifi','$vii','$ot','$otros','$rol')";
+		$queryInsAdv = "INSERT INTO eventoAdverso(id,numeroExpediente,folio,fecha,turno,servicio,servicioTxt,tipoEvento,habitacion,paciente,nacimientoPaciente,fechaOcurrio,evento,usr)
+					VALUES (NULL,'$expediente','$folio','$fecha','$turno','$servicio','$servicioTxt','$tipoEvento','$habitacion','$paciente',
+					'$nacimientoPaciente','$fechaOcurrio','$evento','$rol')";
 		
 			$result0 = mysqli_query($conexionMedico, $queryInsAdv);
 			if(!$result0) {
@@ -349,7 +164,7 @@ if($expediente != NULL || trim($expediente) != '') {
 		$antecOld= utf8_encode($rowA['antecedentes']);
 		$antecOld=addslashes ($antecOld);
 	}*/
-
+	$fechaActual=date("Y-m-d");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -432,11 +247,10 @@ if($expediente != NULL || trim($expediente) != '') {
 
                     		<h3>NOTIFICACIÓN DE EVENTO ADVERSO</h3>
                     		<p></p>
-							
 							<!-- Form progress -->
-                    		<div class="form-wizard-steps form-wizard-tolal-steps-3">
+                    		<div class="form-wizard-steps form-wizard-tolal-steps-2">
                     			<div class="form-wizard-progress">
-                    			    <div class="form-wizard-progress-line" data-now-value="12.25" data-number-of-steps="4" style="width: 12.25%;"></div>
+                    			    <div class="form-wizard-progress-line" data-now-value="12.5" data-number-of-steps="4" style="width: 12.5%;"></div>
                     			</div>
 								<!-- Step 1 -->
                     			<div class="form-wizard-step active">
@@ -453,10 +267,10 @@ if($expediente != NULL || trim($expediente) != '') {
 								<!-- Step 2 -->
 								
 								<!-- Step 3 -->
-								<div class="form-wizard-step">
+								<!--div class="form-wizard-step">
                     				<div class="form-wizard-step-icon"><i class="fa fa-frown-o" aria-hidden="true"></i></div>
                     				<p>ERROR DE MEDICACIÓN</p>
-                    			</div>
+                    			</div-->
 								<!-- Step 3 -->
                     		</div>
 							<!-- Form progress -->
@@ -465,36 +279,82 @@ if($expediente != NULL || trim($expediente) != '') {
                     		<fieldset>
 								<!-- Progress Bar -->
 								<div class="progress">
-								  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%">
+								  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
 								  </div>
 								</div>
+								<h4>
+									La intención de este formulario es recopilar información de las <strong>CUASIFALLAS, EVENTOS ADVERSOS y EVENTOS CENTINELA</strong> de nuestro hospital.
+									<br/>
+									<br/>
+									La notificación es <strong>ANÓNIMA Y NO PUNITIVA.</strong>
+								</h4>
 								<!-- Progress Bar -->
-                    		    <h4>BÁSICOS: <span>Paso 1 - 3</span></h4>
 								<div class="form-group">
-									<label>FECHA DE OCURRENCIA : <span>*</span></label>
-									<input type="date" name="fecha" class="form-control required" >
+									<label>FECHA EN QUE REALIZA EL REPORTE : <span>*</span></label>
+									<input type="date" name="fecha" value="<?php echo $fechaActual ?>" class="form-control required" >
 								</div>
 								<div class="form-group">
-									<label>TURNO : <span>*</span></label>
-								   <select id="turno" name="turno" class="form-control required">
+									<label>TURNO DONDE OCURRIÓ EL INCIDENTE : <span>*</span></label>
+								   <select id="turno" name="turno" class="form-control">
 										<option value="">Seleccionar</option>
 										<option value="M">Matutino</option>
 										<option value="V">Vespertino</option>
-										<option value="N">Nocturno</option>
+										<option value="NA">Nocturno A</option>
+									    <option value="NB">Nocturno B</option>
+									    <option value="JA">Jornada Acumulada</option>
 									</select>
 								</div>
-								<div class="form-group">
+								<!--div class="form-group">
                     			    <label>PERSONAL QUE REPORTA : <span>*</span></label>
                                    <input type="text" placeholder="Nombre o Puesto" name="reporta" class="form-control required" autocomplete="off">
-                                </div>
+                                </div-->
 								<div class="form-group">
-                    			    <label>SERVICIO : <span>*</span></label>
-									<input type="text" placeholder="Nombre del Servicio" name="servicio" class="form-control required" autocomplete="off">
+                    			    <label>SERVICIO DONDE OCURRIO EL INCIDENTE : <span>*</span></label>
+									<br/>                                   <label class="radio-inline">
+									  <input type="radio" name="servicio" value="Hospitalización" style="width: 30px; height: 30px" checked="checked">&nbsp;&nbsp; Hospitalización
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Consulta externa" style="width: 30px; height: 30px">&nbsp;&nbsp; Consulta externa
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Urgencias" style="width: 30px; height: 30px">&nbsp;&nbsp; Urgencias
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Quirófano"  style="width: 30px; height: 30px">&nbsp;&nbsp; Quirófano
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Farmacia" style="width: 30px; height: 30px">&nbsp;&nbsp; Farmacia
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Nutrición" style="width: 30px; height: 30px">&nbsp;&nbsp; Nutrición
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Laboratorio" style="width: 30px; height: 30px">&nbsp;&nbsp; Laboratorio
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Imagenología" style="width: 30px; height: 30px">&nbsp;&nbsp; Imagenología
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Litotricia" style="width: 30px; height: 30px">&nbsp;&nbsp; Litotricia
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Endoscopia" style="width: 30px; height: 30px">&nbsp;&nbsp; Endoscopia
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Otro" id="ot" value="OTRO" onClick="mostrarOt()" style="width: 30px; height: 30px">&nbsp;&nbsp; OTRO
+									</label>
+									<p><strong><br></strong></p>
+									<div id="otro" style="display:none">
+										<div class="form-group" style="height: 100px">
+											<input type="text" placeholder="Nombre del Servicio" name="servicioTxt" id="otros" class="form-control" autocomplete="off">
+											<!--textarea class="form-control" name="otros" id="otros" cols="10" rows="3"></textarea-->
+										</div>
+									</div>
                                 </div>
-								 <div class="form-group">
+								 <!--div class="form-group">
                     			    <label>DIAGNÓSTICO DEL PACIENTE : <span></span></label>
 									<textarea class="form-control" name="diag" id="diag" cols="10" rows="3"></textarea>
-                                </div>
+                                </div-->
                                 <div class="form-wizard-buttons">
                                     <button type="button" class="btn btn-next">Siguiente</button>
                                 </div>
@@ -505,373 +365,65 @@ if($expediente != NULL || trim($expediente) != '') {
                             <fieldset>
 								<!-- Progress Bar -->
 								<div class="progress">
-								  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-								  </div>
-								</div>
-								<!-- Progress Bar -->
-                                <h3>DESCRIPCIÓN DEL EVENTO ADVERSO : <span>Paso 2 - 3</span></h3>
-								<h4>
-									Tipos de Eventos adversos<br />
-									<strong>-->	EVENTO CENTINELA:</strong> Incidencia inesperada que ocurre durante la atención médica en la que se produce la muerte o una lesión física o psíquica grave, o existe riesgo de que se produzca. Las lesiones graves incluyen específicamente la pérdida de una extremidad o una función.
-									<br />
-									<strong>-->	EVENTO ADVERSO:</strong> Incidentes desfavorables, fallas terapéuticas, lesiones iatrogénicas u otros sucesos adversos relacionados directamente con la atención o los servicios prestados en el hospital. Pueden ser consecuencia de actos de comisión o de omisión.
-									<br />
-									<strong>-->	CUASIFALLA:</strong> (También mencionada como casi falla) Error que se detecta antes de que llegue al paciente.
-									<br />
-									<strong>-->	ERROR DE MEDICACIÓN:</strong> Todo evento prevenible que pueda causar o dar lugar a un uso incorrecto de la medicación o a daño al paciente mientras la medicación está bajo el control del profesional sanitario, el paciente o el consumidor.
-									<br />
-									<strong>-->	RAM:</strong> Reacción Adversa a Medicamentos. Cualquier respuesta al uso de un medicamento en dosis normales que sea nociva.
-								</h4>
-								<div class="form-group">
-                    			    <label>a) TIPO DE EVENTO : <span>*</span></label>
-                                    <br>
-                                    <label class="radio-inline">
-									  <input type="radio" name="tipoEvento" value="Centinela" onclick="mostrar('2')" style="width: 30px; height: 30px" checked="checked">&nbsp;&nbsp; Centinela
-									</label>
-									<label class="radio-inline">
-									  <input type="radio" name="tipoEvento" value="Adverso" onclick="mostrar('2')" style="width: 30px; height: 30px">&nbsp;&nbsp; Adverso
-									</label>
-									<label class="radio-inline">
-									  <input type="radio" name="tipoEvento" value="Cuasifalla" onclick="mostrar('2')" style="width: 30px; height: 30px">&nbsp;&nbsp; Cuasifalla
-									</label>
-									<label class="radio-inline">
-									  <input type="radio" name="tipoEvento" value="Error De Medicación" onclick="mostrar('1')" style="width: 30px; height: 30px">&nbsp;&nbsp; Error De Medicación
-									</label>
-									<label class="radio-inline">
-									  <input type="radio" name="tipoEvento" value="RAM" onclick="mostrar('2')" style="width: 30px; height: 30px">&nbsp;&nbsp; RAM
-									</label>
-									<label class="radio-inline">
-									  <input type="radio" name="tipoEvento" value="OTRO" onclick="mostrar('2')" style="width: 30px; height: 30px">&nbsp;&nbsp; OTRO
-									</label>
-                                </div>
-								<div class="form-group">
-                    			    <label> b) ¿El evento adverso está relacionado a medicamentos? : <span>*</span></label>
-                                    <br>
-                                    <label class="radio-inline">
-									  <input type="radio" name="relacionado" value="SI" onclick="mostrar('1')" style="width: 30px; height: 30px" >&nbsp;&nbsp; SI
-									</label>
-									<label class="radio-inline">
-									  <input type="radio" name="relacionado" value="NO" style="width: 30px; height: 30px" checked="checked">&nbsp;&nbsp; NO
-									</label>
-                                </div>
-								<div class="form-group">
-                    			    <label> c) ¿Alcanzó el error al paciente? : <span>*</span></label>
-                                    <br>
-                                    <label class="radio-inline">
-									  <input type="radio" name="alcanzoPac" value="SI" style="width: 30px; height: 30px" >&nbsp;&nbsp; SI
-									</label>
-									<label class="radio-inline">
-									  <input type="radio" name="alcanzoPac" value="NO" style="width: 30px; height: 30px" checked="checked">&nbsp;&nbsp; NO
-									</label>
-                                </div>
-								<div class="form-group">
-                    			    <label> d) ¿Causó daño al paciente? : <span>*</span></label>
-                                    <br>
-                                    <label class="radio-inline">
-									  <input type="radio" name="danioPac" value="SI" style="width: 30px; height: 30px" >&nbsp;&nbsp; SI
-									</label>
-									<label class="radio-inline">
-									  <input type="radio" name="danioPac" value="NO" style="width: 30px; height: 30px" checked="checked">&nbsp;&nbsp; NO
-									</label>
-                                </div>
-								<br/>
-                                <div class="form-group">
-                    			    <label>e) ¿Cuál fue el evento? : <span>*</span></label>
-									<textarea class="form-control required" name="evento" id="habExt" cols="10" rows="3"></textarea>
-                                    <!--input type="text" name="habExt" class="form-control" autocomplete="off"-->
-                                </div>
-								<div class="form-group">
-                    			    <label>f) ¿Cómo pasó? : <span>*</span></label>
-									<textarea class="form-control required" name="como" id="cabeza" cols="10" rows="3"></textarea>
-                                    <!--input type="text" name="cabeza" class="form-control" autocomplete="off"-->
-                                </div>
-								<div class="form-group">
-                    			    <label>g) ¿Por qué pasó? : <span>*</span></label>
-									<textarea class="form-control required" name="porQue" id="torax" cols="10" rows="3"></textarea>
-                                    <!--input type="text" name="torax" class="form-control" autocomplete="off"-->
-                                </div>
-                                <div class="form-wizard-buttons">
-                                    <button type="button" class="btn btn-previous">Anterior</button>
-                                    <button type="button" class="btn btn-next">Siguiente</button>
-                                </div>
-                            </fieldset>
-							<!-- Form Step 2 -->
-
-							<!-- Form Step 3 -->
-                            <fieldset>
-								<!-- Progress Bar -->
-								<div class="progress">
 								  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
 								  </div>
 								</div>
 								<!-- Progress Bar -->
-                                <h4>ERROR DE MEDICACIÓN <span>Paso 3 - 3</span></h4>
+                                <h3>DESCRIPCIÓN DEL EVENTO ADVERSO : <span>Paso 2 - 2</span></h3>
 								<h4>
-									Solo se llena si se trata de un error de Medicación
+									Tipos de Eventos adversos<br />
+									<strong>-->	EVENTO CENTINELA:</strong> Es un incidente que alcanza al paciente causándole la muerte o un daño irreparable.
+									<br />
+									<strong>-->	EVENTO ADVERSO:</strong> Es un incidente que alcanza al paciente, pero no le causa ningún daño irreparable ni muerte.
+									<br />
+									<strong>-->	CUASIFALLA:</strong> Es un incidente que no alcanza al paciente.
+									<br />
 								</h4>
-								<div id="errorMed" style="display:none">
 								<div class="form-group">
-                    			    <label>NOMBRE DEL MEDICAMENTO : <span>*</span></label>
-									<input type="text" name="medicamento" class="form-control" autocomplete="off">
+                    			    <label>TIPO DE INCIDENTE QUE SE REPORTA : <span>*</span></label>
+                                    <br>
+									<label class="radio-inline">
+									  <input type="radio" name="tipoEvento" value="Cuasifalla" style="width: 30px; height: 30px">&nbsp;&nbsp; Cuasifalla
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="tipoEvento" value="Evento Adverso" style="width: 30px; height: 30px">&nbsp;&nbsp;Evento Adverso
+									</label>
+                                    <label class="radio-inline">
+									  <input type="radio" name="tipoEvento" value="Evento Centinela" style="width: 30px; height: 30px" >&nbsp;&nbsp; Evento Centinela
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="tipoEvento" value="Error De Medicación" style="width: 30px; height: 30px">&nbsp;&nbsp; Error De Medicación
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="tipoEvento" value="RAM" style="width: 30px; height: 30px">&nbsp;&nbsp; RAM. (Reacción Adversa a Medicamentos)
+									</label>
                                 </div>
-								<div class="form-group">
-                    			    <label>NOMBRE GENERICO : <span>*</span></label>
-									<input type="text" name="generico" class="form-control" autocomplete="off">
-                                </div>
-								<div class="form-group">
-                    			    <label>PRESENTACIÓN : <span>*</span></label>
-									<input type="text" name="presentacion" class="form-control" autocomplete="off">
-                                </div>
-								<div class="form-group">
-                    			    <label>DOSIS : <span>*</span></label>
-									<input type="text" name="dosis" class="form-control" autocomplete="off">
-                                </div>
-								<div class="form-group">
-                    			    <label>VÍA DE ADMINISTRACIÓN : <span>*</span></label>
-									<input type="text" name="viaAdmin" class="form-control" autocomplete="off">
-                                </div>
-								<div class="form-group">
-                    			    <label>INTERVALO : <span>*</span></label>
-									<input type="text" name="intervalo" class="form-control" autocomplete="off">
-                                </div>
-								
-								<div class="form-group">
-									<table style="width:100%" border="2px solid black" align="center" >
-									<tbody>
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="aim" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Adquisición incorrecta del medicamento</label>
-											</td>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="cidt" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												<br/>Condiciones inadecuadas durante el transporte</label>
-											</td>
-											<td>
-												<input type="checkbox" name="ciam" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												<br/>Condiciones inadecuadas en el almacenamiento del medicamento</label>
-											</td>
-										</tr>
-
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="dim" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Dispensación incorrecta de medicamento</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="eii" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Etiquetado incompleto o incorrecto</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="fimar" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Falta de identificación de medicamentos de alto riesgo</label>
-											</td>
-										</tr>
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="mcmc" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Medicamento caducado/malas condiciones</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="licim" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Letra ilegible y confusa en la indicación medica</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="fma" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Falta de notificación de alergias</label>
-											</td>
-										</tr>
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="manp" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Medicamento con aspecto y/o nombre parecido</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="fdvpam" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Falta de doble verificación de preparación y administración de los medicamentos</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="frmec" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Falta de registro de los medicamentos en expediente clínico</label>
-											</td>
-										</tr>
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="ficp" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Falta de identificación correcta del paciente</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="ampi" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Se administra el medicamento a un paciente incorrecto</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="amnp" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Se administra un medicamento no prescrito</label>
-											</td>
-										</tr>
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="omisionMed" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Omisión de un medicamento</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="ami" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Se administra un medicamento incorrecto</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="presInc" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Prescripción incompleta</label>
-											</td>
-										</tr>
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="transInc" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Transcripción incompleta</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="prepInc" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Preparación incorrecta</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="dispoInc" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Dispositivo incorrecto</label>
-											</td>
-										</tr>
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="tai" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Técnica de administración incorrecta</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="vai" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Vía de administración incorrecta</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="adpi" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Se administra una dosis o potencia incorrecta</label>
-											</td>
-										</tr>
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="dti" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Duración del tratamiento incorrecto</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="hai" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Hora de administración incorrecta</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="ifi" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Intervalo de frecuencia incorrecto</label>
-											</td>
-										</tr>
-										<tr>
-											<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="vii" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Velocidad de infusión incorrecta</label>
-											</td>
-												<label class="checkbox-inline">
-											<td>
-												<input type="checkbox" name="ot" id="ot" onchange="mostrarOt()" style="width: 45px; height: 35px" value="1" >
-											</td>
-											<td>
-												Otros especificar:</label>
-											</td>
-										</tr>
-									</tbody>
-									</table>
-									</div>
-									<div id="otro" style="display:none">
-										<div class="form-group" style="height: 100px">
-											<textarea class="form-control" name="otros" id="otros" cols="10" rows="3"></textarea>
-										</div>
-									</div>
-								</div>
 								<br/>
-								<input name="rol" type="hidden" value="<?php echo $rol ?>" >								
+                                <div class="form-group">
+                    			    <label>NÚMERO DE HABITACIÓN DONDE SE PRESENTO EL INCIDENTE : </label>
+									<!--textarea class="form-control required" name="evento" id="habExt" cols="10" rows="3"></textarea-->
+                                    <input type="text" name="habitacion" class="form-control" value="<?php echo $hab_pac ?>" autocomplete="off">
+                                </div>
+								<div class="form-group">
+                    			    <label>NOMBRE DEL PACIENTE INVOLUCRADO EN EL INCIDENTE : </label>
+									<!--textarea class="form-control required" name="como" id="cabeza" cols="10" rows="3"></textarea-->
+                                    <input type="text" name="paciente" class="form-control" value="<?php echo $nombre_pac ?>" autocomplete="off">
+                                </div>
+								<div class="form-group">
+                    			    <label>FECHA DE NACIMIENTO DEL PACIENTE INVOLUCRADO EN EL INCIDENTE : </label>
+									<!--textarea class="form-control required" name="porQue" id="torax" cols="10" rows="3"></textarea-->
+                                    <input type="text" name="nacimientoPaciente" class="form-control" value="<?php echo $fec_nacPac ?>" autocomplete="off">
+                                </div>
+								<div class="form-group">
+									<label>FECHA EN LA QUE OCURRIÓ EL INCIDENTE: </label>
+									<input type="date" name="fechaOcurrio" class="form-control">
+								</div>
+								<div class="form-group">
+                    			    <label>CUÉNTENOS LO QUE HA PASADO: <span>*</span> </label>
+									<textarea class="form-control required" name="evento" id="evento" cols="10" rows="3"></textarea>
+                                </div>
+								<br/>
+								<input name="rol" type="hidden" value="<?php echo $rol ?>" >
 								<input name="expediente" type="hidden" value="<?php echo $expediente ?>" >
 								<input name="folio" type="hidden" value="<?php echo $folio ?>" >
                                 <div class="form-wizard-buttons">
@@ -879,6 +431,7 @@ if($expediente != NULL || trim($expediente) != '') {
                                     <button type="submit" name="enviar" class="btn btn-submit">Guardar</button>
                                 </div>
                             </fieldset>
+							<!-- Form Step 2 -->
                     	</form>
 						</div>
 						<!-- Form Wizard -->

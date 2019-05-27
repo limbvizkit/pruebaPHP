@@ -8,10 +8,14 @@
  	if (isset($_GET['rol']))
 	{
 		$rol=$_GET['rol'];
+	} else {
+		$rol='';
 	}
 	if (isset($_GET['permisos']))
 	{
 		$permisos=$_GET['permisos'];
+	} else {
+		$permisos=NULL;
 	}
 	/*session_name($rol);
 	session_start();*/
@@ -98,16 +102,20 @@
 		}
 	}
 	
-	session_name($rol);
-	session_start();
-	//Si la variable sesión está vacía
-	if (!isset($_SESSION[$rol]))
-	{
-	   // Nos envía a la siguiente dirección en el caso de no poseer autorización 
-	   header("location: index.html");
-	}
-	
-	$valor = $_SESSION[$rol];
+	if((isset($_POST['rol'])!= NULL && isset($_POST['rol'])!=' ') || (isset($_GET['rol'])!= NULL && isset($_GET['rol'])!=' ') ){
+		session_name($rol);
+		session_start();
+		//Si la variable sesión está vacía
+		if (!isset($_SESSION[$rol]))
+		{
+		   // Nos envía a la siguiente dirección en el caso de no poseer autorización 
+		   header("location: ../index.html");
+		}
+
+		$valor = $_SESSION[$rol];
+	} else {
+		$valor='invitado';
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -208,7 +216,7 @@
 <!----------------------Primera Opcion BUSCAR POR NUM DE EXPEDIENTE---------------------------------------------------------->
 	<form method="post" id="search" autocomplete="off">
 		<div class="auto-style1">
-			<span class="auto-style3" align="center">FAVOR DE COLOCAR UN NÚMERO DE EXPEDIENTE:</span>
+			<span class="auto-style3" align="center">¿CONOCE EL NUMERO DE EXPEDIENTE? FAVOR DE COLOCARLO:</span>
 		<br/>
 		</div>
 		<p class="auto-style8">
@@ -223,35 +231,37 @@
 	</form>
 	<hr style="height:10px; background-color: darkcyan">
 	<div class="auto-style1" >
-		<span class="auto-style3" align="center"> NO SE TIENE UN NÚMERO DE EXPEDIENTE:</span>
+		<span class="auto-style3" align="center"> NO SE CONOCE EL NÚMERO DE EXPEDIENTE O NO AFECTÓ A UN PACIENTE:</span>
 	<br/>
 	<br/>
 		<p class="auto-style5" > <input class="btn btn-primary" type="button" value="EVENTO ADVERSO" onClick=location.href="tabsAdversoNE.php?rol=<?php echo $rol ?>&permisos=<?php echo $permisos ?>" style="width: 147px; height: 44px" /></p>
 	<br/>
-	<hr style="height:10px; background-color: darkcyan">
-	<div class="auto-style1" >
-		<span class="auto-style3" align="center"> HISTÓRICO DE EVENTOS ADVERSOS:</span>
-	<br/>
-	<br/>
-		<p class="auto-style5" > <input class="btn btn-primary" type="button" value="HISTÓRICO" onClick=window.open('consultaTodos.php?rol=<?php echo $rol ?>&permisos=<?php echo $permisos ?>','_black') style="width: 147px; height: 44px" /></p>
-	<br/>
-	<br/>
-		<form action="excel.php" method = "post">
-			<br/>
-			<strong><span class="auto-style7">EXCEL HISTÓRICO DE EVENTOS ADVERSOS
-			<br/></span> <br/>
-			<span class="auto-style7">DEL&nbsp; </span>
-			&nbsp;<input type="date" name="fecha1" style="height: 40px" required />
-			<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;AL&nbsp;</span>&nbsp;
-			<input type="date" name="fecha2" style="height: 40px" required /></strong>
-			<br/>
-			<br/>
-			<input type="hidden" name="nombre" value="HistoricoEventosAdversos" />  
-			<input id="btPerfilFT" class="btn-success" type="submit" value = "EXCEL" style="height: 50px; width: 303px" />
-			<br/>
-		</form>
+	<?php if( $rol == 'admin'){ ?>
+		<hr style="height:10px; background-color: darkcyan">
+		<div class="auto-style1" >
+			<span class="auto-style3" align="center"> HISTÓRICO DE EVENTOS ADVERSOS:</span>
 		<br/>
-	<br/>
+		<br/>
+			<p class="auto-style5" > <input class="btn btn-primary" type="button" value="HISTÓRICO" onClick=window.open('consultaTodos.php?rol=<?php echo $rol ?>&permisos=<?php echo $permisos ?>','_black') style="width: 147px; height: 44px" /></p>
+		<br/>
+		<br/>
+			<form action="excel.php" method = "post">
+				<br/>
+				<strong><span class="auto-style7">EXCEL HISTÓRICO DE EVENTOS ADVERSOS
+				<br/></span> <br/>
+				<span class="auto-style7">DEL&nbsp; </span>
+				&nbsp;<input type="date" name="fecha1" style="height: 40px" required />
+				<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;AL&nbsp;</span>&nbsp;
+				<input type="date" name="fecha2" style="height: 40px" required /></strong>
+				<br/>s
+				<br/>
+				<input type="hidden" name="nombre" value="HistoricoEventosAdversos" />  
+				<input id="btPerfilFT" class="btn-success" type="submit" value = "EXCEL" style="height: 50px; width: 303px" />
+				<br/>
+			</form>
+			<br/>
+		<br/>
+	<?php } ?>
 	<?php
 		if( $rol == 'ureza'){
 			echo '<hr/>
@@ -263,7 +273,7 @@
 			echo '<a class="btn btn-primary" href="../vistaAtencionClnt.php?rol='.$rol.'&permisos='.$permisos.'" style="height: 50px; width: 210px; font-size: large;">INCIDENCIAS</a><br/>';
 		}
 	
-		if( $valor == 'administrador'){
+		if( $rol == 'admin'){
 			echo '<p class="auto-style5" > <input class="btn btn-danger" type="button" value="CERRAR" onClick="window.close()" style="width: 137px; height: 44px" /></p>';
 		}else{
 			echo '<br/><p class="auto-style5" > <input class="btn btn-danger" type="button" value="SALIR" onClick=location.href="../terminarSesion.php?rol='.$rol.'" style="width: 137px; height: 44px" /></p>';

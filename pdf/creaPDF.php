@@ -2621,7 +2621,8 @@
 		
 		$horaN = new DateTime($rowC1['fechaGuardado']);
 		$horaIC = $horaN->format('H:i');
-		$fecha = strtotime($rowC1['fechaGuardado']);
+		//$fecha = strtotime($rowC1['fechaGuardado']);
+		$fecha = strtotime($rowC1['fecha']);
 		$fechaFin = date('d/m/Y',$fecha);
 		
 		$fecha1 = strtotime($rowC1['fecha']);
@@ -2795,30 +2796,30 @@
 		//$pdf->SetFont('Arial','B',6); //Arial, negrita, 12 puntos
 		
 		 $pdf->SetTextColor(0);
-		$pdf->SetFont('Arial','B',10); //Arial, negrita, 12 puntos
+		$pdf->SetFont('Arial','B',8); //Arial, negrita, 12 puntos
 		$pdf->SetFillColor(200,200,200);
 		$pdf->setTitulo('HISTORIA CLÍNICA');
 		$pdf->SetXY(60,12);
 		$pdf->Cell(145,7,utf8_decode('HISTORIA CLÍNICA'),1, 1 , 'C',true);
 
-		$pdf->SetFont('Arial','',9);
+		$pdf->SetFont('Arial','',7);
 		//$pdf->Rect(10,70,200,22,'');
 		$pdf->SetY(60);
-		$pdf->Cell(0,7,utf8_decode('TIPO DE INTERROGATORIO: '.$rowC1['tipoInterroga']),1, 1 , 'L',true);
-		$pdf->Cell(0,7,utf8_decode('DATOS PERSONALES'),1, 1 , 'C',true);
-		$pdf->MultiCell(0,7,'ESTADO CIVIL: '.$rowC1['edoCivil'].utf8_decode('   OCUPACIÓN: ').$rowC1['ocupacion'].'   LUGAR DE ORIGEN: '.$rowC1['lugarOrigen'],1, 'L');
-		$pdf->MultiCell(0,7,'ESCOLARIDAD: '.$rowC1['escolaridad'].utf8_decode('     RELIGIÓN: ').$rowC1['religion'].'   GRUPO Y RH: '.$rowC1['grupoRH'],1, 'L');
+		$pdf->Cell(0,6,utf8_decode('TIPO DE INTERROGATORIO: '.$rowC1['tipoInterroga']),1, 1 , 'L',true);
+		$pdf->Cell(0,6,utf8_decode('DATOS PERSONALES'),1, 1 , 'C',true);
+		$pdf->MultiCell(0,6,'ESTADO CIVIL: '.$rowC1['edoCivil'].utf8_decode('   OCUPACIÓN: ').$rowC1['ocupacion'].'   LUGAR DE ORIGEN: '.$rowC1['lugarOrigen'],1, 'L');
+		$pdf->MultiCell(0,6,'ESCOLARIDAD: '.$rowC1['escolaridad'].utf8_decode('     RELIGIÓN: ').$rowC1['religion'].'   GRUPO Y RH: '.$rowC1['grupoRH'],1, 'L');
 		#Diagnost
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('ANTECEDENTES'),1, 1 ,'C',true);
-		$pdf->MultiCell(0,7,'ANTECEDENTES HEREDO FAMILIARES:  '.$rowC1['antecedentesHeredo'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('ANTECEDENTES NO PATOLÓGICOS :  '),1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('Habitación:  ').$rowC1['habitacion'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('Hábitos:  ').$rowC1['habitos'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('Alimentación:  ').$rowC1['alimentacion'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('Actividad Física:  ').$rowC1['actividadFisica'],1,'L');
-		$pdf->MultiCell(0,7,'Inmunizaciones:  '.$rowC1['inmunizaciones'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('ANTECEDENTES PATOLÓGICOS:  ').$rowC1['antecedentesPatologicos'],1,'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('ANTECEDENTES'),1, 1 ,'C',true);
+		$pdf->MultiCell(0,6,'ANTECEDENTES HEREDO FAMILIARES:  '.$rowC1['antecedentesHeredo'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('ANTECEDENTES NO PATOLÓGICOS :  '),1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('Habitación:  ').$rowC1['habitacion'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('Hábitos:  ').$rowC1['habitos'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('Alimentación:  ').$rowC1['alimentacion'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('Actividad Física:  ').$rowC1['actividadFisica'],1,'L');
+		$pdf->MultiCell(0,6,'Inmunizaciones:  '.$rowC1['inmunizaciones'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('ANTECEDENTES PATOLÓGICOS:  ').$rowC1['antecedentesPatologicos'],1,'L');
 		if($rowC1['alcohol'] == 1 || $rowC1['tabaco'] == 1 || $rowC1['drogas'] == 1){
 			$alcohol=NULL;
 			$tabaco=NULL;
@@ -2834,58 +2835,58 @@
 			}
 			$pdf->MultiCell(0,7,$alcohol.'  '.$tabaco.'  '. $drogas,1,'L');
 		}
-		$pdf->MultiCell(0,7,utf8_decode('CONCILIACIÓN DE MEDICAMENTOS AL INGRESO (MEDICAMENTOS, DOSIS, VÍA DE ADMINISTRACIÓN E INTERVALO INLCUIR VITAMINAS Y MINERALES):  ').$rowC1['conciliacionMedicamentos'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('ANTECEDENTES GINECO-OBSTÉTRICOS (si procede):  ').$rowC1['antecedentesGineco'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('ANTECEDENTES PEDIÁTRICOS (si procede):  ').$rowC1['antecedentesPediatricos'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('CONCILIACIÓN DE MEDICAMENTOS AL INGRESO (MEDICAMENTOS, DOSIS, VÍA DE ADMINISTRACIÓN E INTERVALO INLCUIR VITAMINAS Y MINERALES):  ').$rowC1['conciliacionMedicamentos'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('ANTECEDENTES GINECO-OBSTÉTRICOS (si procede):  ').$rowC1['antecedentesGineco'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('ANTECEDENTES PEDIÁTRICOS (si procede):  ').$rowC1['antecedentesPediatricos'],1,'L');
 		#PlanQx
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('PADECIMIENTO ACTUAL'),1, 1 , 'C',true);
-		$pdf ->MultiCell(0,7,$rowC1['padecimientoActual'],1,'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('PADECIMIENTO ACTUAL'),1, 1 , 'C',true);
+		$pdf ->MultiCell(0,6,$rowC1['padecimientoActual'],1,'L');
 		#tipoQx
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('INTERROGATORIO POR APARATOS Y SISTEMAS'),1, 1 , 'C',true);
-		$pdf ->MultiCell(0,7,utf8_decode('SÍNTOMAS GENERALES:  ').$rowC1['sintomas'],1,'L');
-		$pdf ->MultiCell(0,7,'RESPIRATORIO:  '.$rowC1['respiratorio'],1,'L');
-		$pdf ->MultiCell(0,7,utf8_decode('MÚSCULO-ESQUELETICO:  ').$rowC1['musculoEsquele'],1,'L');
-		$pdf ->MultiCell(0,7,'DIGESTIVO :  '.$rowC1['digestivo'],1,'L');
-		$pdf ->MultiCell(0,7,'GENITAL:  '.$rowC1['genital'],1,'L');
-		$pdf ->MultiCell(0,7,'ENDOCRINO:  '.$rowC1['endocrino'],1,'L');
-		$pdf ->MultiCell(0,7,'NERVIOSO:  '.$rowC1['nervioso'],1,'L');
-		$pdf ->MultiCell(0,7,utf8_decode('HEMATOLÓGICO:  ').$rowC1['hematologico'],1,'L');
-		$pdf ->MultiCell(0,7,utf8_decode('PSICOLÓGICOS:  ').$rowC1['psicologico'],1,'L');
-		$pdf ->MultiCell(0,7,'URINARIO:  '.$rowC1['urinario'],1,'L');
-		$pdf ->MultiCell(0,7,'CARDIOCIRCULATORIO:  '.$rowC1['cardiocirculatorio'],1,'L');
-		$pdf ->MultiCell(0,7,'PIEL Y FANERAS:  '.$rowC1['pielFaneras'],1,'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('INTERROGATORIO POR APARATOS Y SISTEMAS'),1, 1 , 'C',true);
+		$pdf ->MultiCell(0,6,utf8_decode('SÍNTOMAS GENERALES:  ').$rowC1['sintomas'],1,'L');
+		$pdf ->MultiCell(0,6,'RESPIRATORIO:  '.$rowC1['respiratorio'],1,'L');
+		$pdf ->MultiCell(0,6,utf8_decode('MÚSCULO-ESQUELETICO:  ').$rowC1['musculoEsquele'],1,'L');
+		$pdf ->MultiCell(0,6,'DIGESTIVO :  '.$rowC1['digestivo'],1,'L');
+		$pdf ->MultiCell(0,6,'GENITAL:  '.$rowC1['genital'],1,'L');
+		$pdf ->MultiCell(0,6,'ENDOCRINO:  '.$rowC1['endocrino'],1,'L');
+		$pdf ->MultiCell(0,6,'NERVIOSO:  '.$rowC1['nervioso'],1,'L');
+		$pdf ->MultiCell(0,6,utf8_decode('HEMATOLÓGICO:  ').$rowC1['hematologico'],1,'L');
+		$pdf ->MultiCell(0,6,utf8_decode('PSICOLÓGICOS:  ').$rowC1['psicologico'],1,'L');
+		$pdf ->MultiCell(0,6,'URINARIO:  '.$rowC1['urinario'],1,'L');
+		$pdf ->MultiCell(0,6,'CARDIOCIRCULATORIO:  '.$rowC1['cardiocirculatorio'],1,'L');
+		$pdf ->MultiCell(0,6,'PIEL Y FANERAS:  '.$rowC1['pielFaneras'],1,'L');
 		#riesgoQx
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('SIGNOS VITALES'),1, 1 ,'C',true);
-		$pdf->MultiCell(0,7,'TA: '.$rowC1['ta'].' mmHg     FC: '.$rowC1['fc'].' lpm     FR: '.$rowC1['fr'].utf8_decode(' lpm     T°: '.$rowC1['temp'].' °C     SO2: ').$rowC1['so'].' %     GLUCOSA: '.$rowC1['glucosa'].' mg/dl     PESO: '.$rowC1['peso'].' Kg     TALLA: '.$rowC1['talla'].' m',1,'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('SIGNOS VITALES'),1, 1 ,'C',true);
+		$pdf->MultiCell(0,6,'TA: '.$rowC1['ta'].' mmHg     FC: '.$rowC1['fc'].' lpm     FR: '.$rowC1['fr'].utf8_decode(' lpm     T°: '.$rowC1['temp'].' °C     SO2: ').$rowC1['so'].' %     GLUCOSA: '.$rowC1['glucosa'].' mg/dl     PESO: '.$rowC1['peso'].' Kg     TALLA: '.$rowC1['talla'].' m',1,'L');
 		#cuidadosPlanTer
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('EXPLORACIÓN FÍSICA'),1, 1 ,'C',true);
-		$pdf->MultiCell(0,7,'HABITUS EXTERIOR: '.$rowC1['habExt'],1,'L');
-		$pdf->MultiCell(0,7,'CABEZA: '.$rowC1['cabeza'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('TÓRAX: ').$rowC1['torax'],1,'L');
-		$pdf->MultiCell(0,7,'ABDOMEN: '.$rowC1['abdomen'],1,'L');
-		$pdf->MultiCell(0,7,'EXTREMIDADES: '.$rowC1['extremidades'],1,'L');
-		$pdf->MultiCell(0,7,'GENITALES: '.$rowC1['genitales'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('NEUROLÓGICO: ').$rowC1['neurologico'],1,'L');
-		$pdf->MultiCell(0,7,'PIEL Y FANERAS: '.$rowC1['pielFaneras2'],1,'L');
-		$pdf->MultiCell(0,7,'COLUMNA VERTEBRAL: '.$rowC1['columnavertebral'],1,'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('EXPLORACIÓN FÍSICA'),1, 1 ,'C',true);
+		$pdf->MultiCell(0,6,'HABITUS EXTERIOR: '.$rowC1['habExt'],1,'L');
+		$pdf->MultiCell(0,6,'CABEZA: '.$rowC1['cabeza'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('TÓRAX: ').$rowC1['torax'],1,'L');
+		$pdf->MultiCell(0,6,'ABDOMEN: '.$rowC1['abdomen'],1,'L');
+		$pdf->MultiCell(0,6,'EXTREMIDADES: '.$rowC1['extremidades'],1,'L');
+		$pdf->MultiCell(0,6,'GENITALES: '.$rowC1['genitales'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('NEUROLÓGICO: ').$rowC1['neurologico'],1,'L');
+		$pdf->MultiCell(0,6,'PIEL Y FANERAS: '.$rowC1['pielFaneras2'],1,'L');
+		$pdf->MultiCell(0,6,'COLUMNA VERTEBRAL: '.$rowC1['columnavertebral'],1,'L');
 		#Pronostico
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('DIAGNÓSTICO Y TRATAMIENTO'),1, 1 ,'C',true);
-		$pdf->MultiCell(0,7,'ESTUDIOS DE GABINETE Y LABORATORIO: '.$rowC1['estudiosGabinete'],1,'L');
-		$pdf->MultiCell(0,7,'TERAPEUTICA EMPLEADA Y RESULTADOS OBTENIDOS (TRATAMIENTO): '.$rowC1['terapeutica'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('CRITERIOS PARA IDENTIFICAR PACIENTES QUE REQUIEREN EVALUACIONES ESPECIALIZADAS ADICIONALES (Si se requiere alguna recomendación diferente del diagnóstico actual) INFORMAR, REFERIR O SOLICITAR INTERCONSULTA U OTROS: ').$rowC1['criteriosEspecializadas'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode("CRITERIOS PARA PLANIFICACIÓN TEMPRANA DEL ALTA: \nEducación especial: ").$rowC1['educacionEspecial']."\n".utf8_decode('Gestión de equipo a su egreso: ').$rowC1['gestionEquipo']."\nProcesos Administrativos: ".$rowC1['procesosAdmin'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('DIAGNÓSTICO: ').$rowC1['diagnostico'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('PRONÓSTICO     VIDA: ').$rowC1['pronosticoVida'].utf8_decode('     FUNCIÓN: ').$rowC1['pronosticoFuncion'],1,'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('DIAGNÓSTICO Y TRATAMIENTO'),1, 1 ,'C',true);
+		$pdf->MultiCell(0,6,'ESTUDIOS DE GABINETE Y LABORATORIO: '.$rowC1['estudiosGabinete'],1,'L');
+		$pdf->MultiCell(0,6,'TERAPEUTICA EMPLEADA Y RESULTADOS OBTENIDOS (TRATAMIENTO): '.$rowC1['terapeutica'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('CRITERIOS PARA IDENTIFICAR PACIENTES QUE REQUIEREN EVALUACIONES ESPECIALIZADAS ADICIONALES (Si se requiere alguna recomendación diferente del diagnóstico actual) INFORMAR, REFERIR O SOLICITAR INTERCONSULTA U OTROS: ').$rowC1['criteriosEspecializadas'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode("CRITERIOS PARA PLANIFICACIÓN TEMPRANA DEL ALTA: \nEducación especial: ").$rowC1['educacionEspecial']."\n".utf8_decode('Gestión de equipo a su egreso: ').$rowC1['gestionEquipo']."\nProcesos Administrativos: ".$rowC1['procesosAdmin'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('DIAGNÓSTICO: ').$rowC1['diagnostico'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('PRONÓSTICO     VIDA: ').$rowC1['pronosticoVida'].utf8_decode('     FUNCIÓN: ').$rowC1['pronosticoFuncion'],1,'L');
 		//Termina hoja1
 		//2da Pagina
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('NOMBRE Y FIRMA DEL MÉDICO:'),0,1,'C');
-		$pdf->Ln(15);
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('NOMBRE Y FIRMA DEL MÉDICO:'),0,1,'C');
+		$pdf->Ln(8);
 		$pdf->Cell(0,7,'_______________________________________',0,1,'C');
 		$pdf->Cell(0,7,'                 '.utf8_decode($nombre_med),0,1,'C');
 		$pdf->Cell(0,7,'CEDULA PROFESIONAL: '.$cedula_med,0,1,'C');
@@ -2969,33 +2970,33 @@
 		//$pdf->SetFont('Arial','B',6); //Arial, negrita, 12 puntos
 		
 		 $pdf->SetTextColor(0);
-		$pdf->SetFont('Arial','B',10); //Arial, negrita, 12 puntos
+		$pdf->SetFont('Arial','B',8); //Arial, negrita, 12 puntos
 		$pdf->SetFillColor(200,200,200);
 		$pdf->setTitulo('NOTA DE INGRESO');
 		$pdf->SetXY(60,12);
 		$pdf->Cell(145,7,utf8_decode('NOTA DE INGRESO'),1, 1 , 'C',true);
 
-		$pdf->SetFont('Arial','',9);
+		$pdf->SetFont('Arial','',7);
 		//$pdf->Rect(10,70,200,22,'');
 		$pdf->SetY(60);
-		$pdf->Cell(0,7,utf8_decode('TIPO DE INTERROGATORIO: '.$rowC1['tipoInterroga']),1, 1 , 'L',true);
-		$pdf->Cell(0,7,utf8_decode('DATOS PERSONALES'),1, 1 , 'C',true);
-		$pdf->MultiCell(0,7,'ESTADO CIVIL: '.$rowC1['edoCivil'].utf8_decode('   OCUPACIÓN: ').$rowC1['ocupacion'].'   LUGAR DE ORIGEN: '.$rowC1['lugarOrigen'],1, 'L');
-		$pdf->MultiCell(0,7,'ESCOLARIDAD: '.$rowC1['escolaridad'].utf8_decode('     RELIGIÓN: ').$rowC1['religion'].'   GRUPO Y RH: '.$rowC1['grupoRH'],1, 'L');
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('SIGNOS VITALES'),1, 1 ,'C',true);
-		$pdf->MultiCell(0,7,'TA: '.$rowC1['ta'].' mmHg     FC: '.$rowC1['fc'].' lpm     FR: '.$rowC1['fr'].utf8_decode(' lpm     T°: '.$rowC1['temp'].' °C     SO2: ').$rowC1['so'].' %     GLUCOSA: '.$rowC1['glucosa'].' mg/dl     PESO: '.$rowC1['peso'].' Kg     TALLA: '.$rowC1['talla'].' m',1,'L');
+		$pdf->Cell(0,6,utf8_decode('TIPO DE INTERROGATORIO: '.$rowC1['tipoInterroga']),1, 1 , 'L',true);
+		$pdf->Cell(0,6,utf8_decode('DATOS PERSONALES'),1, 1 , 'C',true);
+		$pdf->MultiCell(0,6,'ESTADO CIVIL: '.$rowC1['edoCivil'].utf8_decode('   OCUPACIÓN: ').$rowC1['ocupacion'].'   LUGAR DE ORIGEN: '.$rowC1['lugarOrigen'],1, 'L');
+		$pdf->MultiCell(0,6,'ESCOLARIDAD: '.$rowC1['escolaridad'].utf8_decode('     RELIGIÓN: ').$rowC1['religion'].'   GRUPO Y RH: '.$rowC1['grupoRH'],1, 'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('SIGNOS VITALES'),1, 1 ,'C',true);
+		$pdf->MultiCell(0,6,'TA: '.$rowC1['ta'].' mmHg     FC: '.$rowC1['fc'].' lpm     FR: '.$rowC1['fr'].utf8_decode(' lpm     T°: '.$rowC1['temp'].' °C     SO2: ').$rowC1['so'].' %     GLUCOSA: '.$rowC1['glucosa'].' mg/dl     PESO: '.$rowC1['peso'].' Kg     TALLA: '.$rowC1['talla'].' m',1,'L');
 		#Diagnost
 		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('ANTECEDENTES'),1, 1 ,'C',true);
-		$pdf->MultiCell(0,7,'ANTECEDENTES HEREDO FAMILIARES:  '.$rowC1['antecedentesHeredo'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('ANTECEDENTES NO PATOLÓGICOS :  '),1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('Habitación:  ').$rowC1['habitacion'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('Hábitos:  ').$rowC1['habitos'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('Alimentación:  ').$rowC1['alimentacion'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('Actividad Física:  ').$rowC1['actividadFisica'],1,'L');
-		$pdf->MultiCell(0,7,'Inmunizaciones:  '.$rowC1['inmunizaciones'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('ANTECEDENTES PATOLÓGICOS:  ').$rowC1['antecedentesPatologicos'],1,'L');
+		$pdf->Cell(0,6,utf8_decode('ANTECEDENTES'),1, 1 ,'C',true);
+		$pdf->MultiCell(0,6,'ANTECEDENTES HEREDO FAMILIARES:  '.$rowC1['antecedentesHeredo'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('ANTECEDENTES NO PATOLÓGICOS :  '),1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('Habitación:  ').$rowC1['habitacion'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('Hábitos:  ').$rowC1['habitos'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('Alimentación:  ').$rowC1['alimentacion'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('Actividad Física:  ').$rowC1['actividadFisica'],1,'L');
+		$pdf->MultiCell(0,6,'Inmunizaciones:  '.$rowC1['inmunizaciones'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('ANTECEDENTES PATOLÓGICOS:  ').$rowC1['antecedentesPatologicos'],1,'L');
 		if($rowC1['alcohol'] == 1 || $rowC1['tabaco'] == 1 || $rowC1['drogas'] == 1){
 			$alcohol=NULL;
 			$tabaco=NULL;
@@ -3009,43 +3010,43 @@
 			if($rowC1['drogas'] == 1){
 				$drogas='DROGAS';
 			}
-			$pdf->MultiCell(0,7,$alcohol.'  '.$tabaco.'  '. $drogas,1,'L');
+			$pdf->MultiCell(0,6,$alcohol.'  '.$tabaco.'  '. $drogas,1,'L');
 		}
-		$pdf->MultiCell(0,7,utf8_decode('CONCILIACIÓN DE MEDICAMENTOS AL INGRESO (MEDICAMENTOS, DOSIS, VÍA DE ADMINISTRACIÓN E INTERVALO INLCUIR VITAMINAS Y MINERALES):  ').$rowC1['conciliacionMedicamentos'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('ANTECEDENTES GINECO-OBSTÉTRICOS (si procede):  ').$rowC1['antecedentesGineco'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('ANTECEDENTES PEDIÁTRICOS (si procede):  ').$rowC1['antecedentesPediatricos'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('CONCILIACIÓN DE MEDICAMENTOS AL INGRESO (MEDICAMENTOS, DOSIS, VÍA DE ADMINISTRACIÓN E INTERVALO INLCUIR VITAMINAS Y MINERALES):  ').$rowC1['conciliacionMedicamentos'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('ANTECEDENTES GINECO-OBSTÉTRICOS (si procede):  ').$rowC1['antecedentesGineco'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('ANTECEDENTES PEDIÁTRICOS (si procede):  ').$rowC1['antecedentesPediatricos'],1,'L');
 		#PlanQx
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('PADECIMIENTO ACTUAL'),1, 1 , 'C',true);
-		$pdf ->MultiCell(0,7,$rowC1['padecimientoActual'],1,'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('PADECIMIENTO ACTUAL'),1, 1 , 'C',true);
+		$pdf ->MultiCell(0,6,$rowC1['padecimientoActual'],1,'L');
 		#cuidadosPlanTer
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('EXPLORACIÓN FÍSICA'),1, 1 ,'C',true);
-		$pdf->MultiCell(0,7,'HABITUS EXTERIOR: '.$rowC1['habExt'],1,'L');
-		$pdf->MultiCell(0,7,'CABEZA: '.$rowC1['cabeza'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('TÓRAX: ').$rowC1['torax'],1,'L');
-		$pdf->MultiCell(0,7,'ABDOMEN: '.$rowC1['abdomen'],1,'L');
-		$pdf->MultiCell(0,7,'EXTREMIDADES: '.$rowC1['extremidades'],1,'L');
-		$pdf->MultiCell(0,7,'GENITALES: '.$rowC1['genitales'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('NEUROLÓGICO: ').$rowC1['neurologico'],1,'L');
-		$pdf->MultiCell(0,7,'PIEL Y FANERAS: '.$rowC1['pielFaneras2'],1,'L');
-		$pdf->MultiCell(0,7,'COLUMNA VERTEBRAL: '.$rowC1['columnavertebral'],1,'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('EXPLORACIÓN FÍSICA'),1, 1 ,'C',true);
+		$pdf->MultiCell(0,6,'HABITUS EXTERIOR: '.$rowC1['habExt'],1,'L');
+		$pdf->MultiCell(0,6,'CABEZA: '.$rowC1['cabeza'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('TÓRAX: ').$rowC1['torax'],1,'L');
+		$pdf->MultiCell(0,6,'ABDOMEN: '.$rowC1['abdomen'],1,'L');
+		$pdf->MultiCell(0,6,'EXTREMIDADES: '.$rowC1['extremidades'],1,'L');
+		$pdf->MultiCell(0,6,'GENITALES: '.$rowC1['genitales'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('NEUROLÓGICO: ').$rowC1['neurologico'],1,'L');
+		$pdf->MultiCell(0,6,'PIEL Y FANERAS: '.$rowC1['pielFaneras2'],1,'L');
+		$pdf->MultiCell(0,6,'COLUMNA VERTEBRAL: '.$rowC1['columnavertebral'],1,'L');
 		#Pronostico
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('DIAGNÓSTICO Y TRATAMIENTO'),1, 1 ,'C',true);
-		$pdf->MultiCell(0,7,'ESTUDIOS DE GABINETE Y LABORATORIO: '.$rowC1['estudiosGabinete'],1,'L');
-		$pdf->MultiCell(0,7,'TERAPEUTICA EMPLEADA Y RESULTADOS OBTENIDOS (TRATAMIENTO): '.$rowC1['terapeutica'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('DIAGNÓSTICO: ').$rowC1['diagnostico'],1,'L');
-		$pdf->MultiCell(0,7,utf8_decode('PRONÓSTICO     VIDA: ').$rowC1['pronosticoVida'].utf8_decode('     FUNCIÓN: ').$rowC1['pronosticoFuncion'],1,'L');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('DIAGNÓSTICO Y TRATAMIENTO'),1, 1 ,'C',true);
+		$pdf->MultiCell(0,6,'ESTUDIOS DE GABINETE Y LABORATORIO: '.$rowC1['estudiosGabinete'],1,'L');
+		$pdf->MultiCell(0,6,'TERAPEUTICA EMPLEADA Y RESULTADOS OBTENIDOS (TRATAMIENTO): '.$rowC1['terapeutica'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('DIAGNÓSTICO: ').$rowC1['diagnostico'],1,'L');
+		$pdf->MultiCell(0,6,utf8_decode('PRONÓSTICO     VIDA: ').$rowC1['pronosticoVida'].utf8_decode('     FUNCIÓN: ').$rowC1['pronosticoFuncion'],1,'L');
 		//Termina hoja1
 		//2da Pagina
-		$pdf->Ln();
-		$pdf->Cell(0,7,utf8_decode('NOMBRE Y FIRMA DEL MÉDICO:'),0,1,'C');
-		$pdf->Ln(15);
-		$pdf->Cell(0,7,'_______________________________________',0,1,'C');
-		$pdf->Cell(0,7,'                 '.utf8_decode($nombre_med),0,1,'C');
-		$pdf->Cell(0,7,'CEDULA PROFESIONAL: '.$cedula_med,0,1,'C');
-		$pdf->Cell(0,7,utf8_decode('                    ESPECIALIDAD: '.$especialidad_med),0,1,'C');
+		$pdf->Ln(3);
+		$pdf->Cell(0,6,utf8_decode('NOMBRE Y FIRMA DEL MÉDICO:'),0,1,'C');
+		$pdf->Ln(8);
+		$pdf->Cell(0,6,'_______________________________________',0,1,'C');
+		$pdf->Cell(0,6,'                 '.utf8_decode($nombre_med),0,1,'C');
+		$pdf->Cell(0,6,'CEDULA PROFESIONAL: '.$cedula_med,0,1,'C');
+		$pdf->Cell(0,6,utf8_decode('                    ESPECIALIDAD: '.$especialidad_med),0,1,'C');
 		//$pdf->Footer('2');
 
 		$pdf->Output(); //Salida al navegador del pdf
@@ -3354,7 +3355,7 @@
 		$cedula_med = $resultadoMed[0][0]['CEDULA_MEDICO'];
 		
 		//Declaramos la cabecera
-		$cabecera = array("EXPEDIENTE: ".$rowC1['numeroExpediente']."   FOLIO: ".$rowC1['folio'],"FECHA: ".$fechaFin."     HORA: ".$horaIC." hrs.     TURNO: ".$turno,"NOMBRE: ".$nombre_pac,"FECHA DE NACIMIENTO: ".$fecha_nac_pac."          EDAD: ".utf8_decode($annios)."          SEXO: ".$sexo_pac,utf8_decode("DOMICILIO: ".$calle_pac .' Col. '.$col_pac.' '.$cp_pac.' '.$ciudad_pac),"Tel: ".$tel_pac);
+		$cabecera = array("EXPEDIENTE: ".$rowC1['numeroExpediente']."   FOLIO: ".$rowC1['folio'],"FECHA: ".$fechaFin1."     HORA: ".$horaIC." hrs.     TURNO: ".$turno,"NOMBRE: ".$nombre_pac,"FECHA DE NACIMIENTO: ".$fecha_nac_pac."          EDAD: ".utf8_decode($annios)."          SEXO: ".$sexo_pac,utf8_decode("DOMICILIO: ".$calle_pac .' Col. '.$col_pac.' '.$cp_pac.' '.$ciudad_pac),"Tel: ".$tel_pac);
 		
 		$pdf = new PDF();
 		$pdf->setCabeza($cabecera);
@@ -3431,8 +3432,9 @@
 
 		$pdf->Output(); //Salida al navegador del pdf
 	}
+
 /***************************************************************************************************************************************************************************************************/
-//Esta parte es la que Genera el PDF Imagenologia
+//Esta parte es la que Genera el PDF Imagenologia Medicos
 	if($_GET['name'] == 'imagenologia') {
 		
 		if(isset ($_GET['exp'])){
@@ -3716,6 +3718,11 @@
 		} else {
 			$craneo='';
 		}
+		if($rowC1['craneoTxt'] != NULL &&  $rowC1['craneoTxt'] != ''){
+			$craneoTxt = $rowC1['craneoTxt'];
+		} else {
+			$craneoTxt='';
+		}
 		if($rowC1['senosParanasales'] != NULL &&  $rowC1['senosParanasales'] != ''){
 			$senosParanasales = 'X';
 		} else {
@@ -3866,13 +3873,13 @@
 		} else {
 			$edadOsea='';
 		}
-		if($rowC1['ot'] != NULL &&  $rowC1['ot'] != ''){
+		if($rowC1['otros'] != NULL &&  $rowC1['otros'] != ''){
 			$ot='X';
 		} else {
 			$ot='';
 		}
-		if($rowC1['otros'] != NULL &&  $rowC1['otros'] != ''){
-			$otros = $rowC1['otros'];
+		if($rowC1['otrosTxt'] != NULL &&  $rowC1['otrosTxt'] != ''){
+			$otros = $rowC1['otrosTxt'];
 		} else {
 			$otros='';
 		}
@@ -3938,9 +3945,9 @@
 		$pdf->Cell(0,7,utf8_decode('RADIOLOGÍA: '),0, 1 , 'L');
 		$pdf->SetFont('Arial','',9);
 		$pdf->SetWidths(array(26,40,40,45,45));
-		$pdf->Row(array('( '.$craneo.utf8_decode(' ) Cráneo'),'( '.$senosParanasales.' ) Senos Paranasales','( '.$columnaCervical.' ) Columna Cervical','( '.$columnaDorsal.' ) Columna Dorsal','( '.$columnaLumbar.' ) Columna Lumbar'));
+		$pdf->Row(array('( '.$craneo.utf8_decode(' ) Cráneo: ').$craneoTxt,'( '.$senosParanasales.' ) Senos Paranasales','( '.$columnaCervical.' ) Columna Cervical','( '.$columnaDorsal.' ) Columna Dorsal','( '.$columnaLumbar.' ) Columna Lumbar'));
 		$pdf->SetWidths(array(76,75,45));
-		$pdf->Row(array('( '.$teledeTorax.utf8_decode(' ) Tele de Tórax: ').$teleTorxTxt,'( '.$toraxOseo.utf8_decode(' ) Tórax Óseo: ').$toraxOseoTxt,'( '.$esternon.utf8_decode(' ) Esternón')));
+		$pdf->Row(array('( '.$teledeTorax.utf8_decode(' ) Tele de Tórax').$teleTorxTxt,'( '.$toraxOseo.utf8_decode(' ) Tórax Óseo').$toraxOseoTxt,'( '.$esternon.utf8_decode(' ) Esternón')));
 		$pdf->SetWidths(array(66,65,65));
 		$pdf->Row(array('( '.$abdomenSimple.utf8_decode(' ) Abdomen Simple: ').$abdomenSimpTxt,'( '.$abdomendePie.utf8_decode(' ) Abdomen de Pie: ').$abdomenPieTxt,'( '.$serieGastroDuodenal.utf8_decode(' ) Serie Gastro-Duodenal: ').$serieGastroTxt));
 		$pdf->Row(array('( '.$colonporEnema.utf8_decode(' ) Colon por Enema: ').$colonEnemaTxt,'( '.$transitoIntestinal.utf8_decode(' ) Tránsito Intestinal: ').$transitoIntesTxt,'( '.$urografiaExcretora.utf8_decode(' ) Urografía Excretora: ').$urografiaExcrTxt));
@@ -3972,6 +3979,274 @@
 		}
 		$pdf->Cell(0,7,'CEDULA PROFESIONAL: '.$cedula_med,0,1,'C');
 		$pdf->Cell(0,7,utf8_decode('                    ESPECIALIDAD: '.$especialidad_med),0,1,'C');
+		
+		//$pdf->Footer();
+		$pdf->Output(); //Salida al navegador del pdf
+	}
+
+/***************************************************************************************************************************************************************************************************/
+//Esta parte es la que Genera el PDF Imagenologia Imagen
+	if($_GET['name'] == 'imagenologiaImg') {
+		
+		if(isset ($_GET['exp'])){
+			$expediente = $_GET['exp'];
+		} else{
+			$expediente=NULL;
+		}
+		
+		if(isset ($_GET['folio'])){
+			$folio = $_GET['folio'];
+		} else {
+			$folio=NULL;
+		}
+		
+		if(isset ($_GET['id'])){
+			$idImagenologia = $_GET['id'];
+		} else {
+			$idImagenologia = NULL;
+		}
+		
+		if(isset ($_GET['estudio'])){
+			$estudio = substr($_GET['estudio'],0,-2);
+			$estudio = urldecode(utf8_decode($estudio));
+		} else {
+			$estudio = NULL;
+		}
+		
+		if($expediente != NULL || $expediente != ''){
+			#Forma POO instanciamos y mandamos llamar un objeto de la instancia
+			$usuario1 = new FuncionesDB();
+			#La funcion retorna un arreglo lo mandamos a una variable
+			$resultado[] = $usuario1->consultaBasicos($expediente,$folio);
+			#El arreglo esta vacio 
+			if (!empty($resultado[0])) {
+				$nombre_pac = utf8_decode($resultado[0][0]['NOMBRE']);
+				$edad_pac = $resultado[0][0]['EDAD_PAC'];
+				$sexo_pac = $resultado[0][0]['SEXO_PAC'];
+				if($sexo_pac == 'M') {
+					$sexo_pac='MASCULINO';
+				} else {
+					$sexo_pac='FEMENINO';
+				}
+				/*$nombre_med = $resultado[0][0]['DESC_MEDICO'];
+				$especialidad_med = $resultado[0][0]['DESC_ESPEC'];
+				$cedula_med = $resultado[0][0]['CEDULA_MEDICO'];*/
+				$date2 = $resultado[0][0]['NACIO_PA'];
+				$fecha_nac_pac = $date2->format('d/m/Y');
+				$hoy = new DateTime();
+				$anniosO = $hoy->diff($date2);
+				$annios = $anniosO->format('%y Año(s)');
+				$anniosBool = $anniosO->format('%y');
+				if($anniosBool == '0'){
+					$annios = $anniosO->format('%m Mes(es)');
+				}
+				#Direccion del paciente
+				$calle_pac = trim($resultado[0][0]['DIR_PAC']);
+				$col_pac = trim($resultado[0][0]['COL_PAC']);
+				$ciudad_pac = trim($resultado[0][0]['CD_PAC']);
+				$cp_pac = trim($resultado[0][0]['CP_PAC']);
+				$obligado_pac = $resultado[0][0]['OBLI_PAC'];
+				$tel_pac = trim($resultado[0][0]['TEL_PAC']);
+				$compa_pac = trim($resultado[0][0]['DATO_OPCIONAL8_PAC']);
+			}
+		}
+		
+		$turno = null;
+		$acudeFin = NULL;
+		
+		if($expediente != NULL || $expediente != ''){
+			$queryCuadro1 = "SELECT * FROM interpretacionesimagen WHERE numeroExpediente = '$expediente' AND folio= '$folio' AND idImagenologia='$idImagenologia' AND estudio='$estudio' AND estatus=1";
+			$queryTxtImg = "SELECT * FROM imagenologia WHERE id='$idImagenologia' AND estatus=1";
+		} else {
+			$queryCuadro1 = "SELECT * FROM interpretacionesimagen WHERE idImagenologia='$idImagenologia' AND estudio='$estudio' AND estatus=1";
+			$queryTxtImg = "SELECT * FROM imagenologia WHERE id='$idImagenologia' AND estatus=1";
+		}
+		
+		$result0 = mysqli_query($conexionMedico, $queryCuadro1);
+		$rowC1 = mysqli_fetch_array($result0);
+		
+		$result1 = mysqli_query($conexionMedico, $queryTxtImg);
+		$rowC2 = mysqli_fetch_array($result1);
+		
+		//Vamos a meter TODOS los estudios que tienen texto despues del nombre
+		$campo=NULL;
+		
+		if($estudio == 'Carotideo Bilateral'){
+			$campo='carotideoBiTxt';
+		}
+		if($estudio == 'Miembro Superior Unilateral'){
+			$campo='miembroSupUniTxt';
+		}
+		if($estudio == ' Miembro Superior Bilateral'){
+			$campo='miembroSupBiTxt';
+		}
+		if($estudio == 'Miembro Inferior Unilatera'){
+			$campo='miembroInfUniTxt';
+		}
+		if($estudio == 'Miembro Inferior Bilateral'){
+			$campo='miembroInfBiTxt';
+		}
+		if($estudio == utf8_decode('Hígado - Hipertensión Portal')){
+			$campo='higadoPortTxt';
+		}
+		if($estudio == utf8_decode('1 Región Simple')){
+			$campo='regionSimp1Txt';
+		}
+		if($estudio == utf8_decode('1 Región Contrastada')){
+			$campo='regionContr1Txt';
+		}
+		if($estudio == utf8_decode('2 Regiones Simples')){
+			$campo='regionesSimp2Txt';
+		}
+		if($estudio == utf8_decode('2 Regiones Contrastadas')){
+			$campo='regionesContr2Txt';
+		}
+		if($estudio == 'Columna'){
+			$campo='columnaTxt';
+		}
+		if($estudio == utf8_decode('Cráneo')){
+			$campo='craneoTxt';
+		}
+		if($estudio == utf8_decode('Tele de Tórax')){
+			$campo='teleTorxTxt';
+		}
+		if($estudio == utf8_decode('Tórax Óseo')){
+			$campo='toraxOseoTxt';
+		}
+		if($estudio == 'Abdomen Simple'){
+			$campo='abdomenSimpTxt';
+		}
+		if($estudio == utf8_decode('Abdomen de Pie')){
+			$campo='abdomenPieTxt';
+		}
+		if($estudio == 'Serie Gastro-Duodenal'){
+			$campo='serieGastroTxt';
+		}
+		if($estudio == 'Colon por Enema'){
+			$campo='colonEnemaTxt';
+		}
+		if($estudio == utf8_decode('Tránsito Intestinal')){
+			$campo='transitoIntesTxt';
+		}
+		if($estudio == utf8_decode('Urografía Excretora')){
+			$campo='urografiaExcrTxt';
+		}
+		if($estudio == 'Cistograma'){
+			$campo='cristogramaTxt';
+		}
+		if($estudio == 'Perfilograma'){
+			$campo='perfilogramaTxt';
+		}
+		if($estudio == 'Watters'){
+			$campo='wattersTxt';
+		}
+		if($estudio == 'Otros'){
+			$campo='otrosTxt';
+		}
+		
+		
+		$fecha = strtotime($rowC1['fechaGuardado']);
+		$fechaFin = date('d/m/Y',$fecha);
+		$horaFin = date('H:i', $fecha);
+		
+		if($rowC1['turno'] == 'M'){
+			$turno='MATUTINO';
+		} else if($rowC1['turno'] == 'V'){
+			$turno='VESPERTINO';
+		} if($rowC1['turno'] == 'N'){
+			$turno='NOCTURNO';
+		}
+		
+		
+		//$acudeFin = $rowC1['acude'];
+		//Datos para medico segun la Cedula Colocada
+		$resultadoMed[] = $usuario1->medicosCed($rowC1['cedulaSolicitante']);
+		$nombre_med = $resultadoMed[0][0]['DESC_MEDICO'];
+	   	$especialidad_med = $resultadoMed[0][0]['DESC_ESPEC'];
+		$cedula_med = $resultadoMed[0][0]['CEDULA_MEDICO'];
+		
+		//Datos para Imagenologo segun la Cedula Colocada
+		$resultadoMedIn[] = $usuario1->medicosCed($rowC1['cedulaInterprete']);
+		$nombre_medIn = $resultadoMedIn[0][0]['DESC_MEDICO'];
+	   	$especialidad_medIn = $resultadoMedIn[0][0]['DESC_ESPEC'];
+		$cedula_medIn = $resultadoMedIn[0][0]['CEDULA_MEDICO'];
+		//$cabecera = array(utf8_decode("                                             "),utf8_decode('                                                           "La notificación es voluntaria y no punitiva"'),"Fecha de ocurrencia: ".$fechaFin."     Turno: ".$turno,"Personal que Reporta: ".$rowC1['reporta'],"Servicio: ".$rowC1['servicio']);
+		
+		$cabecera = array("EXPEDIENTE: ".$rowC1['numeroExpediente']."   FOLIO: ".$rowC1['folio'],"FECHA: ".$fechaFin."     HORA: ".$horaFin." hrs.     TURNO: ".$turno,"NOMBRE: ".$nombre_pac,"FECHA DE NACIMIENTO: ".$fecha_nac_pac."    EDAD: ".utf8_decode($annios)."    SEXO: ".$sexo_pac."    Tel: ".$tel_pac,utf8_decode("DOMICILIO: ".$calle_pac .' Col. '.$col_pac.' '.$cp_pac.' '.$ciudad_pac),"ESTUDIO: ".$rowC1['estudio'].' '.$rowC2[$campo]);
+		
+		$pdf = new PDF();
+		$pdf->setCabeza($cabecera);
+		$pdf->setEspacio('TRUE');
+		//$pdf=new PDF_MC_Table();
+		#$pdf->Header('1');
+		$pdf->AddPage('P', 'Letter'); //Vertical, Carta
+
+		 $pdf->SetTextColor(0);
+			
+		$pdf->SetFont('Arial','B',10); //Arial, negrita, 12 puntos
+		$pdf->SetFillColor(200,200,200);
+		$pdf->setTitulo('INTERPRETACIÓN IMAGENOLOGÍA');
+		$pdf->SetXY(60,12);
+		$pdf->Cell(145,7,utf8_decode('INTERPRETACIÓN IMAGENOLOGÍA'),1, 1 , 'C',true);
+
+		//$pdf->tablaSimple($cabecera); //Método que integra datos
+		//$pdf->Ln(10);
+		$pdf->SetFont('Arial','B',10);
+		$pdf->SetFillColor(200,200,200);
+		$pdf->SetY(55);
+		$pdf->Cell(0,7,utf8_decode('MÉDICO SOLICITANTE: '),0, 1 , 'L');
+		$pdf->SetFont('Arial','',10);
+		//Tratar de hacer una tabla
+		$pdf->SetFont('Arial','',10);
+		if($nombre_med != NULL || $nombre_med != ''){
+			$pdf->Cell(0,7,'                 '.utf8_decode($nombre_med),0,1,'C');
+		} else {
+			$pdf->Cell(0,7,'                 '.$rowC1['nombreSolicitante'],0,1,'C');
+		}
+		$pdf->Cell(0,7,'CEDULA PROFESIONAL: '.$cedula_med,0,1,'C');
+		$pdf->Cell(0,7,utf8_decode('ESPECIALIDAD: '.$especialidad_med),0,1,'C');
+		$pdf->Ln(1);
+		$pdf->SetFont('Arial','B',10);
+		$pdf->SetFillColor(200,200,200);
+		//$pdf->SetY(55);
+		$pdf->Cell(0,7,utf8_decode('DIAGNÓSTICO: '),0, 1 , 'L');
+		$pdf->SetFont('Arial','',9);
+		$pdf->MultiCell(0,7,$rowC2['diagnostico'], 0, 'L');
+		$pdf->Ln(3);
+		#$pdf->SetFont('Arial','B',10);
+		#$pdf->Cell(0,7,utf8_decode('DATOS CLÍNICOS Y/O INDICACIONES ESPECIALES'),0, 1 , 'L');
+
+		$pdf->SetFont('Arial','',10);
+		$pdf->MultiCell(0,7,$rowC1['interpretacion'], 1, 'L');
+		$pdf->Ln();
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(0,7,utf8_decode('IMPRESIÓN DIAGNOSTICA'),0, 1 , 'L');
+
+		$pdf->SetFont('Arial','',10);
+		$pdf->MultiCell(0,7,$rowC1['impresionDiagnostica'], 1, 'L');
+		$pdf->Ln(10);
+		$pdf->Cell(0,7,utf8_decode('ATENTAMENTE::'),0,1,'C');
+		$pdf->Ln(8);
+		$pdf->Cell(0,7,'_______________________________________',0,1,'C');
+		$pdf->SetFont('Arial','',9);
+		if($nombre_medIn != NULL || $nombre_medIn != ''){
+			if(trim($cedula_medIn) == '1042332'){
+				$dr = 'DRA.';
+			} else{
+				$dr = 'DR.';
+			}
+			$pdf->Cell(0,5,'                 '.$dr.' '.utf8_decode($nombre_medIn),0,1,'C');
+		} else {
+			
+			$pdf->Cell(0,5,'                 '.$nombre_medIn,0,1,'C');
+		}
+		$pdf->Cell(0,5,'CEDULA PROFESIONAL: '.$cedula_medIn,0,1,'C');
+		$pdf->Cell(0,5,utf8_decode('                    ESPECIALIDAD: '.$especialidad_medIn),0,1,'C');
+		if(trim($cedula_medIn) == '1042332'){
+			$pdf->Cell(0,5,utf8_decode('RSNA FMRI CIR CMRI ESOR'),0,1,'C');
+			$pdf->Cell(0,5,utf8_decode('      CEDULA DE ESPECIALIDAD: AECEM 26199 '),0,1,'C');
+			$pdf->Cell(0,5,utf8_decode('RESPONSABLE SANITARIO SSA'),0,1,'C');
+		}
 		
 		//$pdf->Footer();
 		$pdf->Output(); //Salida al navegador del pdf

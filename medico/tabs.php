@@ -254,6 +254,7 @@
 	$descImg=null;
 	if($rowNImg!= NULL){
     	$descImg = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE SOLICITUD A IMAGENOLOGÍA</span>";
+		$idImg = $rowNImg['id'];
 	}
 
 ?>
@@ -477,9 +478,9 @@
 							<h2><?php echo $descImg ?></h2>
 							<p>
 								<input type="button" value="Solicitud a Imagenología" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('solImagen.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
-								<!--input type="button" value="Generar PDF de Nota Preoperatoria" class="btn btn-danger" name="lvc" 
+								<input type="button" value="Generar PDF de Nota Preoperatoria" class="btn btn-danger" name="lvc" 
 									   style="height: 50px; width: 300px" 
-									   onClick="window.open('../pdf/creaPDF.php?exp=<?php #echo $expediente_pac ?>&folio=<?php #echo $folio_pac ?>&name=preoperatoriaUrg', '_blank').focus()"/-->
+									   onClick="window.open('../pdf/creaPDF.php?idImagenologia=<?php echo $idImg ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=imagenologia', '_blank').focus()"/>
 							</p>
 							<p>
 								<input type="button" value="Consultar Solicitudes a Imagenología" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"

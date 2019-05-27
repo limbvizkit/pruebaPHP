@@ -245,7 +245,7 @@
 								  WHERE numeroExpediente='$expediente' AND folio='$folio' AND estatus='1'
 								  LIMIT 1";
 						$antec1 = mysqli_query($conexionMedico, $queryAntec1) or die (mysqli_error($conexionMedico));
-						while($rowB = mysqli_fetch_array($antec1)) {							
+						while($rowB = mysqli_fetch_array($antec1)) {
 							$turnoFin1=$rowB['turno'];
 							//$fechaFin =substr($rowA['fecha'],0,10);
 							$pasa=TRUE;

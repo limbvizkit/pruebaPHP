@@ -233,17 +233,19 @@
 					<li class="sky-tab-content-2">
 						<div class="typography">
 							<h1>NOTIFICACIÓN DE EVENTOS ADVERSOS</h1>
-							<h2><?php echo $desc ?></h2>
+							<h2><?php #echo $desc ?></h2>
 							<p>
 								<input type="button" value="AGREGAR NOTIFICACIÓN" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('eventoAdverso.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
+							</p>
+							<?php if($rol=='administrador'){ ?>
+							<p>
 								<input type="button" value="Generar PDF DE EVENTO ADVERSO" class="btn btn-danger" name="lvc" 
 									   style="height: 50px; width: 300px" 
 									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=adverso', '_blank').focus()"/>
-							</p>
-							<p>
 								<input type="button" value="MODIFICAR DATOS" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaAdversos.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
+							<?php } ?>
 						</div>
 					</li>
 				
