@@ -21,7 +21,7 @@
 		#$fecha = date_create_from_format('Y-m-d',$fecha)->format('d-m-Y');
 		$fecha1 = strftime('%A, %d de %B de %Y',mktime(0,0,0,$mes,$dia,$anio));
 		$fecha1 = $fecha1;
-	} else {
+	}else {
 		$fecha= NULL;
 	}
 	
@@ -311,14 +311,13 @@
 /******************************************************************************************************************************************************/
 //Esta parte es la que Genera el PDF
 if(isset($_REQUEST['generapdf']) || (isset ($_GET['idResguardo']) && !empty($_GET["idResguardo"]))) {
-	
 	$idResguardo = NULL;
-	
-	if(isset ($_POST['idResguardo']) && !empty($_POST["idResguardo"])){
+	if(isset ($_POST['idResguardo'])){
 		$idResguardo = $_POST['idResguardo'];
-	} else {
-		$idResguardo = $_GET['idResguardo'];
 	}
+	if(isset ($_GET['idResguardo']) ){
+		$idResguardo = $_GET['idResguardo'];
+	} 
 	
 	#echo 'LLEGO idResguardo: '.$idResguardo;
 	#Query para Sacar los datos del primer Recuadro (Datos Basicos)
@@ -372,10 +371,11 @@ if(isset($_REQUEST['generapdf']) || (isset ($_GET['idResguardo']) && !empty($_GE
 	 	$pdf->Cell(0,7,'FIRMAN:',0,1,'L');
 	 	$pdf->Ln(10);
 	 	$pdf->Cell(0,7,'___________________________                  ____________________________',0,1,'C');
-	 	$pdf->Cell(0,7,utf8_decode('Victor Condado Jiménez                                 Quien Recibe Nombre y Firma'),0,1,'C');
+	 	$pdf->Cell(0,7,utf8_decode('M.C.C. Juan Diego Gómez Fierros                  Quien Recibe Nombre y Firma'),0,1,'C');
 	 	$pdf->Cell(0,7,utf8_decode('Jefe de Tecnología de la Información                                                                           '),0,1,'C');
 	
 	    $pdf->Output(); //Salida al navegador del pdf
     }
+
 
 ?>

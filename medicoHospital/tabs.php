@@ -256,6 +256,69 @@
     	$descImg = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE SOLICITUD A IMAGENOLOGÍA</span>";
 		$idImg = $rowNImg['id'];
 	}
+	
+	$queryLab = 'SELECT * FROM laboratorio WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1 ORDER BY id DESC LIMIT 1' ;
+                $lab = mysqli_query($conexionMedico, $queryLab) or die (mysqli_error($conexion));
+                $rowNLab = mysqli_fetch_array($lab);
+	$descLab=null;
+	if($rowNLab!= NULL){
+    	$descLab = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE SOLICITUD A LABORATORIO</span>";
+		$idImg = $rowNLab['id'];
+	}
+
+	$queryConsQX = 'SELECT * FROM consentimientoqxh WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1 ORDER BY id DESC LIMIT 1' ;
+                $consQx = mysqli_query($conexionMedico, $queryConsQX) or die (mysqli_error($conexion));
+                $rowNconsQx = mysqli_fetch_array($consQx);
+	$descConsQX=null;
+	if($rowNconsQx!= NULL){
+    	$descConsQX = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE CONSENTIMIENTO INFORMADO QUIRÚRGICO</span>";
+		//$idConsQx = $rowNconsQx['id'];
+	}
+
+	$queryConsIH = 'SELECT * FROM consentimientoihurg WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1 ORDER BY id DESC LIMIT 1' ;
+                $consIH = mysqli_query($conexionMedico, $queryConsIH) or die (mysqli_error($conexion));
+                $rowNconsIH = mysqli_fetch_array($consIH);
+	$descConsIH=null;
+	if($rowNconsIH!= NULL){
+    	$descConsIH = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE CONSENTIMIENTO INFORMADO PARA INGRESO HOSPITALARIO</span>";
+		//$idConsQx = $rowNconsQx['id'];
+	}
+
+	$queryConsIU = 'SELECT * FROM consentimientoiuurg WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1 ORDER BY id DESC LIMIT 1' ;
+                $consIU = mysqli_query($conexionMedico, $queryConsIU) or die (mysqli_error($conexion));
+                $rowNconsIU = mysqli_fetch_array($consIU);
+	$descConsIU=null;
+	if($rowNconsIU!= NULL){
+    	$descConsIU = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE CONSENTIMIENTO INFORMADO PARA INGRESO A URGENCIAS</span>";
+		//$idConsQx = $rowNconsQx['id'];
+	}
+
+	$queryConsIAnest = 'SELECT * FROM consentimientoanesturg WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1 ORDER BY id DESC LIMIT 1' ;
+                $consIanest = mysqli_query($conexionMedico, $queryConsIAnest) or die (mysqli_error($conexion));
+                $rowNconsIanest = mysqli_fetch_array($consIanest);
+	$descConsIAnest=null;
+	if($rowNconsIanest!= NULL){
+    	$descConsIAnest = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE CONSENTIMIENTO INFORMADO DE ANESTESIA</span>";
+		//$idConsQx = $rowNconsQx['id'];
+	}
+
+	$queryConsTrans = 'SELECT * FROM consentimientotransfurg WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1 ORDER BY id DESC LIMIT 1' ;
+                $consItrans = mysqli_query($conexionMedico, $queryConsTrans) or die (mysqli_error($conexion));
+                $rowNconsItrans = mysqli_fetch_array($consItrans);
+	$descConsTrans=null;
+	if($rowNconsItrans!= NULL){
+    	$descConsTrans = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE CONSENTIMIENTO INFORMADO PARA TRANSFUSIÓN</span>";
+		//$idConsQx = $rowNconsQx['id'];
+	}
+
+	$queryConsTransIndiMT = 'SELECT * FROM indicacionesmt WHERE numeroExpediente='.$expediente_pac.' AND folio='.$folio_pac.' AND estatus=1 ORDER BY id DESC LIMIT 1' ;
+                $consIndiMT = mysqli_query($conexionMedico, $queryConsTransIndiMT) or die (mysqli_error($conexion));
+                $rowNconsIndiMT = mysqli_fetch_array($consIndiMT);
+	$descIndiMT=null;
+	if($rowNconsIndiMT!= NULL){
+    	$descIndiMT = "<span style='color:red'>ESTE PACIENTE CON EL NÚMERO DE FOLIO SELECCIONADO, YA POSEE INDICACIONES MEDICAS</span>";
+		//$idConsQx = $rowNconsQx['id'];
+	}
 
 ?>
 
@@ -286,45 +349,59 @@
 		</div>
 		<div class="body">
 			<!-- tabs -->
-			<div class="sky-tabs sky-tabs-pos-top-left sky-tabs-anim-flip sky-tabs-response-to-icons">
-				<input type="radio" name="sky-tabs" checked="" id="sky-tab1" class="sky-tab-content-1">
-				<label for="sky-tab1"><span><span><i class="fa fa-folder-open-o"></i>DATOS DEL PACIENTE</span></span></label>
-				
-				<input type="radio" name="sky-tabs" id="sky-tab2" class="sky-tab-content-2">
-				<label for="sky-tab2"><span><span><i class="fa fa-archive"></i>HISTORIA CLÍNICA</span></span></label>
-				<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
-				<input type="radio" name="sky-tabs" id="sky-tab3" class="sky-tab-content-3">
-				<label for="sky-tab3"><span><span><i class="fa fa-file-text-o"></i>NOTA DE INGRESO</span></span></label>
-				
-				<input type="radio" name="sky-tabs" id="sky-tab4" class="sky-tab-content-4">
-				<label for="sky-tab4"><span><span><i class="fa fa-user-md"></i>NOTA PREOPERATORIA</span></span></label>
+			<div class="sky-tabs sky-tabs-pos-top-left sky-tabs-anim-flip sky-tabs-response-to-icons">				
+					<input type="radio" name="sky-tabs" checked="" id="sky-tab1" class="sky-tab-content-1">
+					<label for="sky-tab1"><span><span><i class="fa fa-folder-open-o"></i>DATOS DEL PACIENTE</span></span></label>
+				<?php if ($rol != 'svelazquez') {?>
+					<input type="radio" name="sky-tabs" id="sky-tab2" class="sky-tab-content-2">
+					<label for="sky-tab2"><span><span><i class="fa fa-archive"></i>HISTORIA CLÍNICA</span></span></label>
 				<?php } ?>
-				<input type="radio" name="sky-tabs" id="sky-tab5" class="sky-tab-content-5">
-				<label for="sky-tab5"><span><span><i class="fa fa-bar-chart-o"></i>NOTA DE EVOLUCIÓN=</span></span></label>
+				<?php if ($rol != 'imarmolejo' && $rol != 'jrada' && $rol != 'svelazquez') {?>
+					<input type="radio" name="sky-tabs" id="sky-tab3" class="sky-tab-content-3">
+					<label for="sky-tab3"><span><span><i class="fa fa-file-text-o"></i>NOTA DE INGRESO</span></span></label>
 				
-				<input type="radio" name="sky-tabs" id="sky-tab6" class="sky-tab-content-6">
-				<label for="sky-tab6"><span><span><i class="fa fa-medkit"></i>NOTA DE TRASLADO DE SERVICIOS=</span></span></label>
-				<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
-				<input type="radio" name="sky-tabs" id="sky-tab7" class="sky-tab-content-7">
-				<label for="sky-tab7"><span><span><i class="fa fa-ambulance"></i>NOTA DE REFERENCIA Y TRASLADO=</span></span></label>
+					<input type="radio" name="sky-tabs" id="sky-tab4" class="sky-tab-content-4">
+					<label for="sky-tab4"><span><span><i class="fa fa-user-md"></i>NOTA PREOPERATORIA</span></span></label>
 				<?php } ?>
-				<input type="radio" name="sky-tabs" id="sky-tab8" class="sky-tab-content-8">
-				<label for="sky-tab8"><span><span><i class="fa fa-file-o"></i>NOTA DE EGRESO</span></span></label>
+				<?php if ($rol != 'svelazquez') {?>
+					<input type="radio" name="sky-tabs" id="sky-tab5" class="sky-tab-content-5">
+					<label for="sky-tab5"><span><span><i class="fa fa-bar-chart-o"></i>NOTA DE EVOLUCIÓN=</span></span></label>	
+					<?php } ?>
+				<?php  if ($rol != 'admision') {?>
+					<input type="radio" name="sky-tabs" id="sky-tab6" class="sky-tab-content-6">
+					<label for="sky-tab6"><span><span><i class="fa fa-medkit"></i>NOTA DE TRASLADO DE SERVICIOS=</span></span></label>
+				<?php } ?>
+				<?php  if ($rol != 'imarmolejo' && $rol != 'jrada' && $rol != 'svelazquez') {?>
+					<?php  if ($rol != 'admision') {?>
+						<input type="radio" name="sky-tabs" id="sky-tab7" class="sky-tab-content-7">
+						<label for="sky-tab7"><span><span><i class="fa fa-ambulance"></i>NOTA DE REFERENCIA Y TRASLADO=</span></span></label>
+					<?php } ?>
+					<input type="radio" name="sky-tabs" id="sky-tab8" class="sky-tab-content-8">
+					<label for="sky-tab8"><span><span><i class="fa fa-file-o"></i>NOTA DE EGRESO</span></span></label>
 				
-				<input type="radio" name="sky-tabs" id="sky-tab9" class="sky-tab-content-9">
-				<label for="sky-tab9"><span><span><i class="fa fa-file-text-o"></i>IMAGENOLOGÍA</span></span></label>
+					<input type="radio" name="sky-tabs" id="sky-tab9" class="sky-tab-content-9">
+					<label for="sky-tab9"><span><span><i class="fa fa-file-text-o"></i>IMAGENOLOGÍA</span></span></label>
 				
-				<!--input type="radio" name="sky-tabs" id="sky-tab10" class="sky-tab-content-10">
-				<label for="sky-tab10"><span><span><i class="fa fa-file"></i>NOTA PRE-ANESTÉSICA</span></span></label>
-				
+					<input type="radio" name="sky-tabs" id="sky-tab10" class="sky-tab-content-10">
+				<label for="sky-tab10"><span><span><i class="fa fa-flask"></i>SOLICITUD A LABORATORIO</span></span></label>
+				<?php } ?>
 				<input type="radio" name="sky-tabs" id="sky-tab11" class="sky-tab-content-11">
-				<label for="sky-tab11"><span><span><i class="fa fa-files-o"></i>NOTA DE REGISTRO ANESTÉSICO</span></span></label>
+				<label for="sky-tab11"><span><span><i class="fa fa-file"></i>CI QUIRÚRGICO</span></span></label>
 				
 				<input type="radio" name="sky-tabs" id="sky-tab12" class="sky-tab-content-12">
-				<label for="sky-tab12"><span><span><i class="fa fa-file-text"></i>NOTA POSTANESTÉSICA</span></span></label>
+				<label for="sky-tab12"><span><span><i class="fa fa-file"></i>CI INGRESO HOSPITALARIO</span></span></label>
 				
 				<input type="radio" name="sky-tabs" id="sky-tab13" class="sky-tab-content-13">
-				<label for="sky-tab13"><span><span><i class="fa fa-clipboard"></i>NOTA DE EGRESO</span></span></label-->
+				<label for="sky-tab13"><span><span><i class="fa fa-file"></i>CI INGRESO URGENCIAS</span></span></label>
+				
+				<input type="radio" name="sky-tabs" id="sky-tab14" class="sky-tab-content-14">
+				<label for="sky-tab14"><span><span><i class="fa fa-file"></i>CI PROCEDIMIENTO DE ANESTESIA</span></span></label>
+				
+				<input type="radio" name="sky-tabs" id="sky-tab15" class="sky-tab-content-15">
+				<label for="sky-tab15"><span><span><i class="fa fa-file"></i>CI TRANSFUSIÓN</span></span></label>
+				
+				<input type="radio" name="sky-tabs" id="sky-tab16" class="sky-tab-content-16">
+				<label for="sky-tab16"><span><span><i class="fa fa-file"></i>INDICACIONES MEDICO TRATANTE</span></span></label>
 				
 				<ul>
 					<li class="sky-tab-content-1">					
@@ -360,7 +437,7 @@
 						<div class="typography">
 							<h1>HISTORIA CLÍNICA</h1>
 							<h2><?php echo $desc ?></h2>
-							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada' && $rol != 'svelazquez' && $rol != 'admision') {?>
 							<p>
 								<input type="button" value="Agregar Historia Clínica" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('historiaClinica.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF Historia Clínica" class="btn btn-danger" name="historiaClinica" 
@@ -385,6 +462,7 @@
 						<div class="typography">
 							<h1>NOTA DE INGRESO</h1>
 							<h2><?php echo $descR ?></h2>
+							<?php if ($rol != 'admision') {?>
 							<p>
 								<input type="button" value="Agregar Nota de Ingreso" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaIngreso.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF de Nota de Ingreso" class="btn btn-danger" name="lvc" 
@@ -395,6 +473,13 @@
 								<input type="button" value="Consultar Notas de Ingreso" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaNotaIngreso.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
+							<?php } else { ?>
+							<p>
+							<input type="button" value="Generar PDF de Nota de Ingreso" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=notaIngreso', '_blank').focus()"/>
+							</p>
+							<?php } ?>
 						</div>
 					</li>
 					
@@ -402,6 +487,7 @@
 						<div class="typography">
 							<h1>NOTA PREOPERATORIA</h1>
 							<h2><?php echo $descH ?></h2>
+							<?php if ($rol != 'admision') {?>
 							<p>
 								<input type="button" value="Agregar Nota Preoperatoria" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaPreoperatoria.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF de Nota Preoperatoria" class="btn btn-danger" name="lvc" 
@@ -412,6 +498,13 @@
 								<input type="button" value="Consultar Nota Preoperatoria" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaPreoperatoria.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
+							<?php } else { ?>
+							<p>
+							<input type="button" value="Generar PDF de Nota Preoperatoria" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=preoperatoria', '_blank').focus()"/>
+							</p>
+							<?php } ?>
 						</div>
 					</li>
 					
@@ -419,7 +512,7 @@
 						<div class="typography">
 							<h1>NOTA DE EVOLUCIÓN</h1>
 							<h2><?php echo $descEv ?></h2>
-							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada' && $rol != 'admision') {?>
 							<p>
 								<input type="button" value="Agregar Nota de Evolución" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaEvolucion.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF Nota de Evolución" class="btn btn-danger" name="lvc" 
@@ -465,6 +558,7 @@
 						<div class="typography">
 							<h1>NOTA DE REFERENCIA Y TRASLADO</h1>
 							<h2><?php echo $descRefTrasl ?></h2>
+							
 							<p>
 								<input type="button" value="Agregar Nota de Referencia y Traslado" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaRefTrasl.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF Nota de Referencia y Traslado" class="btn btn-danger" name="lvc" 
@@ -475,13 +569,14 @@
 								<input type="button" value="Consultar Nota de Referencia y Traslado" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaNotaRefTrasl.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
+							
 						</div>
 					</li>
 					<li class="sky-tab-content-8">
 						<div class="typography">
 							<h1>NOTA DE EGRESO HOSPITALARIO</h1>
 							<h2><?php echo $descE ?></h2>
-							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada' && $rol != 'admision') {?>
 							<p>
 								<input type="button" value="Agregar Nota de Egreso" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('notaEgreso.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF de Nota de Egreso" class="btn btn-danger" name="lvc" 
@@ -504,6 +599,7 @@
 						<div class="typography">
 							<h1>IMAGENOLOGÍA</h1>
 							<h2><?php echo $descImg ?></h2>
+							<?php if ($rol != 'admision') {?>
 							<p>
 								<input type="button" value="Solicitud a Imagenología" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('solImagen.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
 								<input type="button" value="Generar PDF de Imagenología" class="btn btn-danger" name="lvc" 
@@ -514,40 +610,176 @@
 								<input type="button" value="Consultar Solicitudes a Imagenología" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
 								onClick="window.open('consultaSolImagen.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
 							</p>
+							<?php } else { ?>
+								<p>
+								<input type="button" value="Consultar Solicitudes a Imagenología" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('consultaSolImagen.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+							</p>
+							<?php } ?>
 						</div>
 					</li>
 					
-					<!--li class="sky-tab-content-10">
+					<li class="sky-tab-content-10">
 						<div class="typography">
-							<h1>NOTA PRE-ANESTÉSICA</h1>
+							<h1>SOLICITUD DE EXÁMENES DE LABORATORIO</h1>
+							<h2><?php echo $descLab ?></h2>
+							<?php if ($rol != 'admision') {?>
 							<p>
+								<input type="button" value="Solicitud a Laboratorio" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('solLab.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
+								<input type="button" value="Generar PDF de Solicitud" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=laboratorio', '_blank').focus()"/>
 							</p>
+							<p>
+								<input type="button" value="Consultar Solicitudes" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('consultaConsentimientoQx.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+									<input type="button" value="Ver Resultados" class="btn btn-success" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('../laboratorio/visorEstudios.php?rol=<?php echo $rol ?>&expediente=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+							</p>
+							<?php } else { ?>
+								<p>
+								<input type="button" value="Ver Resultados" class="btn btn-success" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('../laboratorio/visorEstudios.php?rol=<?php echo $rol ?>&expediente=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+							</p>
+							<?php } ?>
 						</div>
 					</li>
 					
 					<li class="sky-tab-content-11">
 						<div class="typography">
-							<h1>NOTA DE REGISTRO ANESTÉSICO</h1>
+							<h1>Carta de Consentimiento Informado para procedimientos Quirúrgicos</h1>
+							<h2><?php echo $descConsQX ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada' && $rol != 'admision') {?>
 							<p>
+								<input type="button" value="Agregar Concentimiento Quirúrgico" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('consentimientoQx.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
+								<input type="button" value="Generar PDF de Concentimiento Quirúrgico" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoQxH', '_blank').focus()"/>
 							</p>
+							<p>
+								<input type="button" value="Consultar Concentimiento Quirúrgico" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('consultaConsentimientoQx.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+							</p>
+							<?php } else { ?>
+								<input type="button" value="Generar PDF de Concentimiento Quirúrgico" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 300px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoQxH', '_blank').focus()"/>
+							<?php } ?>
 						</div>
 					</li>
-					
 					<li class="sky-tab-content-12">
 						<div class="typography">
-							<h1>NOTA POSTANESTÉSICA</h1>
+							<h1>Carta de Consentimiento Informado para Ingreso Hospitalario</h1>
+							<h2><?php echo $descConsIH ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
 							<p>
+								<input type="button" value="Agregar Consentimiento Ingreso Hospi" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('consentimientoIh.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
+								<input type="button" value="Generar PDF de Consentimiento Ingreso Hospi" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoIh', '_blank').focus()"/>
 							</p>
+							<p>
+								<input type="button" value="Consultar Consentimiento Ingreso Hospi" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('consultaConsentimientoIh.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+							</p>
+							<?php } else { ?>
+								<input type="button" value="Generar PDF de Consentimiento Ingreso Hospi" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoIh', '_blank').focus()"/>
+							<?php } ?>
+						</div>
+					</li>
+					<li class="sky-tab-content-13">
+						<div class="typography">
+							<h1>Carta de Consentimiento Informado para Ingreso a Urgencias</h1>
+							<h2><?php echo $descConsIU ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
+							<p>
+								<input type="button" value="Agregar Consentimiento Ingreso Urg" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('consentimientoIu.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
+								<input type="button" value="Generar PDF de Consentimiento Ingreso Urg" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoIu', '_blank').focus()"/>
+							</p>
+							<p>
+								<input type="button" value="Consultar Consentimiento Ingreso Urg" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('consultaConsentimientoIu.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+							</p>
+							<?php } else { ?>
+								<input type="button" value="Generar PDF de Consentimiento Ingreso Urg" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoIu', '_blank').focus()"/>
+							<?php } ?>
+						</div>
+					</li>
+					<li class="sky-tab-content-14">
+						<div class="typography">
+							<h1>Carta de Consentimiento Informado para Procedimiento de Anestesia</h1>
+							<h2><?php echo $descConsIAnest ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
+							<p>
+								<input type="button" value="Agregar Consentimiento de Anestesia" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('consentimientoPa.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
+								<input type="button" value="Generar PDF de Consentimiento de Anestesia" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoAneste', '_blank').focus()"/>
+							</p>
+							<!--p>
+								<input type="button" value="Consultar Consentimiento de Anestesia" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('consultaConsentimientoIu.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+							</p-->
+							<?php } else { ?>
+								<input type="button" value="Generar PDF de Consentimiento de Anestesia" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoAneste', '_blank').focus()"/>
+							<?php } ?>
+						</div>
+					</li>
+					<li class="sky-tab-content-15">
+						<div class="typography">
+							<h1>Carta de Consentimiento Informado para Transfusión</h1>
+							<h2><?php echo $descConsTrans ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada') {?>
+							<p>
+								<input type="button" value="Agregar Consentimiento Transfusión" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('consentimientoTrans.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
+								<input type="button" value="Generar PDF de Consentimiento Transfusión" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoTrans', '_blank').focus()"/>
+							</p>
+							<!--p>
+								<input type="button" value="Consultar Consentimiento Transfusión" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('consultaConsentimientoIu.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+							</p-->
+							<?php } else { ?>
+								<input type="button" value="Generar PDF de Consentimiento Transfusión" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=consentimientoTrans', '_blank').focus()"/>
+							<?php } ?>
+						</div>
+					</li>
+					<li class="sky-tab-content-16">
+						<div class="typography">
+							<h1>Indicaciones Medicas (Medico Tratante)</h1>
+							<h2><?php echo $descIndiMT ?></h2>
+							<?php if ($rol != 'imarmolejo' && $rol != 'jrada' && $permisos != 3) {?>
+							<p>
+								<input type="button" value="Agregar Indicaciones Medicas" class="btn btn-primary" name="lvc" style="height: 50px; width: 300px" onClick="window.open('indicacionesMT.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()" />
+								<input type="button" value="Generar PDF de Indicaciones Medicas" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF_2do.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=indicacionesMT', '_blank').focus()"/>
+							</p>
+							<!--p>
+								<input type="button" value="Consultar Consentimiento Transfusión" class="btn btn-info" name="lvc" style="height: 50px; width: 300px"
+								onClick="window.open('consultaConsentimientoIu.php?rol=<?php echo $rol ?>&exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>', '_blank').focus()"/>
+							</p-->
+							<?php } else { ?>
+								<input type="button" value="Generar PDF de Indicaciones Medicas" class="btn btn-danger" name="lvc" 
+									   style="height: 50px; width: 400px" 
+									   onClick="window.open('../pdf/creaPDF_2do.php?exp=<?php echo $expediente_pac ?>&folio=<?php echo $folio_pac ?>&name=indicacionesMT', '_blank').focus()"/>
+							<?php } ?>
 						</div>
 					</li>
 					
-					<li class="sky-tab-content-13">
-						<div class="typography">
-							<h1>NOTA DE EGRESO HOSPITALARIO</h1>
-							<p>
-							</p>
-						</div>
-					</li-->
+					
+				</ul>
 				</ul>
 			</div>
 			<!--/ tabs -->

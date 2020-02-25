@@ -552,7 +552,7 @@
 		*****-->	
     </head>
 
-    <body>
+    <body onunload="window.opener.location.reload()">
         <!-- main content -->
         <section class="form-box">
 			<br>

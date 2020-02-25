@@ -463,15 +463,14 @@
 											<label class="radio-inline">
 										  		<input type="radio" name="riesgoGeria" value="0" style="width: 30px; height: 30px" >&nbsp;&nbsp; NO
 											</label>
-										<br>
+								</div>
+									</div>
+								<?php } ?>
+								<br>
 										<br>
 										<div class="form-group">
 										<label>Nota : <span>*</span></label>
 										<textarea class="form-control required" name="nota2" id="nota2" cols="15" rows="3"></textarea>
-								</div>
-									</div>
-								<?php } ?>
-								
 								<br/>
 								<input name="rol" type="hidden" value="<?php echo $rol ?>">
 								<input name="expediente" type="hidden" value="<?php echo $expediente ?>">

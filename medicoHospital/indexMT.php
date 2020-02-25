@@ -28,7 +28,6 @@
 		$folio = NULL;
 		$cadcero=NULL;
 		$expediente=NULL;
-		$hospital=NULL;
 
 		if (isset($_POST['rol']))
 		{
@@ -38,11 +37,6 @@
 		if (isset($_POST['permisos']))
 		{
 			$permisos=$_POST['permisos'];
-		}
-		
-		if (isset($_POST['hospital']))
-		{
-			$hospital=$_POST['hospital'];
 		}
 				
 		#Si el numero de expediente no contiene los 0's al comienzo se los ponemos
@@ -71,17 +65,11 @@
 					<th class="auto-style6">&nbsp;EXPEDIENTE&nbsp;</th>
 					<th class="auto-style6">&nbsp;FOLIO&nbsp;</th>
 					<th class="auto-style6">&nbsp;ENVIAR&nbsp;</th>
-				'; 
+				';
 			
-			//Ocupamos permiso para ver todo lo del medico o solo lo de Triage
-			$vista = NULL;
-			if($permisos == '3' && $hospital != '1' && $rol != 'imarmolejo'){
-				$vista = 'tabs.php';
-			}else if($hospital == '1' || $rol=='imarmolejo') {
-				$vista = '../medicoHospital/tabs.php';
-			} else {
-				$vista = 'tabsTriage.php';
-			}
+			
+			$vista = 'tabsMT.php';
+			
 		    for($i=0; $i<count($resultado); $i++) {
 				for($j=0; $j<count($resultado[$i]); $j++) {
 				    $expediente_pac = $resultado[$i][$j]['NO_EXP_PAC'];
@@ -127,6 +115,7 @@
 		{
 			$nombre=$_POST['nombre'];
 		}
+		
 		
 	}
 	session_name($rol);
@@ -233,21 +222,18 @@
 
 <body class="styleBD" onload="reportes(<?php echo $permisos ?>);" >
 	<p class="auto-style1"><img alt="logoHD" height="200" src="../img/logoNew.jpg" width="670"/></p>
-	<?php if( $permisos == '3'){ ?>
-		<p class="auto-style7" ><strong>BIENVENIDO(A) AL APARTADO MÉDICO<br/></strong>
-	<?php } else { ?>
-			<p class="auto-style7" ><strong>BIENVENIDO(A) AL APARTADO DE TRIAGE<br/></strong>
-	<?php } ?>
+	
+		<p class="auto-style7" ><strong>BIENVENIDO(A)<br/></strong>
+			<br/>
+		<p class="auto-style7" ><strong>En este apartado podrá agregar Indicaciones Medicas<br/></strong>
 	
 	<br>
-	<span> <strong>FAVOR DE DE SELECCIONAR UNA DE LAS SIGUIENTES OPCIÓNES</strong> </span></p>
-	<?php if( $rol != 'svelazquez'){ ?>
+	
 	<br class="auto-style6"/>
 <!----------------------Primera Opcion BUSCAR POR NUM DE EXPEDIENTE---------------------------------------------------------->
 	<form method="post" id="search" autocomplete="off">
 		<div class="auto-style1">
-			<h3>CONSULTA MÉDICA</h3>
-			<span class="auto-style3" align="center"> NÚMERO DE EXPEDIENTE DEL PACIENTE:</span>
+			<span class="auto-style3" align="center">COLOCAR EL NÚMERO DE EXPEDIENTE DEL PACIENTE:</span>
 		<br/>
 		</div>
 		<p class="auto-style8">
@@ -257,72 +243,20 @@
 			</span>
 		</p>
 		<br/>
+		<!--div class="auto-style1">
+			<span class="auto-style3" align="center"> NOMBRE DEL PACIENTE:</span>
+		<br/>
+		</div>
+		<p class="auto-style8">
+			<input type="text" name="nombre" placeholder="Nombre Paciente" style="width: 330px; height: 70px" />
+			<span class="auto-style3" align="center">
+			<input class="botoncontacto" type="submit" name="enviarNombre" style="font: xx-small serif; height: 95px; width: 78px" />
+			</span>
+		</p-->
+		
 		<input type="hidden" name="rol" value="<?php echo $rol ?>" />
 		<input type="hidden" name="permisos" value="<?php echo $permisos ?>" />
 	</form>
-	<?php } ?>
-	<hr style="height:10px; background-color: darkcyan">
-	<?php if( $permisos == '3' && $rol != 'imarmolejo'){ ?>
-		<form method="post" id="search" autocomplete="off">
-			<div class="auto-style1">
-				<h3>FORMATOS DE HOSPITAL</h3>
-				<span class="auto-style3" align="center"> NÚMERO DE EXPEDIENTE DEL PACIENTE:</span>
-			<br/>
-			</div>
-			<p class="auto-style8">
-				<input type="number" name="expediente" placeholder="Num. Expediente" onblur="rellenar(this,this.value)" style="width: 224px; height: 70px" />
-				<span class="auto-style3" align="center">
-				<input class="botoncontacto" type="submit" name="enviar" style="font: xx-small serif; height: 95px; width: 78px" />
-				</span>
-			</p>
-			<br/>
-			<input type="hidden" name="rol" value="<?php echo $rol ?>" />
-			<input type="hidden" name="permisos" value="<?php echo $permisos ?>" />
-			<input type="hidden" name="hospital" value="1" />
-		</form>
-	<?php } ?>
-	<?php if( $permisos == '3' && $rol != 'imarmolejo' && $rol != 'svelazquez' && $rol != 'admision'){ ?>
-	<hr style="height:10px; background-color: darkcyan" >
-	<div class="auto-style1" >
-		<span class="auto-style3" align="center"> FORMULARIOS DE URGENCIAS:</span>
-	<br/>
-	<br/>
-		<p class="auto-style5" > <input class="btn btn-primary" type="button" value="URGENCIAS" onClick=location.href="tabsUrg.php?rol=<?php echo $rol ?>&permisos=<?php echo $permisos ?>" style="width: 137px; height: 44px" /></p>
-	<br/>
-	<br/>
-	<?php } else if($rol != 'imarmolejo' && $rol != 'svelazquez' && $rol != 'admision'){ ?>
-		<hr>
-		<div class="text-center">
-		<!--form action="excel.php" method = "post">
-			<br/>
-			<strong><span class="auto-style7">REPORTE DE TRIAGE POR DÍA<br/></span> <br/>
-			<span class="auto-style7">DEL&nbsp; </span>
-			&nbsp;<input type="date" name="fecha1" style="height: 40px" required	/>			
-			<br/>
-			<br/>
-			<input type="hidden" name="nombre" value="ReporteTriage" />
-			<input id="btPerfilFT" class="btn-success" type="submit" value = "Generar EXCEL" style="height: 50px; width: 303px" />
-			<br/>			
-		</form-->
-			<hr>
-			<br>
-			<strong><span class="auto-style7">REPORTE DE TRIAGE POR DÍA<br/></span> <br/>
-		<form action="../pdf/creaPDFTriage.php" method = "post" target="_blank">
-			<br/>
-			<span class="auto-style7">DEL&nbsp; </span>
-			&nbsp;<input type="date" name="fecha1" style="height: 40px" required />
-			<br/>
-			<br/>
-			<input type="hidden" name="name" value="triage" />
-			<br/>
-			<input type="submit" value="Generar PDF" class="btn btn-danger" name="lvc" style="height: 50px; width: 300px" />
-		</form>
-			<!--input type="button" value="Generar PDF" class="btn btn-danger" name="lvc" style="height: 50px; width: 300px" 
-									   onClick="window.open('../pdf/creaPDF.php?name=triage', '_blank').focus()"/-->
-		</div>
-		<br/>
-		<br/>
-	<?php } ?>
 	<!--p class="auto-style5" > <a class="btn btn-success" href="javascript:window.history.go(-1);" style="width: 140px; height: 60px" > REGRESAR </a></p-->
 	<?php 
 		if( $valor == 'administrador'){

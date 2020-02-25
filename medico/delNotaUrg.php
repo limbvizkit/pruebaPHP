@@ -170,3 +170,22 @@ if (isset($_POST['idNotaPreope']))
 			return false;
 		}
 	}
+
+if (isset($_POST['idImagenologia']))
+	{
+		$idImagenologia  = $_POST["idImagenologia"];
+
+		if(!empty($idImagenologia)){
+			//$queryDelNotaMedT = "DELETE FROM notaurgtriage WHERE id='$idNotaUrgT'";
+			$queryDelEvolucion = "UPDATE imagenologia SET estatus='0' WHERE id='$idImagenologia'";
+			$result0 = mysqli_query($conexionMedico, $queryDelEvolucion) or die (mysqli_error($conexionMedico));
+			if(!$result0){
+				echo'0';
+			} else {
+				echo '1';
+			}
+		} else {
+			echo "0";
+			return false;
+		}
+	}

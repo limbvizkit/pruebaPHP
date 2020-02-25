@@ -90,6 +90,17 @@
 									<th style="display: none">12</th>
 									<th style="display: none">13</th>
 									<th style="display: none">14</th>
+									<th style="display: none">2</th>
+									<th style="display: none">3</th>
+									<th style="display: none">4</th>
+									<th style="display: none">5</th>
+									<th style="display: none">6</th>
+									<th style="display: none">7</th>
+									<th style="display: none">8</th>
+									<th style="display: none">9</th>
+									<th style="display: none">10</th>
+									<th style="display: none">11</th>
+									<th style="display: none">12</th>
 								</tr>
 							</thead>
 							<tbody>

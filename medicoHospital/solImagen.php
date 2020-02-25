@@ -10,35 +10,35 @@
 	if (isset($_GET['rol']))
 	{
 		$rol=$_GET['rol'];
-	}
-	if (isset($_GET['exp']))
-	{
-		$expediente=$_GET['exp'];
+		if (isset($_GET['exp']))
+		{
+			$expediente=$_GET['exp'];
+		} else {
+			$expediente=NULL;
+		}
+		if (isset($_GET['folio']))
+		{
+			$folio=$_GET['folio'];
+		} else {
+			$folio=NULL;
+		}
 	} else {
-		$expediente=NULL;
-	}
-	if (isset($_GET['folio']))
-	{
-		$folio=$_GET['folio'];
-	} else {
-		$folio=NULL;
-	}
-	
-	if (isset($_POST['rol']))
-	{
-		$rol=$_POST['rol'];
-	}
-	if (isset($_POST['exp']))
-	{
-		$expediente=$_POST['exp'];
-	} else {
-		$expediente=NULL;
-	}
-	if (isset($_POST['folio']))
-	{
-		$folio=$_POST['folio'];
-	} else {
-		$folio=NULL;
+		if (isset($_POST['rol']))
+		{
+			$rol=$_POST['rol'];
+		}
+		if (isset($_POST['exp']))
+		{
+			$expediente=$_POST['exp'];
+		} else {
+			$expediente=NULL;
+		}
+		if (isset($_POST['folio']))
+		{
+			$folio=$_POST['folio'];
+		} else {
+			$folio=NULL;
+		}
 	}
 	
 	//echo 'LLEGO: '.$rol.' '.$expediente.' '.$folio;
@@ -571,7 +571,7 @@
 		*****-->	
     </head>
 
-    <body>
+    <body onunload="window.opener.location.reload()">
         <!-- main content -->
         <section class="form-box">
 			<br>
@@ -642,6 +642,9 @@
 									  <input type="radio" name="servicio" value="UCI" style="width: 30px; height: 30px" checked="checked">&nbsp;&nbsp; UCI
 									</label>
 									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="UCIPyN" style="width: 30px; height: 30px">&nbsp;&nbsp; UCIPyN
+									</label>
+									<label class="radio-inline">
 									  <input type="radio" name="servicio" value="Consulta Externa" style="width: 30px; height: 30px">&nbsp;&nbsp; Consulta Externa
 									</label>
 									<label class="radio-inline">
@@ -652,6 +655,9 @@
 									</label>
 									<label class="radio-inline">
 									  <input type="radio" name="servicio" value="Transoperatoria" style="width: 30px; height: 30px">&nbsp;&nbsp; Transoperatoria
+									</label>
+									<label class="radio-inline">
+									  <input type="radio" name="servicio" value="Admisión" style="width: 30px; height: 30px">&nbsp;&nbsp; Admisión
 									</label>
                                 </div>
 								<!--div class="form-group">

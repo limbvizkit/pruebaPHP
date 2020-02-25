@@ -286,10 +286,6 @@
 	 	$("#fecha").focus().after('<span class="error"> Colocar Fecha </span>');
 	 	return false;
 	 }
-	 if ($("#reporta").val() == "") {
-	 	$("#reporta").focus().after('<span class="error"> Colocar quien Reporta </span>');
-	 	return false;
-	 }
 	 if ($("#servicio").val() == "") {
 	 	$("#servicio").focus().after('<span class="error"> Colocar una Servicio </span>');
 	 	return false;
@@ -338,7 +334,7 @@
  /*Evento Click Botón Borrar Nota de Urg*/
  $("#Borrar").click(function(){
 	 /*Confirmar si se desea borrar el registro*/
-	 var Resp = confirm("Se eliminará el evento adverso de la fecha: "+ $("#fecha").val() +" Reportado por: "+ $("#reporta").val());
+	 var Resp = confirm("Se eliminará la solicitud de Imagenología de la fecha: "+ $("#fecha").val() +" Solicitado desde: "+ $("#servicio").val());
 	 
 	 if(Resp){
 			 /*Escogió opción ACEPTAR*/
@@ -347,12 +343,12 @@
 			// Enviamos el formulario usando AJAX
 			$.ajax({
 				type: 'POST',
-				url: 'delAdverso.php',
+				url: 'delNotaUrg.php',
 				error: function(data){
 					//Si sucedió algo, se notifica
 						$(".result_fail").fadeIn();
 						$(".result_fail").html("Error Eliminando Registro");
-						alert("!!!ERROR DATA: NO Se elimino el Evento Adverso !!!");
+						alert("!!!ERROR DATA: NO Se elimino la solicitud de Imagenología !!!");
 					},
 				data: datos,
 				// Mostramos un mensaje con la respuesta de PHP
@@ -361,14 +357,14 @@
 						/*Reconstruimos la tabla*/
 						$("#Usuarios").html("");
 						$("#Usuarios").load("consultaAdversos.php", function(){});
-						alert("Se Elimino el Evento Adverso Correctamente");
+						alert("Se Elimino la solicitud de Imagenología Correctamente");
 						self.parent.location.reload();
 						/*Fin Reconstruir la tabla*/
 						$("#div_User").hide();
 					} else {
 						$(".result_fail").fadeIn();
 						$(".result_fail").html("Error " . data);
-						alert("!!!ERROR BD: NO Se elimino el Evento Adverso !!!");
+						alert("!!!ERROR BD: NO Se elimino la solicitud de Imagenología !!!");
 						return false;
 					}
 				 }

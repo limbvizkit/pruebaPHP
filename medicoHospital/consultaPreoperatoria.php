@@ -120,6 +120,8 @@
 									<td style="display: none"><?php echo $row['fechaGuardado'] ?></td>
 									<td style="display: none"><?php echo utf8_encode($row['servicio']) ?></td>
 									<td style="display: none"><?php echo $row['turno'] ?></td>
+									<td style="display: none"><?php echo $expediente ?></td>
+									<td style="display: none"><?php echo $folio ?></td>
 									<?php } ?>
 								</tr>
 							</tbody>
@@ -208,13 +210,15 @@
 				fechaGuarda  = $(nTds[15]).text();
 				servicio  = $(nTds[16]).text();
 				turno  = $(nTds[17]).text();
+				expediente  = $(nTds[18]).text();
+				folio  = $(nTds[19]).text();
 
 				$("#div_User").fadeIn();
 				$("#div_User").html("<div id='cargando' style='display:none; color: green;text-align:center' width='100%' height='100%'><img width='16' height='16' src='../img/ajax-loader.gif' /> Cargando...</b></div>");
 				$("#cargando").css("margin-left", "auto");
 				$("#cargando").css("margin-right", "auto");
 				$("#cargando").css("display", "inline");
-				$("#div_User").load("modificarPreoperatoria.php",{idNotaPreopeH:idNotaPreopeH,fecha:fecha,diagn:diagn,planQui:planQui,tipoInterQui:tipoInterQui,riesgoQui:riesgoQui,cuidadosTerap:cuidadosTerap,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,nomMedico:nomMedico,cedula:cedula,fechaFin:fechaFin,fechaGuarda:fechaGuarda,servicio:servicio,turno:turno} ,function(){
+				$("#div_User").load("modificarPreoperatoria.php",{idNotaPreopeH:idNotaPreopeH,fecha:fecha,diagn:diagn,planQui:planQui,tipoInterQui:tipoInterQui,riesgoQui:riesgoQui,cuidadosTerap:cuidadosTerap,pronosticoVida:pronosticoVida,pronosticoFuncion:pronosticoFuncion,nomMedico:nomMedico,cedula:cedula,fechaFin:fechaFin,fechaGuarda:fechaGuarda,servicio:servicio,turno:turno,expediente:expediente,folio:folio} ,function(){
 				  $("#cargando").css("display", "none");
 				});
 			  });
